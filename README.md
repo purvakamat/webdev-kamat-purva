@@ -9,15 +9,15 @@ This repository will be used for submitting assignments for my Web Development (
 To use this code, you will need to first setup the environment by installing tools specified below in Assignment 1. You can then checkout this repository run the client, server and mongodb using the below commands,
    
 ### To run mongodb:  
-After installing mongodb and adding the installed path to PATH (on Windows) open terminal and run,
+After installing mongodb and adding the installed path to PATH (on Windows) open terminal and run,  
 -> mongod
    
 ### To run client:  
-Navigate to the folder containing package.json and int the terminal run,
+Navigate to the folder containing package.json and int the terminal run,  
 -> npm start
    
 ### To run server:  
-Navigate to the folder containing server.js and in the terminal run,
+Navigate to the folder containing server.js and in the terminal run,  
 -> nodemon server.js
    
 ### Repostory link:  
