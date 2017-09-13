@@ -22,7 +22,7 @@ Navigate to the folder containing server.js and in the terminal run,
    
 ### To checkout specific assignments:   
 Each assignment is tagged on Git. To checkout a specific assignment use,   
--> git checkout Assignment<number>   
+-> git checkout Assignment\<number\>   
 eg. git checkout Assignment1   
    
 ### Repostory link:  
