@@ -10,20 +10,22 @@ To use this code, you will need to first setup the environment by installing too
    
 ### To run mongodb:  
 After installing mongodb and adding the installed path to PATH (on Windows) open terminal and run,  
--> mongod
+-> *mongod*
    
 ### To run client:  
 Navigate to the folder containing package.json and int the terminal run,  
--> npm start
+-> *npm start*
    
 ### To run server:  
 Navigate to the folder containing server.js and in the terminal run,  
--> nodemon server.js
+-> *nodemon server.js*
    
 ### To checkout specific assignments:   
 Each assignment is tagged on Git. To checkout a specific assignment use,   
--> git checkout Assignment\<number\>   
-eg. git checkout Assignment1   
+-> *git checkout Assignment\<number\>*   
+eg. *git checkout Assignment1*
+   
+All tags can be viewed under the Releases tab or by using the *git tag* command
    
 ### Repostory link:  
 -> https://github.com/purvakamat/webdev-kamat-purva
