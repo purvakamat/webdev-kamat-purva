@@ -20,6 +20,11 @@ Navigate to the folder containing package.json and int the terminal run,
 Navigate to the folder containing server.js and in the terminal run,  
 -> nodemon server.js
    
+### To checkout specific assignments:   
+Each assignment is tagged on Git. To checkout a specific assignment use,   
+-> git checkout Assignment<number>   
+eg. git checkout Assignment1   
+   
 ### Repostory link:  
 -> https://github.com/purvakamat/webdev-kamat-purva
    
