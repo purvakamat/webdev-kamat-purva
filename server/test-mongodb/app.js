@@ -8,8 +8,14 @@ module.exports = function(app)
     app.post("/api/test", createMessage);
     app.delete("/api/test/:id", deleteMessage);
 
+  var connectionString = 'mongodb://127.0.0.1:27017/test'; // for local
+  if(process.env.MLAB_USERNAME_WEBDEV) { // check if running remotely
+    var username = process.env.MLAB_USERNAME_WEBDEV; // get from environment
+    var password = process.env.MLAB_PASSWORD_WEBDEV;
+    connectionString = 'mongodb://' + username + ':' + password;
+    connectionString += '@ds133964.mlab.com:33964/heroku_rd9rs9h0'; // use yours
+  }
 
-  var connectionString = 'mongodb://webappmaker:webappmaker@ds163181.mlab.com:63181/webappmaker';
 
   var mongoose = require("mongoose");
     mongoose.connect(connectionString);
