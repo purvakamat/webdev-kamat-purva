@@ -1,3 +1,15 @@
 input {
   margin-bottom: 6px;
 }
+
+body {
+  padding-top: 75px;
+}
+
+.nav-background {
+  background:#317CB5;
+}
+
+.nav-foreground {
+  color: white;
+}
