@@ -37,7 +37,25 @@ ul,li {
   padding-bottom: 4pt;
   color:#317CB5;
 }
-/*
-.website-list{
-  list-style: none;
-}*/
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.remove-padding{
+  padding: 0pt;
+}
+
+.remove-padding-left{
+ padding-left: 0pt;
+}
+
+.scroll-vertical {
+  overflow-y: auto;
+  height: 100%;
+}
+
