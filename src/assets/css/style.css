@@ -15,6 +15,10 @@ body {
   vertical-align: middle;
 }
 
+.nav-default-align {
+  vertical-align: middle;
+}
+
 .pull-left{
   margin-right: 3pt;
 }
