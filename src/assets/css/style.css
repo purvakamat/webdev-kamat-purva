@@ -12,4 +12,32 @@ body {
 
 .nav-foreground {
   color: white;
+  vertical-align: middle;
 }
+
+.pull-left{
+  margin-right: 3pt;
+}
+
+.pull-right{
+  margin-right: 3pt;
+}
+
+ul,li {
+  list-style-type: none;
+  list-style-position:inside;
+  margin:0;
+  padding:0; }
+
+.website-list-item{
+  font-weight: bold;
+  padding-left: 4pt;
+  padding-right: 4pt;
+  padding-top: 4pt;
+  padding-bottom: 4pt;
+  color:#317CB5;
+}
+/*
+.website-list{
+  list-style: none;
+}*/
