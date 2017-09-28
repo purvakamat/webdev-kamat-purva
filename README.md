@@ -31,7 +31,7 @@ All tags can be viewed under the Releases tab or by using the *git tag* command
 -> https://github.com/purvakamat/webdev-kamat-purva
    
 ### Hosted At (Heroku):  
--> https://webdev-kamat-purva.herokuapp.com/test
+-> https://webdev-kamat-purva.herokuapp.com/
    
 ## Assignment 1  
 This assignment describes setting up the development environment used throughout the semester. The development environment consists of a local Node.js HTTP server and a MongoDB database server where local development will be performed. The repository is configured to auto deploy into a remote Node.js instance hosted at Heroku that will make the Web application publicly available on the Web. 
