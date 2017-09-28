@@ -169,7 +169,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<div class=\"container\">\r\n\r\n  <h1>\r\n    Angular 4 MEAN stack app\r\n  </h1>\r\n\r\n\r\n  <h3>\r\n    App works\r\n  </h3>\r\n\r\n\r\n  <h4>\r\n    <a href=\"test\">Test MongoDB</a>\r\n  </h4>\r\n\r\n</div>\r\n\r\n"
+module.exports = "\r\n<div class=\"container\">\r\n  <style>\r\n    table {\r\n      font-family: arial, sans-serif;\r\n      border-collapse: collapse;\r\n      width: 100%;\r\n    }\r\n\r\n    td, th {\r\n      border: 1px solid #dddddd;\r\n      text-align: left;\r\n      padding: 8px;\r\n    }\r\n\r\n    tr:nth-child(even) {\r\n      background-color: #dddddd;\r\n    }\r\n  </style>\r\n\r\n  <h1>\r\n    Web Development : CS 5610\r\n  </h1>\r\n\r\n  <table style=\"width:100%\">\r\n    <tr>\r\n      <th>Assignment</th>\r\n      <th>Comments</th>\r\n    </tr>\r\n    <tr>\r\n      <td><a href=\"test\">Assignment 1</a></td>\r\n      <td>Test if MEAN stack setup works</td>\r\n    </tr>\r\n    <tr>\r\n      <td><a href=\"../../../assets/index.html\">Assignment 2</a></td>\r\n      <td>Design wireframes for client side application</td>\r\n    </tr>\r\n  </table>\r\n\r\n</div>\r\n\r\n"
 
 /***/ }),
 
