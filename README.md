@@ -50,6 +50,17 @@ https://docs.google.com/a/husky.neu.edu/document/d/1rxZnIRpwCzqQVJwMm7HLfKHvXiI_
 This is the first of several assignments that will guide you through the creation of a Website that you will be working on throughout the semester.The Website you will be building throughout the assignments will allow users to create and use online, mobile friendly, Websites. We will be building a Website to create Websites.    
      
 https://docs.google.com/document/d/1qrbAucugQ4JrEepJqrLfyfNYtpxAk8mqhhMFEtz--3c/edit    
+     
+## Course Project:    
+My project is a convenience tool for the NU Red Eye service.    
+    
+Project group -    
+Nisarg Kothari    
+Vishal Kotak    
+Purva Kamat  
+
+Project url -    
+https://github.com/purvakamat/NUShuttle    
         
 ## Course Instructor   
 Prof. Jose Annunziato   
