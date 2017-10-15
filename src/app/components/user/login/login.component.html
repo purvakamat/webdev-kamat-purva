@@ -1,8 +1,8 @@
 <div class="container">
 
-  <h1>Login</h1>
-
   <div class="alert alert-danger error-message" *ngIf="errorFlag"> {{errorMsg}} </div>
+
+  <h1>Login</h1>
 
   <form #f="ngForm" (ngSubmit) = login()>
     <input placeholder="username"
@@ -15,7 +15,7 @@
            #username="ngModel"/>
     <span class="help-block" *ngIf="!username.valid && username.touched">
       Please enter username!
-   </span>
+    </span>
 
 
     <input placeholder="password"
@@ -28,7 +28,7 @@
            #password="ngModel"/>
     <span class="help-block" *ngIf="!password.valid && password.touched">
       Please enter password!
-   </span>
+    </span>
 
     <button class="btn btn-primary btn-block" type="submit" [disabled] = "!f.valid">Login</button>
     <button class="btn btn-success btn-block" [routerLink]="['/register']">Register</button>

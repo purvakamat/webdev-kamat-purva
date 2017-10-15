@@ -1,17 +1,49 @@
 <div class="container-fluid">
+
+  <div class="alert alert-danger error-message" *ngIf="errorFlag"> {{errorMsg}} </div>
+
   <h1>Register</h1>
-  <input placeholder="username"
-         type="text"
-         class="form-control"/>
-  <input placeholder="password"
-         type="password"
-         class="form-control"/>
-  <input placeholder="verify password"
-         type="password"
-         class="form-control"/>
-  <a class="btn btn-primary btn-block"
-     href="profile.html">Register</a>
-  <a class="btn btn-danger btn-block"
-     href="login" >Cancel</a>
+
+  <form #f="ngForm" (ngSubmit) = register()>
+
+    <input placeholder="username"
+           type="text"
+           class="form-control"
+           name="username"
+           ngModel
+           required
+           autofocus
+           #username="ngModel"/>
+    <span class="help-block" *ngIf="!username.valid && username.touched">
+      Please enter username!
+    </span>
+
+    <input placeholder="password"
+           type="password"
+           class="form-control"
+           name="password"
+           ngModel
+           required
+           #password="ngModel"/>
+    <span class="help-block" *ngIf="!password.valid && password.touched">
+      Please enter password!
+    </span>
+
+    <input placeholder="verify password"
+           type="password"
+           class="form-control"
+           name="verifypassword"
+           ngModel
+           required
+           #verifypassword="ngModel"/>
+    <span class="help-block" *ngIf="!verifypassword.valid && verifypassword.touched">
+      Please re-enter password!
+    </span>
+
+    <button class="btn btn-primary btn-block"
+            type="submit" [disabled] = "!f.valid">Register</button>
+    <button class="btn btn-danger btn-block"
+            [routerLink]="['/login']" >Cancel</button>
+  </form>
 
 </div>

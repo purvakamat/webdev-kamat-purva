@@ -23,7 +23,7 @@ export class UserService{
   };
 
   createUser(user : any){
-    this.users.push(user);
+    return this.users.push(user);
   }
 
   findUserById(userId : string){
