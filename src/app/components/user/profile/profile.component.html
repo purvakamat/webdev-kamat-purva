@@ -11,7 +11,7 @@
 
     <!--tick mark-->
     <p class="navbar-text pull-right">
-      <a href="profile.html" class="navbar-link">
+      <a [routerLink]="['/user/',userId]" class="navbar-link" (click) = "updateUser()">
         <span class="glyphicon glyphicon-ok nav-foreground"></span>
       </a>
     </p>
@@ -20,38 +20,38 @@
 </nav>
 
 
-<div class="container">
-  <form>
+<div class="container page-margin">
+  <form #f="ngForm">
     <div class="form-group">
       <label for="username">Username</label>
-      <input type="text" class="form-control" id="username" placeholder="walice">
+      <input name="username" [(ngModel)]="username" ngModel
+             type="text" class="form-control" id="username" placeholder="walice">
     </div>
-  </form>
 
-  <form>
     <div class="form-group">
       <label for="email">Email</label>
-      <input type="email" class="form-control" id="email" placeholder="alice.wonderland@unicorn.com">
+      <input name="email" [(ngModel)]="email"
+             type="email" class="form-control" id="email" placeholder="alice.wonderland@unicorn.com">
     </div>
-  </form>
 
-  <form>
     <div class="form-group">
       <label for="first-name">First Name</label>
-      <input type="text" class="form-control" id="first-name" placeholder="Alice">
+      <input name="firstName" [(ngModel)]="firstName"
+             type="text" class="form-control" id="first-name" placeholder="Alice">
     </div>
-  </form>
 
-  <form>
     <div class="form-group">
       <label for="last-name">Last Name</label>
-      <input type="text" class="form-control" id="last-name" placeholder="Wonderland">
+      <input name="lastName" [(ngModel)]="lastName"
+             type="text" class="form-control" id="last-name" placeholder="Wonderland">
     </div>
+
+    <button class="btn btn-primary btn-block"
+            [routerLink]="['/user',userId,'website']">Websites</button>
+    <button class="btn btn-danger btn-block"
+            [routerLink]="['/login']" >Logout</button>
+
   </form>
-  <a class="btn btn-primary btn-block"
-     href="../website/website-list.html">Websites</a>
-  <a class="btn btn-danger btn-block "
-     href="login.html" >Logout</a>
 
 </div>
 
@@ -59,7 +59,7 @@
 <nav class="navbar navbar-default navbar-fixed-bottom nav-background">
   <div class="container-fluid">
     <p class="navbar-text pull-right">
-      <a href="profile.html">
+      <a [routerLink]="['/user/',userId]">
         <span class="glyphicon glyphicon-user nav-foreground"></span>
       </a>
     </p>
