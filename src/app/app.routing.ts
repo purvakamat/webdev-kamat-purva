@@ -22,7 +22,8 @@ import {WidgetEditComponent} from "./components/widget/widget-edit/widget-edit.c
 
 
 const APP_ROUTES: Routes = [
-  {path: '', component : LoginComponent},
+  {path: '', component : HomeComponent},
+  {path: 'test', component: TestComponent},
   {path: 'default', component: LoginComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
@@ -35,9 +36,7 @@ const APP_ROUTES: Routes = [
   {path: 'user/:uid/website/:wid/page/:pid', component: PageEditComponent},
   {path: 'user/:uid/website/:wid/page/:pid/widget', component: WidgetListComponent},
   {path: 'user/:uid/website/:wid/page/:pid/widget/new', component: WidgetChooserComponent},
-  {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid', component: WidgetEditComponent},
-
-  {path: 'test', component: TestComponent}
+  {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid', component: WidgetEditComponent}
 ];
 
 // Export the routes as module providers

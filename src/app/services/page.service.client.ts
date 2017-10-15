@@ -3,7 +3,7 @@
  */
 import { Injectable } from '@angular/core';
 
-@Injectable
+@Injectable()
 export class PageService {
 
   pages = [
