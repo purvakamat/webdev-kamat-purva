@@ -1,12 +1,29 @@
-<div class="container-fluid">
+<div class="container">
+
   <h1>Login</h1>
-  <input placeholder="username"
-         type="text"
-         class="form-control"/>
-  <input placeholder="password"
-         type="password"
-         class="form-control"/>
-  <a class="btn btn-primary btn-block" href="profile.html" >Login</a>
-  <a class="btn btn-success btn-block" href="register" >Register</a>
+
+  <form #loginForm="ngForm" (ngSubmit) = login()>
+    <input type="text"
+           class="form-control"
+           name="username"
+           [(ngModel)]="username"
+           placeholder="username"
+           required autofocus/>
+    <div *ngIf="!username.valid && username.touched">Username is required.</div>
+
+    <input name="password"
+           placeholder="password"
+           type="password"
+           class="form-control"
+           [(ngModel)]="password"
+           required/>
+    <div *ngIf="!password.valid && password.touched">Password is required.</div>
+
+    <button class="btn btn-primary btn-block" type="submit" [disabled] = "!loginForm.valid">Login</button>
+    <button class="btn btn-success btn-block" [routerLink]="['/register']">Register</button>
+
+  </form>
+
+  <div class="alert alert-danger error-message" *ngIf="showError"> {{errorMessage}} </div>
 
 </div>
