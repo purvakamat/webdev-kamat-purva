@@ -598,7 +598,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/user/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n\n  <h1>Login</h1>\n\n  <form #loginForm=\"ngForm\" (ngSubmit) = login()>\n    <input type=\"text\"\n           class=\"form-control\"\n           name=\"username\"\n           [(ngModel)]=\"username\"\n           placeholder=\"username\"\n           required autofocus/>\n    <div *ngIf=\"!username.valid && username.touched\">Username is required.</div>\n\n    <input name=\"password\"\n           placeholder=\"password\"\n           type=\"password\"\n           class=\"form-control\"\n           [(ngModel)]=\"password\"\n           required/>\n    <div *ngIf=\"!password.valid && password.touched\">Password is required.</div>\n\n    <button class=\"btn btn-primary btn-block\" type=\"submit\" [disabled] = \"!loginForm.valid\">Login</button>\n    <button class=\"btn btn-success btn-block\" [routerLink]=\"['/register']\">Register</button>\n\n  </form>\n\n  <div class=\"alert alert-danger error-message\" *ngIf=\"showError\"> {{errorMessage}} </div>\n\n</div>\n"
+module.exports = "<div class=\"container\">\n\n  <h1>Login</h1>\n\n  <div class=\"alert alert-danger error-message\" *ngIf=\"errorFlag\"> {{errorMsg}} </div>\n\n  <form #f=\"ngForm\" (ngSubmit) = login()>\n    <input placeholder=\"username\"\n           name=\"username\"\n           type=\"text\"\n           class=\"form-control\"\n           ngModel\n           required\n           autofocus\n           #username=\"ngModel\"/>\n    <span class=\"help-block\" *ngIf=\"!username.valid && username.touched\">\n      Please enter username!\n   </span>\n\n\n    <input placeholder=\"password\"\n           name=\"password\"\n           type=\"password\"\n           class=\"form-control\"\n           ngModel\n           required\n           autofocus\n           #password=\"ngModel\"/>\n    <span class=\"help-block\" *ngIf=\"!password.valid && password.touched\">\n      Please enter password!\n   </span>\n\n    <button class=\"btn btn-primary btn-block\" type=\"submit\" [disabled] = \"!f.valid\">Login</button>\n    <button class=\"btn btn-success btn-block\" [routerLink]=\"['/register']\">Register</button>\n\n  </form>\n\n</div>\n"
 
 /***/ }),
 
@@ -609,6 +609,7 @@ module.exports = "<div class=\"container\">\n\n  <h1>Login</h1>\n\n  <form #logi
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_user_service_client__ = __webpack_require__("../../../../../src/app/services/user.service.client.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -622,39 +623,46 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var LoginComponent = (function () {
     function LoginComponent(router, userService) {
         this.router = router;
         this.userService = userService;
         this.username = "";
         this.password = "";
-        this.showError = false;
-        this.errorMessage = "";
+        this.errorFlag = false;
+        this.errorMsg = "";
     }
     LoginComponent.prototype.ngOnInit = function () {
     };
     LoginComponent.prototype.login = function () {
+        this.username = this.loginForm.value.username;
+        this.password = this.loginForm.value.password;
         var user = this.userService.findUserByCredentials(this.username, this.password);
         if (user) {
             this.router.navigate(['/user', user._id]);
         }
         else {
-            this.errorMessage = "Username and password do not match. Please eneter the correct credentials";
-            this.showError = true;
+            this.errorMsg = "Username and password do not match. Please eneter the correct credentials";
+            this.errorFlag = true;
         }
     };
     return LoginComponent;
 }());
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_15" /* ViewChild */])('f'),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* NgForm */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* NgForm */]) === "function" && _a || Object)
+], LoginComponent.prototype, "loginForm", void 0);
 LoginComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* Component */])({
         selector: 'app-login',
         template: __webpack_require__("../../../../../src/app/components/user/login/login.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/user/login/login.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__services_user_service_client__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_user_service_client__["a" /* UserService */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__services_user_service_client__["a" /* UserService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_user_service_client__["a" /* UserService */]) === "function" && _c || Object])
 ], LoginComponent);
 
-var _a, _b;
+var _a, _b, _c;
 //# sourceMappingURL=login.component.js.map
 
 /***/ }),
