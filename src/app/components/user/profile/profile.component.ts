@@ -46,5 +46,4 @@ export class ProfileComponent implements OnInit {
     this.user['lastName'] = this.lastName;
     this.userService.updateUser(this.userId, this.user);
   }
-
 }

@@ -3,7 +3,7 @@
 
     <!--chevron-->
     <p class="navbar-text pull-left">
-      <a href="page-list.html" class="navbar-link">
+      <a [routerLink]="['/user',userId, '/website', websiteId, '/page']" class="navbar-link">
         <span class="glyphicon glyphicon-chevron-left nav-default-align"></span>
       </a>
     </p>
@@ -17,7 +17,7 @@
 
     <!--tick-->
     <p class="navbar-text pull-right">
-      <a href="page-list.html" class="navbar-link">
+      <a [routerLink]="['/user',userId, '/website', websiteId, '/page']"  class="navbar-link">
         <span class="glyphicon glyphicon-ok nav-default-align"></span>
       </a>
     </p>
@@ -26,9 +26,9 @@
 </nav>
 
 
-<div class="container-fluid">
+<div class="container-fluid page-margin">
   <div class="scroll-vertical">
-    <form>
+    <form #f="ngForm">
 
       <div class="form-group">
         <label for="name">Name</label>

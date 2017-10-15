@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageEditComponent implements OnInit {
 
+  userId: string;
+  websiteId: string;
+
   constructor() { }
 
   ngOnInit() {
