@@ -1165,7 +1165,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/widget/widget-chooser/widget-chooser.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--chevron-->\n    <p class=\"navbar-text pull-left\">\n      <a href=\"widget-list.html\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-chevron-left nav-default-align\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b class=\"nav-default-align\">Choose Widget</b>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container\">\n  <ul>\n\n    <li>\n      <div class=\"row website-list-item\">\n        <div class=\"col-xs-12\">\n          <a href = \"widget-heading.html\">\n            <span>Header</span>\n          </a>\n        </div>\n      </div>\n    </li>\n\n    <li>\n      <div class=\"row website-list-item\">\n        <div class=\"col-xs-12\">\n          <a href = \"widget-chooser.html\">\n            <span>Label</span>\n          </a>\n        </div>\n      </div>\n    </li>\n\n    <li>\n      <div class=\"row website-list-item\">\n        <div class=\"col-xs-12\">\n          <a href = \"widget-chooser.html\">\n            <span>HTML</span>\n          </a>\n        </div>\n      </div>\n    </li>\n\n    <li>\n      <div class=\"row website-list-item\">\n        <div class=\"col-xs-12\">\n          <a href = \"widget-chooser.html\">\n            <span>Text Input</span>\n          </a>\n        </div>\n      </div>\n    </li>\n\n    <li>\n      <div class=\"row website-list-item\">\n        <div class=\"col-xs-12\">\n          <a href = \"widget-chooser.html\">\n            <span>Link</span>\n          </a>\n        </div>\n      </div>\n    </li>\n\n    <li>\n      <div class=\"row website-list-item\">\n        <div class=\"col-xs-12\">\n          <a href = \"widget-chooser.html\">\n            <span>Button</span>\n          </a>\n        </div>\n      </div>\n    </li>\n\n    <li>\n      <div class=\"row website-list-item\">\n        <div class=\"col-xs-12\">\n          <a href = \"widget-image.html\">\n            <span>Image</span>\n          </a>\n        </div>\n      </div>\n    </li>\n\n    <li>\n      <div class=\"row website-list-item\">\n        <div class=\"col-xs-12\">\n          <a href = \"widget-youtube.html\">\n            <span>YouTube</span>\n          </a>\n        </div>\n      </div>\n    </li>\n\n    <li>\n      <div class=\"row website-list-item\">\n        <div class=\"col-xs-12\">\n          <a href = \"widget-chooser.html\">\n            <span>Data Table</span>\n          </a>\n        </div>\n      </div>\n    </li>\n\n    <li>\n      <div class=\"row website-list-item\">\n        <div class=\"col-xs-12\">\n          <a href = \"widget-chooser.html\">\n            <span>Repeater</span>\n          </a>\n        </div>\n      </div>\n    </li>\n\n  </ul>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n    <p class=\"navbar-text pull-right\">\n      <a href=\"../user/profile.html\">\n        <span class=\"glyphicon glyphicon-user nav-default-align\"></span>\n      </a>\n    </p>\n  </div>\n</nav>\n"
+module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--chevron-->\n    <p class=\"navbar-text pull-left\">\n      <a [routerLink]=\"['/user',userId,'website',websiteId,'page',pageId,'widget']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-chevron-left nav-default-align\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b class=\"nav-default-align\">Choose Widget</b>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container page-margin\">\n  <ul>\n\n    <li>\n      <div class=\"row website-list-item\">\n        <div class=\"col-xs-12\">\n          <a (click)=\"createWidget('HEADING')\">\n            <span>Header</span>\n          </a>\n        </div>\n      </div>\n    </li>\n\n    <li>\n      <div class=\"row website-list-item\">\n        <div class=\"col-xs-12\">\n          <a (click)=\"createWidget('LABEL')\">\n            <span>Label</span>\n          </a>\n        </div>\n      </div>\n    </li>\n\n    <li>\n      <div class=\"row website-list-item\">\n        <div class=\"col-xs-12\">\n          <a (click)=\"createWidget('HTML')\">\n            <span>HTML</span>\n          </a>\n        </div>\n      </div>\n    </li>\n\n    <li>\n      <div class=\"row website-list-item\">\n        <div class=\"col-xs-12\">\n          <a (click)=\"createWidget('TEXT')\">\n            <span>Text Input</span>\n          </a>\n        </div>\n      </div>\n    </li>\n\n    <li>\n      <div class=\"row website-list-item\">\n        <div class=\"col-xs-12\">\n          <a (click)=\"createWidget('LINK')\">\n            <span>Link</span>\n          </a>\n        </div>\n      </div>\n    </li>\n\n    <li>\n      <div class=\"row website-list-item\">\n        <div class=\"col-xs-12\">\n          <a (click)=\"createWidget('BUTTON')\">\n            <span>Button</span>\n          </a>\n        </div>\n      </div>\n    </li>\n\n    <li>\n      <div class=\"row website-list-item\">\n        <div class=\"col-xs-12\">\n          <a (click)=\"createWidget('IMAGE')\">\n            <span>Image</span>\n          </a>\n        </div>\n      </div>\n    </li>\n\n    <li>\n      <div class=\"row website-list-item\">\n        <div class=\"col-xs-12\">\n          <a (click)=\"createWidget('YOUTUBE')\">\n            <span>YouTube</span>\n          </a>\n        </div>\n      </div>\n    </li>\n\n    <li>\n      <div class=\"row website-list-item\">\n        <div class=\"col-xs-12\">\n          <a (click)=\"createWidget('DATATABLE')\">\n            <span>Data Table</span>\n          </a>\n        </div>\n      </div>\n    </li>\n\n    <li>\n      <div class=\"row website-list-item\">\n        <div class=\"col-xs-12\">\n          <a (click)=\"createWidget('REPEATER')\">\n            <span>Repeater</span>\n          </a>\n        </div>\n      </div>\n    </li>\n\n  </ul>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user',userId]\">\n        <span class=\"glyphicon glyphicon-user nav-default-align\"></span>\n      </a>\n    </p>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -1174,6 +1174,8 @@ module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <d
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_widget_service_client__ = __webpack_require__("../../../../../src/app/services/widget.service.client.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WidgetChooserComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1185,10 +1187,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
 var WidgetChooserComponent = (function () {
-    function WidgetChooserComponent() {
+    function WidgetChooserComponent(widgetService, activatedRoute, route) {
+        this.widgetService = widgetService;
+        this.activatedRoute = activatedRoute;
+        this.route = route;
     }
     WidgetChooserComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.activatedRoute.params
+            .subscribe(function (params) {
+            _this.userId = params['uid'];
+            _this.websiteId = params['wid'];
+            _this.pageId = params['pid'];
+            _this.widgets = _this.widgetService.findWidgetsByPageId(_this.pageId);
+        });
+    };
+    WidgetChooserComponent.prototype.createWidget = function (widgetType) {
+        var widget_id = this.widgetService.createWidget(this.pageId, { "widgetType": widgetType });
+        this.route.navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageId, 'widget', widget_id]);
     };
     return WidgetChooserComponent;
 }());
@@ -1198,9 +1217,10 @@ WidgetChooserComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/widget/widget-chooser/widget-chooser.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/widget/widget-chooser/widget-chooser.component.css")]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_widget_service_client__["a" /* WidgetService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_widget_service_client__["a" /* WidgetService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _c || Object])
 ], WidgetChooserComponent);
 
+var _a, _b, _c;
 //# sourceMappingURL=widget-chooser.component.js.map
 
 /***/ }),
@@ -1264,7 +1284,7 @@ var WidgetEditComponent = (function () {
             _this.pageId = params['pid'];
             _this.widgetId = params['wgid'];
             _this.widget = _this.widgetService.findWidgetById(_this.widgetId);
-            console.log(_this.widget['widgetType']);
+            console.log(_this.widget);
         });
     };
     return WidgetEditComponent;
@@ -1342,6 +1362,7 @@ var WidgetHeaderComponent = (function () {
             _this.pageId = params['pid'];
             _this.widgetId = params['wgid'];
             _this.widget = _this.widgetService.findWidgetById(_this.widgetId);
+            console.log(_this.widget);
         });
     };
     WidgetHeaderComponent.prototype.updateWidget = function () {
@@ -1777,7 +1798,6 @@ var UserService = (function () {
     };
     UserService.prototype.findUserByUsername = function (username) {
         var user = this.users.find(function (user) { return user.username == username; });
-        console.log("in service " + user);
         return user;
     };
     UserService.prototype.findUserByCredentials = function (username, password) {
@@ -1911,7 +1931,7 @@ var WidgetService = (function () {
     }
     WidgetService.prototype.createWidget = function (pageId, widget) {
         widget["pageId "] = pageId;
-        this.widgets.push(widget);
+        return this.widgets.push(widget);
     };
     WidgetService.prototype.findWidgetsByPageId = function (pageId) {
         return this.widgets.filter(function (widget) { return widget.pageId == pageId; });

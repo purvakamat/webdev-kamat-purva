@@ -26,6 +26,7 @@ export class WidgetHeaderComponent implements OnInit {
           this.pageId = params['pid'];
           this.widgetId = params['wgid'];
           this.widget = this.widgetService.findWidgetById(this.widgetId);
+          console.log(this.widget);
         }
       );
   }

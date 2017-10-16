@@ -32,7 +32,6 @@ export class UserService{
 
   findUserByUsername(username : string){
     var user = this.users.find(user => user.username == username);
-    console.log("in service " + user);
     return user;
   }
 

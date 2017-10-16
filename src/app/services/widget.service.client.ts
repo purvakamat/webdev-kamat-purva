@@ -29,7 +29,7 @@ export class WidgetService {
 
   createWidget(pageId : string, widget : any){
     widget["pageId "] = pageId ;
-    this.widgets.push(widget);
+    return this.widgets.push(widget);
   }
 
   findWidgetsByPageId(pageId : string){
