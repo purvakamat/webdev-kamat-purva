@@ -4,7 +4,7 @@
 
     <!--chevron-->
     <p class="navbar-text pull-left">
-      <a href="../page/page-list.html" class="navbar-link">
+      <a [routerLink]="['/user', userId, 'website', websiteId, 'page']" class="navbar-link">
         <span class="glyphicon glyphicon-chevron-left nav-default-align"></span>
       </a>
     </p>
@@ -18,7 +18,7 @@
 
     <!--plus-->
     <p class="navbar-text pull-right">
-      <a href="widget-chooser.html" class="navbar-link">
+      <a [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget', 'new']" class="navbar-link">
         <span class="glyphicon glyphicon-plus nav-default-align"></span>
       </a>
     </p>
@@ -27,112 +27,77 @@
 </nav>
 
 
-<div class="container-fluid">
+<div class="container-fluid page-margin">
 
   <ul class="widget-list">
 
-    <!--header widget-->
-    <li>
-      <div class="row">
-        <div class="widget-list-item">
-          <h1><b>GIZMODO</b></h1>
-          <div class = "widget-list-toolbar">
-            <a href = "widget-heading.html">
-              <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class = "glyphicon glyphicon glyphicon-align-justify"></span>
-          </div>
-        </div>
-      </div>
-    </li>
+    <li *ngFor="let widget of widgets">
+      <div [ngSwitch]="widget.type">
 
-    <!--header widget-->
-    <li>
-      <div class="row">
-        <div class="widget-list-item">
-          <h3><b>US Senate Reaches Compromise on Emergency Zika Funding.</b></h3>
-          <div class = "widget-list-toolbar">
-            <a href = "widget-heading.html">
-              <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class = "glyphicon glyphicon glyphicon-align-justify"></span>
+        <!--header widget-->
+        <div *ngSwitchCase="HEADING">
+          <div class="row">
+            <div class="widget-list-item">
+              <div [ngSwitch]="widget.size">
+                <div *ngSwitchCase="1">
+                  <h1><b>{{widget.text}}</b></h1>
+                </div>
+                <div *ngSwitchCase="2">
+                  <h2><b>{{widget.text}}</b></h2>
+                </div>
+                <div *ngSwitchCase="3">
+                  <h3><b>{{widget.text}}</b></h3>
+                </div>
+                <div *ngSwitchCase="4">
+                  <h4><b>{{widget.text}}</b></h4>
+                </div>
+                <div *ngSwitchCase="5">
+                  <h4><b>{{widget.text}}</b></h4>
+                </div>
+                <div *ngSwitchCase="6">
+                  <h4><b>{{widget.text}}</b></h4>
+                </div>
+              </div>
+              <div class = "widget-list-toolbar">
+                <a [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget', widget._id]">
+                  <span class="glyphicon glyphicon-cog"></span>
+                </a>
+                <span class = "glyphicon glyphicon glyphicon-align-justify"></span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </li>
 
-    <!--image widget-->
-    <li>
-      <div class="row">
-        <div class="widget-list-item">
-          <img class="img-responsive" src="../../images/image_1.jpg">
-          <div class = "widget-list-toolbar">
-            <a href = "widget-image.html">
-              <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class = "glyphicon glyphicon glyphicon-align-justify"></span>
+        <!--image widget-->
+        <div *ngSwitchCase="IMAGE">
+          <div class="row">
+            <div class="widget-list-item">
+              <img class="img-responsive" height="375" [src]="widget.url" [width]="widget.width">
+              <div class = "widget-list-toolbar">
+                <a [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget', widget._id]">
+                  <span class="glyphicon glyphicon-cog"></span>
+                </a>
+                <span class = "glyphicon glyphicon glyphicon-align-justify"></span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </li>
 
-    <!--header widget-->
-    <li>
-      <div class="row">
-        <div class="widget-list-item">
-          <h4><b>President Trump slammed Facebook and ‘fake news’ on Twitter Wednesday, accusing media outlets and the social media network of “collusion.”</b></h4>
-          <div class = "widget-list-toolbar">
-            <a href = "widget-heading.html">
-              <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class = "glyphicon glyphicon glyphicon-align-justify"></span>
+        <!--youtube widget-->
+        <div *ngSwitchCase="YOUTUBE">
+          <div class="row">
+            <div class="widget-list-item">
+              <iframe class="img-responsive" frameborder="0" [src]=" widget.url" [width]="widget.width" height="350"></iframe>
+              <div class = "widget-list-toolbar">
+                <a [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget', widget._id]">
+                  <span class="glyphicon glyphicon-cog"></span>
+                </a>
+                <span class = "glyphicon glyphicon glyphicon-align-justify"></span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </li>
 
-    <!--header widget-->
-    <li>
-      <div class="row">
-        <div class="widget-list-item">
-          <h3><b>Son of Killer Clown’s Victim Welcomes News of Cold-Case Arrest</b></h3>
-          <div class = "widget-list-toolbar">
-            <a href = "widget-heading.html">
-              <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class = "glyphicon glyphicon glyphicon-align-justify"></span>
-          </div>
-        </div>
-      </div>
-    </li>
-
-    <!--youtube widget-->
-    <li>
-      <div class="row">
-        <div class="widget-list-item">
-          <img class="img-responsive" src="../../images/video_1.jpg">
-          <div class = "widget-list-toolbar">
-            <a href = "widget-youtube.html">
-              <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class = "glyphicon glyphicon glyphicon-align-justify"></span>
-          </div>
-        </div>
-      </div>
-    </li>
-
-    <!--header widget-->
-    <li>
-      <div class="row">
-        <div class="widget-list-item">
-          <h4><b>The US president accused the social network of "collusion" on Twitter, branding it "anti-Trump".He made the same claim against the New York Times and the Washington Post Facebook will shortly hand over 3,000 political adverts to congressional investigators probing alleged Russian meddling in the US election.The site believes the ads were probably purchased by Russian entities during and after the 2016 presidential contest.</b></h4>
-          <div class = "widget-list-toolbar">
-            <a href = "widget-heading.html">
-              <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class = "glyphicon glyphicon glyphicon-align-justify"></span>
-          </div>
-        </div>
       </div>
     </li>
 
@@ -156,7 +121,7 @@
     </p>
 
     <p class="navbar-text pull-right">
-      <a href="../user/profile.html">
+      <a [routerLink]="['/user', userId]">
         <span class="glyphicon glyphicon-user nav-default-align"></span>
       </a>
     </p>

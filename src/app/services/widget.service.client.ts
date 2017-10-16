@@ -33,7 +33,7 @@ export class WidgetService {
   }
 
   findWidgetsByPageId(pageId : string){
-    return this.widgets.find(widget => widget.pageId == pageId);
+    return this.widgets.filter(widget => widget.pageId == pageId);
   }
 
   findWidgetById(widgetId : string){
