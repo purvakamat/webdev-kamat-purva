@@ -15,7 +15,7 @@ export class PageService {
 
   api = {
     'createPage'   : this.createPage,
-    'findPageByWebsiteId' : this.findPageByWebsiteId,
+    'findPagesByWebsiteId' : this.findPagesByWebsiteId,
     'findPageById' : this.findPageById,
     'updatePage' : this.updatePage,
     'deletePage' : this.deletePage
@@ -26,8 +26,8 @@ export class PageService {
     this.pages.push(page);
   }
 
-  findPageByWebsiteId(websiteId : string){
-    return this.pages.find(page => page.websiteId == websiteId);
+  findPagesByWebsiteId(websiteId : string){
+    return this.pages.filter(page => page.websiteId == websiteId);
   }
 
   findPageById(pageId : string){

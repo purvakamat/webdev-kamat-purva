@@ -27,7 +27,6 @@ export class WebsiteNewComponent implements OnInit {
   }
 
   createWebsite(){
-    console.log(this.name);
     this.websiteService.createWebsite(this.userId,{'name':this.name, 'description':this.description});
   }
 }
