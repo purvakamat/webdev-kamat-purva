@@ -30,7 +30,7 @@ export class WebsiteService{
   }
 
   findWebsitesByUser(userId : string){
-    return this.websites.find(website => website.developerId == userId);
+    return this.websites.filter(website => website.developerId == userId);
   }
 
   findWebsiteById(websiteId : string){

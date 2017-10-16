@@ -4,7 +4,7 @@
 
     <!--chevron-->
     <p class="navbar-text pull-left">
-      <a href="../user/profile.html" class="navbar-link">
+      <a [routerLink]="['/user',userId]" class="navbar-link">
         <span class="glyphicon glyphicon-chevron-left nav-foreground"></span>
       </a>
     </p>
@@ -18,7 +18,7 @@
 
     <!--plus-->
     <p class="navbar-text pull-right">
-      <a href="website-new.html" class="navbar-link">
+      <a [routerLink]="['/user',userId,'website','new']" class="navbar-link">
         <span class="glyphicon glyphicon-plus nav-foreground"></span>
       </a>
     </p>
@@ -27,62 +27,17 @@
 </nav>
 
 
-<div class="container">
+<div class="container page-margin">
   <ul>
-    <li>
+    <li *ngFor="let website of websites">
       <div class="row website-list-item">
         <div class="col-xs-10">
-          <a href = "../page/page-list.html">
-            <span>Address Book App</span>
+          <a [routerLink]="['/user', userId, 'website', website._id, 'page']">
+            <span>{{website.name}}</span>
           </a>
         </div>
         <div class="col-xs-2">
-          <a href = "website-edit.html">
-            <span class="glyphicon glyphicon-cog"></span>
-          </a>
-        </div>
-      </div>
-    </li>
-
-    <li>
-      <div class="row website-list-item">
-        <div class="col-xs-10">
-          <a href = "../page/page-list.html">
-            <span>Blogger</span>
-          </a>
-        </div>
-        <div class="col-xs-2">
-          <a href = "website-edit.html">
-            <span class="glyphicon glyphicon-cog"></span>
-          </a>
-        </div>
-      </div>
-    </li>
-
-    <li>
-      <div class="row website-list-item">
-        <div class="col-xs-10">
-          <a href = "../page/page-list.html">
-            <span>Blogging App</span>
-          </a>
-        </div>
-        <div class="col-xs-2">
-          <a href = "website-edit.html">
-            <span class="glyphicon glyphicon-cog"></span>
-          </a>
-        </div>
-      </div>
-    </li>
-
-    <li>
-      <div class="row website-list-item">
-        <div class="col-xs-10">
-          <a href = "../page/page-list.html">
-            <span>Script Testing App</span>
-          </a>
-        </div>
-        <div class="col-xs-2">
-          <a href = "website-edit.html">
+          <a [routerLink]="['/user', userId, 'website', website._id]">
             <span class="glyphicon glyphicon-cog"></span>
           </a>
         </div>
@@ -96,7 +51,7 @@
 <nav class="navbar navbar-default navbar-fixed-bottom nav-background">
   <div class="container-fluid">
     <p class="navbar-text pull-right">
-      <a href="../user/profile.html">
+      <a [routerLink]="['/user',userId]">
         <span class="glyphicon glyphicon-user nav-foreground"></span>
       </a>
     </p>
