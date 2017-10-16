@@ -32,10 +32,10 @@
   <ul class="widget-list">
 
     <li *ngFor="let widget of widgets">
-      <div [ngSwitch]="widget.type">
+      <div [ngSwitch]="widget.widgetType">
 
         <!--header widget-->
-        <div *ngSwitchCase="HEADING">
+        <div *ngSwitchCase="'HEADING'">
           <div class="row">
             <div class="widget-list-item">
               <div [ngSwitch]="widget.size">
@@ -69,7 +69,7 @@
         </div>
 
         <!--image widget-->
-        <div *ngSwitchCase="IMAGE">
+        <div *ngSwitchCase="'IMAGE'">
           <div class="row">
             <div class="widget-list-item">
               <img class="img-responsive" height="375" [src]="widget.url" [width]="widget.width">
@@ -84,7 +84,7 @@
         </div>
 
         <!--youtube widget-->
-        <div *ngSwitchCase="YOUTUBE">
+        <div *ngSwitchCase="'YOUTUBE'">
           <div class="row">
             <div class="widget-list-item">
               <iframe class="img-responsive" frameborder="0" [src]=" widget.url" [width]="widget.width" height="350"></iframe>
