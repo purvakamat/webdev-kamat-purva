@@ -5,7 +5,7 @@
     <div class="col-sm-4 hidden-xs">
       <!--chevron-->
       <p class="navbar-text pull-left">
-        <a href="website-list.html" class="navbar-link">
+        <a [routerLink]="['/user',userId,'website']" class="navbar-link">
           <span class="glyphicon glyphicon-chevron-left nav-foreground"></span>
         </a>
       </p>
@@ -19,7 +19,7 @@
 
       <!--plus-->
       <p class="navbar-text pull-right">
-        <a href="website-new.html" class="navbar-link">
+        <a [routerLink]="['/user',userId,'website','new']" class="navbar-link">
           <span class="glyphicon glyphicon-plus nav-foreground"></span>
         </a>
       </p>
@@ -29,7 +29,7 @@
 
       <!--chevron-->
       <p class="navbar-text pull-left visible-xs">
-        <a href="website-list.html" class="navbar-link">
+        <a [routerLink]="['/user',userId,'website']" class="navbar-link">
           <span class="glyphicon glyphicon-chevron-left nav-foreground"></span>
         </a>
       </p>
@@ -43,7 +43,7 @@
 
       <!--tick-->
       <p class="navbar-text pull-right">
-        <a href="website-list.html" class="navbar-link">
+        <a [routerLink]="['/user',userId,'website']" class="navbar-link">
           <span class="glyphicon glyphicon-ok nav-foreground"></span>
         </a>
       </p>
@@ -53,64 +53,19 @@
 </nav>
 
 
-<div class="container-fluid">
+<div class="container-fluid page-margin">
   <div class="row">
     <div class="col-sm-4 hidden-xs">
       <ul>
-        <li>
+        <li *ngFor="let website of websites">
           <div class="row website-list-item">
             <div class="col-xs-10">
-              <a href = "../page/page-list.html">
-                <span>Address Book App</span>
+              <a [routerLink]="['/user', userId, 'website', website._id, 'page']">
+                <span>{{website.name}}</span>
               </a>
             </div>
             <div class="col-xs-2">
-              <a href = "website-edit.html">
-                <span class="glyphicon glyphicon-cog"></span>
-              </a>
-            </div>
-          </div>
-        </li>
-
-        <li>
-          <div class="row website-list-item">
-            <div class="col-xs-10">
-              <a href = "../page/page-list.html">
-                <span>Blogger</span>
-              </a>
-            </div>
-            <div class="col-xs-2">
-              <a href = "website-edit.html">
-                <span class="glyphicon glyphicon-cog"></span>
-              </a>
-            </div>
-          </div>
-        </li>
-
-        <li>
-          <div class="row website-list-item">
-            <div class="col-xs-10">
-              <a href = "../page/page-list.html">
-                <span>Blogging App</span>
-              </a>
-            </div>
-            <div class="col-xs-2">
-              <a href = "website-edit.html">
-                <span class="glyphicon glyphicon-cog"></span>
-              </a>
-            </div>
-          </div>
-        </li>
-
-        <li>
-          <div class="row website-list-item">
-            <div class="col-xs-10">
-              <a href = "../page/page-list.html">
-                <span>Script Testing App</span>
-              </a>
-            </div>
-            <div class="col-xs-2">
-              <a href = "website-edit.html">
+              <a [routerLink]="['/user', userId, 'website', website._id]">
                 <span class="glyphicon glyphicon-cog"></span>
               </a>
             </div>
@@ -124,16 +79,18 @@
 
         <div class="form-group">
           <label for="name">Website Name</label>
-          <input class="form-control" id="name" placeholder="Website Name" type="text" value="Blogger">
+          <input [(ngModel)]='website.name' name ="name"
+                 class="form-control" id="name" placeholder="Website Name" type="text">
         </div>
 
         <div class="form-group">
           <label for="description">Website Description</label>
-          <textarea class="form-control" id="description" placeholder="Description" rows="5">Blogger is a blog publishing service that allows multi-user blogs with time-stamped entries. It was developed by Pyra Labs, which was bought by Google in 2003. Generally the blogs are hosted by Google at a subdomain of blogspot.com. Blogs can also be hosted in the registered custom domain of the blogger (like www.example.com). A user can have upto 100 blogs per account.</textarea>
+          <textarea [(ngModel)]='website.description' name ="description"
+                    class="form-control" id="description" placeholder="Description" rows="5"></textarea>
         </div>
 
         <div>
-          <a class="btn btn-danger btn-block" href="website-list.html" >Delete</a>
+          <button class="btn btn-danger btn-block" [routerLink]="['/user',userId,'website']" (click)="deleteWebsite()">Delete</button>
         </div>
 
       </form>
@@ -145,7 +102,7 @@
 <nav class="navbar navbar-default navbar-fixed-bottom nav-background">
   <div class="container-fluid">
     <p class="navbar-text pull-right">
-      <a href="../user/profile.html">
+      <a [routerLink]="['/user', userId]">
         <span class="glyphicon glyphicon-user nav-foreground"></span>
       </a>
     </p>
