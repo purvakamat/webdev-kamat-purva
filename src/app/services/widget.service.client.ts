@@ -28,8 +28,10 @@ export class WidgetService {
   };
 
   createWidget(pageId : string, widget : any){
-    widget["pageId "] = pageId ;
-    return this.widgets.push(widget);
+    widget["pageId"] = pageId ;
+    widget["_id"] = Math.floor(Math.random() * 1000).toString();
+    this.widgets.push(widget);
+    return widget["_id"];
   }
 
   findWidgetsByPageId(pageId : string){

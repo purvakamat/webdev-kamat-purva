@@ -1206,7 +1206,7 @@ var WidgetChooserComponent = (function () {
         });
     };
     WidgetChooserComponent.prototype.createWidget = function (widgetType) {
-        var widget_id = this.widgetService.createWidget(this.pageId, { "widgetType": widgetType });
+        var widget_id = this.widgetService.createWidget(this.pageId, { "_id": "0", "widgetType": widgetType });
         this.route.navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageId, 'widget', widget_id]);
     };
     return WidgetChooserComponent;
@@ -1284,7 +1284,6 @@ var WidgetEditComponent = (function () {
             _this.pageId = params['pid'];
             _this.widgetId = params['wgid'];
             _this.widget = _this.widgetService.findWidgetById(_this.widgetId);
-            console.log(_this.widget);
         });
     };
     return WidgetEditComponent;
@@ -1574,7 +1573,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/widget/widget-list/widget-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--chevron-->\n    <p class=\"navbar-text pull-left\">\n      <a [routerLink]=\"['/user', userId, 'website', websiteId, 'page']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-chevron-left nav-default-align\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b class=\"nav-default-align\">Widgets</b>\n      </a>\n    </p>\n\n    <!--plus-->\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user', userId, 'website', websiteId, 'page', pageId, 'widget', 'new']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-plus nav-default-align\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid page-margin\">\n\n  <ul class=\"widget-list\">\n\n    <li *ngFor=\"let widget of widgets\">\n      <div [ngSwitch]=\"widget.widgetType\">\n\n        <!--header widget-->\n        <div *ngSwitchCase=\"'HEADING'\">\n          <div class=\"row\">\n            <div class=\"widget-list-item\">\n              <div [ngSwitch]=\"widget.size\">\n                <div *ngSwitchCase=\"1\">\n                  <h1><b>{{widget.text}}</b></h1>\n                </div>\n                <div *ngSwitchCase=\"2\">\n                  <h2><b>{{widget.text}}</b></h2>\n                </div>\n                <div *ngSwitchCase=\"3\">\n                  <h3><b>{{widget.text}}</b></h3>\n                </div>\n                <div *ngSwitchCase=\"4\">\n                  <h4><b>{{widget.text}}</b></h4>\n                </div>\n                <div *ngSwitchCase=\"5\">\n                  <h4><b>{{widget.text}}</b></h4>\n                </div>\n                <div *ngSwitchCase=\"6\">\n                  <h4><b>{{widget.text}}</b></h4>\n                </div>\n              </div>\n              <div class = \"widget-list-toolbar\">\n                <a [routerLink]=\"['/user', userId, 'website', websiteId, 'page', pageId, 'widget', widget._id]\">\n                  <span class=\"glyphicon glyphicon-cog\"></span>\n                </a>\n                <span class = \"glyphicon glyphicon glyphicon-align-justify\"></span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <!--image widget-->\n        <div *ngSwitchCase=\"'IMAGE'\">\n          <div class=\"row\">\n            <div class=\"widget-list-item\">\n              <img class=\"img-responsive\" height=\"375\" [src]=\"widget.url\" [width]=\"widget.width\">\n              <div class = \"widget-list-toolbar\">\n                <a [routerLink]=\"['/user', userId, 'website', websiteId, 'page', pageId, 'widget', widget._id]\">\n                  <span class=\"glyphicon glyphicon-cog\"></span>\n                </a>\n                <span class = \"glyphicon glyphicon glyphicon-align-justify\"></span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <!--youtube widget-->\n        <div *ngSwitchCase=\"'YOUTUBE'\">\n          <div class=\"row\">\n            <div class=\"widget-list-item\">\n              <iframe class=\"img-responsive\" frameborder=\"0\" [src]=\" widget.url\" [width]=\"widget.width\" height=\"350\"></iframe>\n              <div class = \"widget-list-toolbar\">\n                <a [routerLink]=\"['/user', userId, 'website', websiteId, 'page', pageId, 'widget', widget._id]\">\n                  <span class=\"glyphicon glyphicon-cog\"></span>\n                </a>\n                <span class = \"glyphicon glyphicon glyphicon-align-justify\"></span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n      </div>\n    </li>\n\n  </ul>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n\n    <p class=\"navbar-text pull-left\">\n      <a href=\"#\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-triangle-right nav-default-align\"></span>\n      </a>\n    </p>\n\n    <p class=\"navbar-text pull-left\">\n      <a href=\"#\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-eye-open nav-default-align\"></span>\n      </a>\n    </p>\n\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user', userId]\">\n        <span class=\"glyphicon glyphicon-user nav-default-align\"></span>\n      </a>\n    </p>\n  </div>\n</nav>\n"
+module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--chevron-->\n    <p class=\"navbar-text pull-left\">\n      <a [routerLink]=\"['/user', userId, 'website', websiteId, 'page']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-chevron-left nav-default-align\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b class=\"nav-default-align\">Widgets</b>\n      </a>\n    </p>\n\n    <!--plus-->\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user', userId, 'website', websiteId, 'page', pageId, 'widget', 'new']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-plus nav-default-align\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid page-margin\">\n\n  <ul class=\"widget-list\">\n\n    <li *ngFor=\"let widget of widgets\">\n      <div [ngSwitch]=\"widget.widgetType\">\n\n        <!--header widget-->\n        <div *ngSwitchCase=\"'HEADING'\">\n          <div class=\"row\">\n            <div class=\"widget-list-item\">\n              <div [ngSwitch]=\"widget.size\">\n                <div *ngSwitchCase=\"1\">\n                  <h1><b>{{widget.text}}</b></h1>\n                </div>\n                <div *ngSwitchCase=\"2\">\n                  <h2><b>{{widget.text}}</b></h2>\n                </div>\n                <div *ngSwitchCase=\"3\">\n                  <h3><b>{{widget.text}}</b></h3>\n                </div>\n                <div *ngSwitchCase=\"4\">\n                  <h4><b>{{widget.text}}</b></h4>\n                </div>\n                <div *ngSwitchCase=\"5\">\n                  <h4><b>{{widget.text}}</b></h4>\n                </div>\n                <div *ngSwitchCase=\"6\">\n                  <h4><b>{{widget.text}}</b></h4>\n                </div>\n              </div>\n              <div class = \"widget-list-toolbar\">\n                <a [routerLink]=\"['/user', userId, 'website', websiteId, 'page', pageId, 'widget', widget._id]\">\n                  <span class=\"glyphicon glyphicon-cog\"></span>\n                </a>\n                <span class = \"glyphicon glyphicon glyphicon-align-justify\"></span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <!--image widget-->\n        <div *ngSwitchCase=\"'IMAGE'\">\n          <div class=\"row\">\n            <div class=\"widget-list-item\">\n              <img src=\"{{widget.url}}\" [style.width]=\"widget.width\">\n              <div class = \"widget-list-toolbar\">\n                <a [routerLink]=\"['/user', userId, 'website', websiteId, 'page', pageId, 'widget', widget._id]\">\n                  <span class=\"glyphicon glyphicon-cog\"></span>\n                </a>\n                <span class = \"glyphicon glyphicon glyphicon-align-justify\"></span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n        <!--youtube widget-->\n        <div *ngSwitchCase=\"'YOUTUBE'\">\n          <div class=\"row\">\n            <div class=\"widget-list-item\">\n              <iframe  [src]=\"embedURL(widget.url)\"\n                       [style.width]=\"widget.width\"\n                       height=\"350\" frameborder=\"0\" allowfullscreen>\n              </iframe>\n              <div class = \"widget-list-toolbar\">\n                <a [routerLink]=\"['/user', userId, 'website', websiteId, 'page', pageId, 'widget', widget._id]\">\n                  <span class=\"glyphicon glyphicon-cog\"></span>\n                </a>\n                <span class = \"glyphicon glyphicon glyphicon-align-justify\"></span>\n              </div>\n            </div>\n          </div>\n        </div>\n\n      </div>\n    </li>\n\n  </ul>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n\n    <p class=\"navbar-text pull-left\">\n      <a href=\"#\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-triangle-right nav-default-align\"></span>\n      </a>\n    </p>\n\n    <p class=\"navbar-text pull-left\">\n      <a href=\"#\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-eye-open nav-default-align\"></span>\n      </a>\n    </p>\n\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user', userId]\">\n        <span class=\"glyphicon glyphicon-user nav-default-align\"></span>\n      </a>\n    </p>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -1585,6 +1584,7 @@ module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <d
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_widget_service_client__ = __webpack_require__("../../../../../src/app/services/widget.service.client.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__ = __webpack_require__("../../../platform-browser/@angular/platform-browser.es5.js");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WidgetListComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1598,10 +1598,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var WidgetListComponent = (function () {
-    function WidgetListComponent(widgetService, activatedRoute) {
+    function WidgetListComponent(widgetService, activatedRoute, sanitizer) {
         this.widgetService = widgetService;
         this.activatedRoute = activatedRoute;
+        this.sanitizer = sanitizer;
     }
     WidgetListComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1613,6 +1615,12 @@ var WidgetListComponent = (function () {
             _this.widgets = _this.widgetService.findWidgetsByPageId(_this.pageId);
         });
     };
+    WidgetListComponent.prototype.embedURL = function (url) {
+        var urlSegments = url.split("/");
+        var embeddedUrl = "https://www.youtube.com/embed/" + urlSegments.pop();
+        console.log(this.sanitizer.bypassSecurityTrustResourceUrl(embeddedUrl));
+        return this.sanitizer.bypassSecurityTrustResourceUrl(embeddedUrl);
+    };
     return WidgetListComponent;
 }());
 WidgetListComponent = __decorate([
@@ -1621,10 +1629,10 @@ WidgetListComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/widget/widget-list/widget-list.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/widget/widget-list/widget-list.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_widget_service_client__["a" /* WidgetService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_widget_service_client__["a" /* WidgetService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_widget_service_client__["a" /* WidgetService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_widget_service_client__["a" /* WidgetService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["c" /* DomSanitizer */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["c" /* DomSanitizer */]) === "function" && _c || Object])
 ], WidgetListComponent);
 
-var _a, _b;
+var _a, _b, _c;
 //# sourceMappingURL=widget-list.component.js.map
 
 /***/ }),
@@ -1930,8 +1938,10 @@ var WidgetService = (function () {
         };
     }
     WidgetService.prototype.createWidget = function (pageId, widget) {
-        widget["pageId "] = pageId;
-        return this.widgets.push(widget);
+        widget["pageId"] = pageId;
+        widget["_id"] = Math.floor(Math.random() * 1000).toString();
+        this.widgets.push(widget);
+        return widget["_id"];
     };
     WidgetService.prototype.findWidgetsByPageId = function (pageId) {
         return this.widgets.filter(function (widget) { return widget.pageId == pageId; });

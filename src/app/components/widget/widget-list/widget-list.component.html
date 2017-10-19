@@ -72,7 +72,7 @@
         <div *ngSwitchCase="'IMAGE'">
           <div class="row">
             <div class="widget-list-item">
-              <img class="img-responsive" height="375" [src]="widget.url" [width]="widget.width">
+              <img src="{{widget.url}}" [style.width]="widget.width">
               <div class = "widget-list-toolbar">
                 <a [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget', widget._id]">
                   <span class="glyphicon glyphicon-cog"></span>
@@ -87,7 +87,10 @@
         <div *ngSwitchCase="'YOUTUBE'">
           <div class="row">
             <div class="widget-list-item">
-              <iframe class="img-responsive" frameborder="0" [src]=" widget.url" [width]="widget.width" height="350"></iframe>
+              <iframe  [src]="embedURL(widget.url)"
+                       [style.width]="widget.width"
+                       height="350" frameborder="0" allowfullscreen>
+              </iframe>
               <div class = "widget-list-toolbar">
                 <a [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget', widget._id]">
                   <span class="glyphicon glyphicon-cog"></span>

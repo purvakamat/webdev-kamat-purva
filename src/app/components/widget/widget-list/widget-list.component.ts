@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {WidgetService} from "../../../services/widget.service.client";
+import {DomSanitizer, Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-widget-list',
@@ -14,7 +15,7 @@ export class WidgetListComponent implements OnInit {
   pageId: string;
   widgets: any[];
 
-  constructor(private widgetService: WidgetService,private activatedRoute: ActivatedRoute) { }
+  constructor(private widgetService: WidgetService,private activatedRoute: ActivatedRoute, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.activatedRoute.params
@@ -26,6 +27,13 @@ export class WidgetListComponent implements OnInit {
           this.widgets = this.widgetService.findWidgetsByPageId(this.pageId);
         }
       );
+  }
+
+  embedURL(url: string){
+    var urlSegments = url.split("/");
+    var embeddedUrl = "https://www.youtube.com/embed/" + urlSegments.pop();
+    console.log(this.sanitizer.bypassSecurityTrustResourceUrl(embeddedUrl));
+    return this.sanitizer.bypassSecurityTrustResourceUrl(embeddedUrl);
   }
 
 }
