@@ -18,8 +18,7 @@
 
     <!--tick-->
     <p class="navbar-text pull-right">
-      <a class="navbar-link" (click)="updateWidget()"
-         [routerLink]="['/user',userId,'website',websiteId,'page',pageId,'widget']">
+      <a class="navbar-link" (click)="updateWidget()">
         <span class="glyphicon glyphicon-ok nav-default-align"></span>
       </a>
     </p>
@@ -52,7 +51,6 @@
 
       <div>
         <button class="btn btn-danger btn-block"
-                [routerLink]="['/user',userId,'website',websiteId,'page',pageId,'widget']"
                 (click)="deleteWidget()">
           Delete
         </button>

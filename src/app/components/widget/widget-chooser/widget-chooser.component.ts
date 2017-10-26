@@ -25,13 +25,20 @@ export class WidgetChooserComponent implements OnInit {
           this.userId = params['uid'];
           this.websiteId = params['wid'];
           this.pageId = params['pid'];
-          this.widgets = this.widgetService.findWidgetsByPageId(this.pageId);
+
+          this.widgetService.findWidgetsByPageId(this.pageId)
+            .subscribe((widgets) => {
+              this.widgets = widgets;
+            });
         }
       );
   }
 
   createWidget(widgetType:string){
-    var widget_id = this.widgetService.createWidget(this.pageId, {"_id":"0", "widgetType" : widgetType});
-    this.route.navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageId, 'widget', widget_id]);
+    this.widgetService.createWidget(this.pageId, {"_id":"0", "widgetType" : widgetType})
+      .subscribe((widget) => {
+        var widgetId = widget._id;
+        this.route.navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageId, 'widget', widgetId]);
+      });
   }
 }

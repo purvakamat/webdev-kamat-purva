@@ -452,6 +452,7 @@ var PageListComponent = (function () {
             _this.websiteId = params['wid'];
             _this.pageService.findPagesByWebsiteId(_this.websiteId)
                 .subscribe(function (pages) {
+                console.log(pages);
                 _this.pages = pages;
             });
         });
@@ -1271,12 +1272,19 @@ var WidgetChooserComponent = (function () {
             _this.userId = params['uid'];
             _this.websiteId = params['wid'];
             _this.pageId = params['pid'];
-            _this.widgets = _this.widgetService.findWidgetsByPageId(_this.pageId);
+            _this.widgetService.findWidgetsByPageId(_this.pageId)
+                .subscribe(function (widgets) {
+                _this.widgets = widgets;
+            });
         });
     };
     WidgetChooserComponent.prototype.createWidget = function (widgetType) {
-        var widget_id = this.widgetService.createWidget(this.pageId, { "_id": "0", "widgetType": widgetType });
-        this.route.navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageId, 'widget', widget_id]);
+        var _this = this;
+        this.widgetService.createWidget(this.pageId, { "_id": "0", "widgetType": widgetType })
+            .subscribe(function (widget) {
+            var widgetId = widget._id;
+            _this.route.navigate(['/user', _this.userId, 'website', _this.websiteId, 'page', _this.pageId, 'widget', widgetId]);
+        });
     };
     return WidgetChooserComponent;
 }());
@@ -1352,7 +1360,10 @@ var WidgetEditComponent = (function () {
             _this.websiteId = params['wid'];
             _this.pageId = params['pid'];
             _this.widgetId = params['wgid'];
-            _this.widget = _this.widgetService.findWidgetById(_this.widgetId);
+            _this.widgetService.findWidgetById(_this.widgetId)
+                .subscribe(function (widget) {
+                _this.widget = widget;
+            });
         });
     };
     return WidgetEditComponent;
@@ -1392,7 +1403,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/widget/widget-edit/widget-header/widget-header.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--chevron-->\n    <p class=\"navbar-text pull-left\">\n      <a [routerLink]=\"['/user',userId,'website',websiteId,'page',pageId,'widget']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-chevron-left nav-default-align\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b class=\"nav-default-align\">Widget Edit</b>\n      </a>\n    </p>\n\n    <!--tick-->\n    <p class=\"navbar-text pull-right\">\n      <a class=\"navbar-link\" (click)=\"updateWidget()\"\n         [routerLink]=\"['/user',userId,'website',websiteId,'page',pageId,'widget']\">\n        <span class=\"glyphicon glyphicon-ok nav-default-align\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid page-margin\">\n  <div class=\"scroll-vertical\">\n    <form>\n\n      <div class=\"form-group\">\n        <label for=\"widgetname\">Name</label>\n        <input  [(ngModel)]=\"widget.name\" name=\"wname\"\n                class=\"form-control\" id=\"widgetname\" placeholder=\"Widget Name\" type=\"text\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"text\">Text</label>\n        <input  [(ngModel)]=\"widget.text\" name=\"wtext\"\n                class=\"form-control\" id=\"text\" placeholder=\"Widget Text\" type=\"text\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"size\">Size</label>\n        <input [(ngModel)]=\"widget.size\" name=\"wsize\"\n               class=\"form-control\" id=\"size\" placeholder=\"Size\" type=\"text\">\n      </div>\n\n      <div>\n        <button class=\"btn btn-danger btn-block\"\n                [routerLink]=\"['/user',userId,'website',websiteId,'page',pageId,'widget']\"\n                (click)=\"deleteWidget()\">\n          Delete\n        </button>\n      </div>\n\n    </form>\n  </div>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user', userId]\">\n        <span class=\"glyphicon glyphicon-user nav-default-align\"></span>\n      </a>\n    </p>\n  </div>\n</nav>\n"
+module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--chevron-->\n    <p class=\"navbar-text pull-left\">\n      <a [routerLink]=\"['/user',userId,'website',websiteId,'page',pageId,'widget']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-chevron-left nav-default-align\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b class=\"nav-default-align\">Widget Edit</b>\n      </a>\n    </p>\n\n    <!--tick-->\n    <p class=\"navbar-text pull-right\">\n      <a class=\"navbar-link\" (click)=\"updateWidget()\">\n        <span class=\"glyphicon glyphicon-ok nav-default-align\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid page-margin\">\n  <div class=\"scroll-vertical\">\n    <form>\n\n      <div class=\"form-group\">\n        <label for=\"widgetname\">Name</label>\n        <input  [(ngModel)]=\"widget.name\" name=\"wname\"\n                class=\"form-control\" id=\"widgetname\" placeholder=\"Widget Name\" type=\"text\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"text\">Text</label>\n        <input  [(ngModel)]=\"widget.text\" name=\"wtext\"\n                class=\"form-control\" id=\"text\" placeholder=\"Widget Text\" type=\"text\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"size\">Size</label>\n        <input [(ngModel)]=\"widget.size\" name=\"wsize\"\n               class=\"form-control\" id=\"size\" placeholder=\"Size\" type=\"text\">\n      </div>\n\n      <div>\n        <button class=\"btn btn-danger btn-block\"\n                (click)=\"deleteWidget()\">\n          Delete\n        </button>\n      </div>\n\n    </form>\n  </div>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user', userId]\">\n        <span class=\"glyphicon glyphicon-user nav-default-align\"></span>\n      </a>\n    </p>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -1417,9 +1428,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var WidgetHeaderComponent = (function () {
-    function WidgetHeaderComponent(widgetService, activatedRoute) {
+    function WidgetHeaderComponent(widgetService, activatedRoute, router) {
         this.widgetService = widgetService;
         this.activatedRoute = activatedRoute;
+        this.router = router;
     }
     WidgetHeaderComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1429,15 +1441,26 @@ var WidgetHeaderComponent = (function () {
             _this.websiteId = params['wid'];
             _this.pageId = params['pid'];
             _this.widgetId = params['wgid'];
-            _this.widget = _this.widgetService.findWidgetById(_this.widgetId);
-            console.log(_this.widget);
+            _this.widgetService.findWidgetById(_this.widgetId)
+                .subscribe(function (widget) {
+                _this.widget = widget;
+            });
         });
     };
     WidgetHeaderComponent.prototype.updateWidget = function () {
-        this.widgetService.updateWidget(this.widgetId, this.widget);
+        var _this = this;
+        this.widgetService.updateWidget(this.widgetId, this.widget)
+            .subscribe(function (response) {
+            console.log(response);
+            _this.router.navigate(['/user', _this.userId, 'website', _this.websiteId, 'page', _this.pageId, 'widget']);
+        });
     };
     WidgetHeaderComponent.prototype.deleteWidget = function () {
-        this.widgetService.deleteWidget(this.widgetId);
+        var _this = this;
+        this.widgetService.deleteWidget(this.widgetId)
+            .subscribe(function (response) {
+            _this.router.navigate(['/user', _this.userId, 'website', _this.websiteId, 'page', _this.pageId, 'widget']);
+        });
     };
     return WidgetHeaderComponent;
 }());
@@ -1447,10 +1470,10 @@ WidgetHeaderComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/widget/widget-edit/widget-header/widget-header.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/widget/widget-edit/widget-header/widget-header.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_widget_service_client__["a" /* WidgetService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_widget_service_client__["a" /* WidgetService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_widget_service_client__["a" /* WidgetService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_widget_service_client__["a" /* WidgetService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _c || Object])
 ], WidgetHeaderComponent);
 
-var _a, _b;
+var _a, _b, _c;
 //# sourceMappingURL=widget-header.component.js.map
 
 /***/ }),
@@ -1476,7 +1499,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/widget/widget-edit/widget-image/widget-image.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--chevron-->\n    <p class=\"navbar-text pull-left\">\n      <a [routerLink]=\"['/user',userId,'website',websiteId,'page',pageId,'widget']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-chevron-left nav-default-align\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b class=\"nav-default-align\">Widget Edit</b>\n      </a>\n    </p>\n\n    <!--tick-->\n    <p class=\"navbar-text pull-right\">\n      <a (click)=\"updateWidget()\"\n         [routerLink]=\"['/user',userId,'website',websiteId,'page',pageId,'widget']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok nav-default-align\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid page-margin\">\n  <div class=\"scroll-vertical\">\n    <form>\n\n      <div class=\"form-group\">\n        <label for=\"widgetname\">Name</label>\n        <input [(ngModel)]=\"widget.name\" name=\"wname\"\n               class=\"form-control\" id=\"widgetname\" placeholder=\"Widget Name\" type=\"text\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"text\">Text</label>\n        <input [(ngModel)]=\"widget.text\" name=\"wtext\"\n               class=\"form-control\" id=\"text\" placeholder=\"Widget Text\" type=\"text\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"width\">URL</label>\n        <input [(ngModel)]=\"widget.url\" name=\"wurl\" class=\"form-control\" id=\"url\" placeholder=\"URL\" type=\"url\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"width\">Width</label>\n        <input [(ngModel)]=\"widget.width\" name=\"wwidth\" class=\"form-control\" id=\"width\" placeholder=\"Width\" type=\"text\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"upload\">Upload</label>\n        <input class=\"form-control\" id=\"upload\" placeholder=\"No file chosen\" type=\"file\">\n        <a class=\"btn btn-primary btn-block\" [routerLink]=\"['/user', userId, 'website', websiteId, 'page', pageId, 'widget']\">\n          Upload Image\n        </a>\n      </div>\n\n      <div>\n        <button class=\"btn btn-danger btn-block\" (click)=\"deleteWidget()\"\n                [routerLink]=\"['/user',userId,'website',websiteId,'page',pageId,'widget']\">\n          Delete\n        </button>\n      </div>\n\n    </form>\n  </div>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user',userId]\">\n        <span class=\"glyphicon glyphicon-user nav-default-align\"></span>\n      </a>\n    </p>\n  </div>\n</nav>\n"
+module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--chevron-->\n    <p class=\"navbar-text pull-left\">\n      <a [routerLink]=\"['/user',userId,'website',websiteId,'page',pageId,'widget']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-chevron-left nav-default-align\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b class=\"nav-default-align\">Widget Edit</b>\n      </a>\n    </p>\n\n    <!--tick-->\n    <p class=\"navbar-text pull-right\">\n      <a (click)=\"updateWidget()\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok nav-default-align\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid page-margin\">\n  <div class=\"scroll-vertical\">\n    <form>\n\n      <div class=\"form-group\">\n        <label for=\"widgetname\">Name</label>\n        <input [(ngModel)]=\"widget.name\" name=\"wname\"\n               class=\"form-control\" id=\"widgetname\" placeholder=\"Widget Name\" type=\"text\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"text\">Text</label>\n        <input [(ngModel)]=\"widget.text\" name=\"wtext\"\n               class=\"form-control\" id=\"text\" placeholder=\"Widget Text\" type=\"text\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"width\">URL</label>\n        <input [(ngModel)]=\"widget.url\" name=\"wurl\" class=\"form-control\" id=\"url\" placeholder=\"URL\" type=\"url\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"width\">Width</label>\n        <input [(ngModel)]=\"widget.width\" name=\"wwidth\" class=\"form-control\" id=\"width\" placeholder=\"Width\" type=\"text\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"upload\">Upload</label>\n        <input class=\"form-control\" id=\"upload\" placeholder=\"No file chosen\" type=\"file\">\n        <a class=\"btn btn-primary btn-block\" [routerLink]=\"['/user', userId, 'website', websiteId, 'page', pageId, 'widget']\">\n          Upload Image\n        </a>\n      </div>\n\n      <div>\n        <button class=\"btn btn-danger btn-block\" (click)=\"deleteWidget()\">\n          Delete\n        </button>\n      </div>\n\n    </form>\n  </div>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user',userId]\">\n        <span class=\"glyphicon glyphicon-user nav-default-align\"></span>\n      </a>\n    </p>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -1501,9 +1524,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var WidgetImageComponent = (function () {
-    function WidgetImageComponent(widgetService, activatedRoute) {
+    function WidgetImageComponent(widgetService, activatedRoute, router) {
         this.widgetService = widgetService;
         this.activatedRoute = activatedRoute;
+        this.router = router;
     }
     WidgetImageComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1513,14 +1537,26 @@ var WidgetImageComponent = (function () {
             _this.websiteId = params['wid'];
             _this.pageId = params['pid'];
             _this.widgetId = params['wgid'];
-            _this.widget = _this.widgetService.findWidgetById(_this.widgetId);
+            _this.widgetService.findWidgetById(_this.widgetId)
+                .subscribe(function (widget) {
+                _this.widget = widget;
+            });
         });
     };
     WidgetImageComponent.prototype.updateWidget = function () {
-        this.widgetService.updateWidget(this.widgetId, this.widget);
+        var _this = this;
+        this.widgetService.updateWidget(this.widgetId, this.widget)
+            .subscribe(function (response) {
+            console.log(response);
+            _this.router.navigate(['/user', _this.userId, 'website', _this.websiteId, 'page', _this.pageId, 'widget']);
+        });
     };
     WidgetImageComponent.prototype.deleteWidget = function () {
-        this.widgetService.deleteWidget(this.widgetId);
+        var _this = this;
+        this.widgetService.deleteWidget(this.widgetId)
+            .subscribe(function (response) {
+            _this.router.navigate(['/user', _this.userId, 'website', _this.websiteId, 'page', _this.pageId, 'widget']);
+        });
     };
     return WidgetImageComponent;
 }());
@@ -1530,10 +1566,10 @@ WidgetImageComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/widget/widget-edit/widget-image/widget-image.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/widget/widget-edit/widget-image/widget-image.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_widget_service_client__["a" /* WidgetService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_widget_service_client__["a" /* WidgetService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_widget_service_client__["a" /* WidgetService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_widget_service_client__["a" /* WidgetService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _c || Object])
 ], WidgetImageComponent);
 
-var _a, _b;
+var _a, _b, _c;
 //# sourceMappingURL=widget-image.component.js.map
 
 /***/ }),
@@ -1559,7 +1595,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/widget/widget-edit/widget-youtube/widget-youtube.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--chevron-->\n    <p class=\"navbar-text pull-left\">\n      <a [routerLink]=\"['/user',userId,'website',websiteId,'page',pageId,'widget']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-chevron-left nav-default-align\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b class=\"nav-default-align\">Widget Edit</b>\n      </a>\n    </p>\n\n    <!--tick-->\n    <p class=\"navbar-text pull-right\">\n      <a (click)=\"updateWidget()\"\n         [routerLink]=\"['/user',userId,'website',websiteId,'page',pageId,'widget']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok nav-default-align\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid page-margin\">\n  <div class=\"scroll-vertical\">\n    <form>\n\n      <div class=\"form-group\">\n        <label for=\"widgetname\">Name</label>\n        <input [(ngModel)]=\"widget.name\" name=\"wname\"\n               class=\"form-control\" id=\"widgetname\" placeholder=\"Widget Name\" type=\"text\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"text\">Text</label>\n        <input [(ngModel)]=\"widget.text\" name=\"wtext\"\n               class=\"form-control\" id=\"text\" placeholder=\"Widget Text\" type=\"text\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"width\">URL</label>\n        <input [(ngModel)]=\"widget.url\" name=\"wurl\" class=\"form-control\" id=\"url\" placeholder=\"URL\" type=\"url\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"width\">Width</label>\n        <input [(ngModel)]=\"widget.width\" name=\"wwidth\" class=\"form-control\" id=\"width\" placeholder=\"Width\" type=\"text\">\n      </div>\n\n\n      <div>\n        <button class=\"btn btn-danger btn-block\" (click)=\"deleteWidget()\"\n                [routerLink]=\"['/user',userId,'website',websiteId,'page',pageId,'widget']\">\n          Delete\n        </button>\n      </div>\n\n    </form>\n  </div>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user',userId]\">\n        <span class=\"glyphicon glyphicon-user nav-default-align\"></span>\n      </a>\n    </p>\n  </div>\n</nav>\n"
+module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--chevron-->\n    <p class=\"navbar-text pull-left\">\n      <a [routerLink]=\"['/user',userId,'website',websiteId,'page',pageId,'widget']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-chevron-left nav-default-align\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b class=\"nav-default-align\">Widget Edit</b>\n      </a>\n    </p>\n\n    <!--tick-->\n    <p class=\"navbar-text pull-right\">\n      <a (click)=\"updateWidget()\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok nav-default-align\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid page-margin\">\n  <div class=\"scroll-vertical\">\n    <form>\n\n      <div class=\"form-group\">\n        <label for=\"widgetname\">Name</label>\n        <input [(ngModel)]=\"widget.name\" name=\"wname\"\n               class=\"form-control\" id=\"widgetname\" placeholder=\"Widget Name\" type=\"text\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"text\">Text</label>\n        <input [(ngModel)]=\"widget.text\" name=\"wtext\"\n               class=\"form-control\" id=\"text\" placeholder=\"Widget Text\" type=\"text\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"width\">URL</label>\n        <input [(ngModel)]=\"widget.url\" name=\"wurl\" class=\"form-control\" id=\"url\" placeholder=\"URL\" type=\"url\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"width\">Width</label>\n        <input [(ngModel)]=\"widget.width\" name=\"wwidth\" class=\"form-control\" id=\"width\" placeholder=\"Width\" type=\"text\">\n      </div>\n\n\n      <div>\n        <button class=\"btn btn-danger btn-block\" (click)=\"deleteWidget()\">\n          Delete\n        </button>\n      </div>\n\n    </form>\n  </div>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user',userId]\">\n        <span class=\"glyphicon glyphicon-user nav-default-align\"></span>\n      </a>\n    </p>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -1584,9 +1620,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var WidgetYoutubeComponent = (function () {
-    function WidgetYoutubeComponent(widgetService, activatedRoute) {
+    function WidgetYoutubeComponent(widgetService, activatedRoute, router) {
         this.widgetService = widgetService;
         this.activatedRoute = activatedRoute;
+        this.router = router;
     }
     WidgetYoutubeComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1596,14 +1633,26 @@ var WidgetYoutubeComponent = (function () {
             _this.websiteId = params['wid'];
             _this.pageId = params['pid'];
             _this.widgetId = params['wgid'];
-            _this.widget = _this.widgetService.findWidgetById(_this.widgetId);
+            _this.widgetService.findWidgetById(_this.widgetId)
+                .subscribe(function (widget) {
+                _this.widget = widget;
+            });
         });
     };
     WidgetYoutubeComponent.prototype.updateWidget = function () {
-        this.widgetService.updateWidget(this.widgetId, this.widget);
+        var _this = this;
+        this.widgetService.updateWidget(this.widgetId, this.widget)
+            .subscribe(function (response) {
+            console.log(response);
+            _this.router.navigate(['/user', _this.userId, 'website', _this.websiteId, 'page', _this.pageId, 'widget']);
+        });
     };
     WidgetYoutubeComponent.prototype.deleteWidget = function () {
-        this.widgetService.deleteWidget(this.widgetId);
+        var _this = this;
+        this.widgetService.deleteWidget(this.widgetId)
+            .subscribe(function (response) {
+            _this.router.navigate(['/user', _this.userId, 'website', _this.websiteId, 'page', _this.pageId, 'widget']);
+        });
     };
     return WidgetYoutubeComponent;
 }());
@@ -1613,10 +1662,10 @@ WidgetYoutubeComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/widget/widget-edit/widget-youtube/widget-youtube.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/widget/widget-edit/widget-youtube/widget-youtube.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_widget_service_client__["a" /* WidgetService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_widget_service_client__["a" /* WidgetService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_widget_service_client__["a" /* WidgetService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_widget_service_client__["a" /* WidgetService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _c || Object])
 ], WidgetYoutubeComponent);
 
-var _a, _b;
+var _a, _b, _c;
 //# sourceMappingURL=widget-youtube.component.js.map
 
 /***/ }),
@@ -1681,13 +1730,16 @@ var WidgetListComponent = (function () {
             _this.userId = params['uid'];
             _this.websiteId = params['wid'];
             _this.pageId = params['pid'];
-            _this.widgets = _this.widgetService.findWidgetsByPageId(_this.pageId);
+            _this.widgetService.findWidgetsByPageId(_this.pageId)
+                .subscribe(function (widgets) {
+                console.log(widgets);
+                _this.widgets = widgets;
+            });
         });
     };
     WidgetListComponent.prototype.embedURL = function (url) {
         var urlSegments = url.split("/");
         var embeddedUrl = "https://www.youtube.com/embed/" + urlSegments.pop();
-        console.log(this.sanitizer.bypassSecurityTrustResourceUrl(embeddedUrl));
         return this.sanitizer.bypassSecurityTrustResourceUrl(embeddedUrl);
     };
     return WidgetListComponent;
@@ -1990,6 +2042,9 @@ var _a;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__("../../../../rxjs/Rx.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WidgetService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1997,61 +2052,54 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 /**
  * Created by kamat on 10/9/2017.
  */
 
+
+
 var WidgetService = (function () {
-    function WidgetService() {
-        this.widgets = [
-            { "_id": "123", "widgetType": "HEADING", "pageId": "321", "size": 2, "text": "GIZMODO" },
-            { "_id": "234", "widgetType": "HEADING", "pageId": "321", "size": 4, "text": "Lorem ipsum" },
-            { "_id": "345", "widgetType": "IMAGE", "pageId": "321", "width": "100%",
-                "url": "http://lorempixel.com/400/200/" },
-            { "_id": "456", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>" },
-            { "_id": "567", "widgetType": "HEADING", "pageId": "321", "size": 4, "text": "Lorem ipsum" },
-            { "_id": "678", "widgetType": "YOUTUBE", "pageId": "321", "width": "100%",
-                "url": "https://youtube/AM2Ivdi9c4E" },
-            { "_id": "789", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>" }
-        ];
-        this.api = {
-            'createWidget': this.createWidget,
-            'findWidgetsByPageId': this.findWidgetsByPageId,
-            'findWidgetById': this.findWidgetById,
-            'updateWidget': this.updateWidget,
-            'deleteWidget': this.deleteWidget
-        };
+    function WidgetService(http) {
+        this.http = http;
+        this.basePageURL = 'http://localhost:3100/api/page';
+        this.baseWidgetURL = 'http://localhost:3100/api/widget';
     }
     WidgetService.prototype.createWidget = function (pageId, widget) {
-        widget["pageId"] = pageId;
-        widget["_id"] = Math.floor(Math.random() * 1000).toString();
-        this.widgets.push(widget);
-        return widget["_id"];
+        return this.http.post(this.basePageURL + "/" + pageId + "/widget", widget).map(function (response) {
+            return response.json();
+        });
     };
     WidgetService.prototype.findWidgetsByPageId = function (pageId) {
-        return this.widgets.filter(function (widget) { return widget.pageId == pageId; });
+        return this.http.get(this.basePageURL + "/" + pageId + "/widget").map(function (response) {
+            return response.json();
+        });
     };
     WidgetService.prototype.findWidgetById = function (widgetId) {
-        return this.widgets.find(function (widget) { return widget._id == widgetId; });
+        return this.http.get(this.baseWidgetURL + "/" + widgetId).map(function (response) {
+            return response.json();
+        });
     };
     WidgetService.prototype.updateWidget = function (widgetId, widget) {
-        var wId = this.widgets.findIndex(function (w) { return w._id == widgetId; });
-        if (wId != -1) {
-            this.widgets[wId] = widget;
-        }
+        return this.http.put(this.baseWidgetURL + "/" + widgetId, widget).map(function (response) {
+            return response.json();
+        });
     };
     WidgetService.prototype.deleteWidget = function (widgetId) {
-        var wId = this.widgets.findIndex(function (w) { return w._id == widgetId; });
-        if (wId != -1) {
-            this.widgets.splice(wId, 1);
-        }
+        return this.http.delete(this.baseWidgetURL + "/" + widgetId).map(function (response) {
+            return response.json();
+        });
     };
     return WidgetService;
 }());
 WidgetService = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])()
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object])
 ], WidgetService);
 
+var _a;
 //# sourceMappingURL=widget.service.client.js.map
 
 /***/ }),
