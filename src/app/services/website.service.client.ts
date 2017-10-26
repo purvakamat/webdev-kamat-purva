@@ -16,14 +16,6 @@ export class WebsiteService{
     { "_id": "789", "name": "Chess",       "developerId": "234", "description": "Lorem" }
   ]
 
-  api = {
-    'createWebsite'   : this.createWebsite,
-    'findWebsitesByUser' : this.findWebsitesByUser,
-    'findWebsiteById' : this.findWebsiteById,
-    'updateWebsite' : this.updateWebsite,
-    'deleteWebsite' : this.deleteWebsite
-  };
-
   createWebsite(userId : string, website : any){
     website["developerId"] = userId;
     this.websites.push(website);

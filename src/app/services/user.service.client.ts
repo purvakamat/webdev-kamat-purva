@@ -2,55 +2,61 @@
  * Created by kamat on 10/9/2017.
  */
 import { Injectable } from '@angular/core';
+import {Http, Response, RequestOptions, URLSearchParams} from '@angular/http';
+import 'rxjs/Rx';
 
 @Injectable()
 export class UserService{
 
-  users = [
-    {_id: "123", username: "alice",    password: "alice",    firstName: "Alice",  lastName: "Wonder"  },
-    {_id: "234", username: "bob",      password: "bob",      firstName: "Bob",    lastName: "Marley"  },
-    {_id: "345", username: "charly",   password: "charly",   firstName: "Charly", lastName: "Garcia"  },
-    {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose",   lastName: "Annunzi" }
-  ]
+  baseURL : string;
 
-  api = {
-    'createUser'   : this.createUser,
-    'findUserById' : this.findUserById,
-    'findUserByUsername' : this.findUserByUsername,
-    'findUserByCredentials' : this.findUserByCredentials,
-    'updateUser' : this.updateUser,
-    'deleteUser' : this.deleteUser
-  };
+  constructor(private http: Http){
+    this.baseURL = 'http://localhost:3100/api/user';
+  }
 
   createUser(user : any){
-    return this.users.push(user);
+    return this.http.post(this.baseURL, user).map((response: Response) => {
+      return response.json();
+    });
   }
 
   findUserById(userId : string){
-    return this.users.find(user => user._id == userId);
+    return this.http.get(this.baseURL + "/" + userId).map((response: Response) => {
+      return response.json();
+    });
   }
 
   findUserByUsername(username : string){
-    var user = this.users.find(user => user.username == username);
-    return user;
+    let requestOptions = new RequestOptions();
+    let params = new URLSearchParams();
+    params.set("username", username);
+    requestOptions.params = params;
+    return this.http.get(this.baseURL,requestOptions).map((response: Response) => {
+      return response.json();
+    });
   }
 
   findUserByCredentials(username : string, password : string){
-    return this.users.find(user => user.username == username && user.password == password);
+    let requestOptions = new RequestOptions();
+    let params = new URLSearchParams();
+    params.set("username", username);
+    params.set("password", password);
+    requestOptions.params = params;
+    return this.http.get(this.baseURL,requestOptions).map((response: Response) => {
+      return response.json();
+    });
   }
 
   updateUser(userId : string, user : any){
-    let uId = this.users.findIndex(u => u._id == userId);
-    if(uId != -1){
-      this.users[uId] = user;
-    }
+    return this.http.put(this.baseURL + "/" + userId, user).map((response: Response) => {
+      return response.json();
+    });
   }
 
   deleteUser(userId : string){
-    let uId = this.users.findIndex(u => u._id == userId);
-    if(uId != -1){
-      this.users.splice(uId,1);
-    }
+    return this.http.delete(this.baseURL + "/" + userId).map((response: Response) => {
+      return response.json();
+    });
   }
 
 }

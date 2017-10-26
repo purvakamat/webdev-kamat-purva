@@ -686,16 +686,18 @@ var LoginComponent = (function () {
     LoginComponent.prototype.ngOnInit = function () {
     };
     LoginComponent.prototype.login = function () {
+        var _this = this;
         this.username = this.loginForm.value.username;
         this.password = this.loginForm.value.password;
-        var user = this.userService.findUserByCredentials(this.username, this.password);
-        if (user) {
-            this.router.navigate(['/user', user._id]);
-        }
-        else {
-            this.errorMsg = "Username and password do not match. Please eneter the correct credentials";
-            this.errorFlag = true;
-        }
+        this.userService.findUserByCredentials(this.username, this.password)
+            .subscribe(function (user) {
+            if (user) {
+                _this.router.navigate(['/user', user._id]);
+            }
+        }, function (error) {
+            _this.errorMsg = "Username and password do not match. Please enter the correct credentials";
+            _this.errorFlag = true;
+        });
     };
     return LoginComponent;
 }());
@@ -778,14 +780,18 @@ var ProfileComponent = (function () {
         this.activatedRoute.params
             .subscribe(function (params) {
             _this.userId = params['uid'];
-            _this.user = _this.userService.findUserById(_this.userId);
-            _this.username = _this.user['username'];
-            if (_this.user['email'])
-                _this.email = _this.user['email'];
-            if (_this.user['firstName'])
-                _this.firstName = _this.user['firstName'];
-            if (_this.user['lastName'])
-                _this.lastName = _this.user['lastName'];
+            _this.userService.findUserById(_this.userId).subscribe(function (user) {
+                _this.user = user;
+                _this.username = _this.user['username'];
+                if (_this.user['email'])
+                    _this.email = _this.user['email'];
+                if (_this.user['firstName'])
+                    _this.firstName = _this.user['firstName'];
+                if (_this.user['lastName'])
+                    _this.lastName = _this.user['lastName'];
+            }, function (error) {
+                console.log("User not found");
+            });
         });
     };
     ProfileComponent.prototype.updateUser = function () {
@@ -793,7 +799,9 @@ var ProfileComponent = (function () {
         this.user['email'] = this.email;
         this.user['firstName'] = this.firstName;
         this.user['lastName'] = this.lastName;
-        this.userService.updateUser(this.userId, this.user);
+        this.userService.updateUser(this.userId, this.user).subscribe(function (response) {
+            console.log(response);
+        });
     };
     return ProfileComponent;
 }());
@@ -868,6 +876,7 @@ var RegisterComponent = (function () {
     RegisterComponent.prototype.ngOnInit = function () {
     };
     RegisterComponent.prototype.register = function () {
+        var _this = this;
         var username = this.registerForm.value.username;
         var password = this.registerForm.value.password;
         var ver_password = this.registerForm.value.verifypassword;
@@ -876,15 +885,19 @@ var RegisterComponent = (function () {
             this.errorFlag = true;
         }
         else {
-            var user = this.userService.findUserByUsername(username);
-            if (user) {
-                this.errorMsg = "A user with this username already exists. Please try another username.";
-                this.errorFlag = true;
-            }
-            else {
-                var user_id = this.userService.createUser({ 'username': username, 'password': password });
-                this.router.navigate(['/user', user_id]);
-            }
+            this.userService.findUserByUsername(username)
+                .subscribe(function (user) {
+                if (user) {
+                    _this.errorMsg = "A user with this username already exists. Please try another username.";
+                    _this.errorFlag = true;
+                }
+            }, function (error) {
+                _this.userService.createUser({ 'username': username, 'password': password })
+                    .subscribe(function (user) {
+                    var user_id = user['_id'];
+                    _this.router.navigate(['/user', user_id]);
+                });
+            });
         }
     };
     return RegisterComponent;
@@ -1757,7 +1770,7 @@ var TestService = (function () {
 }());
 TestService = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Http */]) === "function" && _a || Object])
 ], TestService);
 
 var _a;
@@ -1770,6 +1783,9 @@ var _a;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__("../../../../rxjs/Rx.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1777,58 +1793,67 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 /**
  * Created by kamat on 10/9/2017.
  */
 
+
+
 var UserService = (function () {
-    function UserService() {
-        this.users = [
-            { _id: "123", username: "alice", password: "alice", firstName: "Alice", lastName: "Wonder" },
-            { _id: "234", username: "bob", password: "bob", firstName: "Bob", lastName: "Marley" },
-            { _id: "345", username: "charly", password: "charly", firstName: "Charly", lastName: "Garcia" },
-            { _id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose", lastName: "Annunzi" }
-        ];
-        this.api = {
-            'createUser': this.createUser,
-            'findUserById': this.findUserById,
-            'findUserByUsername': this.findUserByUsername,
-            'findUserByCredentials': this.findUserByCredentials,
-            'updateUser': this.updateUser,
-            'deleteUser': this.deleteUser
-        };
+    function UserService(http) {
+        this.http = http;
+        this.baseURL = 'http://localhost:3100/api/user';
     }
     UserService.prototype.createUser = function (user) {
-        return this.users.push(user);
+        return this.http.post(this.baseURL, user).map(function (response) {
+            return response.json();
+        });
     };
     UserService.prototype.findUserById = function (userId) {
-        return this.users.find(function (user) { return user._id == userId; });
+        return this.http.get(this.baseURL + "/" + userId).map(function (response) {
+            return response.json();
+        });
     };
     UserService.prototype.findUserByUsername = function (username) {
-        var user = this.users.find(function (user) { return user.username == username; });
-        return user;
+        var requestOptions = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* RequestOptions */]();
+        var params = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* URLSearchParams */]();
+        params.set("username", username);
+        requestOptions.params = params;
+        return this.http.get(this.baseURL, requestOptions).map(function (response) {
+            return response.json();
+        });
     };
     UserService.prototype.findUserByCredentials = function (username, password) {
-        return this.users.find(function (user) { return user.username == username && user.password == password; });
+        var requestOptions = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* RequestOptions */]();
+        var params = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* URLSearchParams */]();
+        params.set("username", username);
+        params.set("password", password);
+        requestOptions.params = params;
+        return this.http.get(this.baseURL, requestOptions).map(function (response) {
+            return response.json();
+        });
     };
     UserService.prototype.updateUser = function (userId, user) {
-        var uId = this.users.findIndex(function (u) { return u._id == userId; });
-        if (uId != -1) {
-            this.users[uId] = user;
-        }
+        return this.http.put(this.baseURL + "/" + userId, user).map(function (response) {
+            return response.json();
+        });
     };
     UserService.prototype.deleteUser = function (userId) {
-        var uId = this.users.findIndex(function (u) { return u._id == userId; });
-        if (uId != -1) {
-            this.users.splice(uId, 1);
-        }
+        return this.http.delete(this.baseURL + "/" + userId).map(function (response) {
+            return response.json();
+        });
     };
     return UserService;
 }());
 UserService = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])()
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Http */]) === "function" && _a || Object])
 ], UserService);
 
+var _a;
 //# sourceMappingURL=user.service.client.js.map
 
 /***/ }),
@@ -1860,13 +1885,6 @@ var WebsiteService = (function () {
             { "_id": "678", "name": "Checkers", "developerId": "123", "description": "Lorem" },
             { "_id": "789", "name": "Chess", "developerId": "234", "description": "Lorem" }
         ];
-        this.api = {
-            'createWebsite': this.createWebsite,
-            'findWebsitesByUser': this.findWebsitesByUser,
-            'findWebsiteById': this.findWebsiteById,
-            'updateWebsite': this.updateWebsite,
-            'deleteWebsite': this.deleteWebsite
-        };
     }
     WebsiteService.prototype.createWebsite = function (userId, website) {
         website["developerId"] = userId;

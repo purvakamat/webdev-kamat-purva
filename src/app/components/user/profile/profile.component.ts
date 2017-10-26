@@ -24,17 +24,22 @@ export class ProfileComponent implements OnInit {
         params => {
           this.userId = params['uid'];
 
-          this.user = this.userService.findUserById(this.userId);
-          this.username = this.user['username'];
+          this.userService.findUserById(this.userId).subscribe((user) => {
+            this.user = user;
+            this.username = this.user['username'];
 
-          if(this.user['email'])
-            this.email = this.user['email'];
+            if(this.user['email'])
+              this.email = this.user['email'];
 
-          if(this.user['firstName'])
-            this.firstName = this.user['firstName'];
+            if(this.user['firstName'])
+              this.firstName = this.user['firstName'];
 
-          if(this.user['lastName'])
-            this.lastName = this.user['lastName'];
+            if(this.user['lastName'])
+              this.lastName = this.user['lastName'];
+          },
+          (error) => {
+            console.log("User not found");
+          });
         }
       );
   }
@@ -44,6 +49,8 @@ export class ProfileComponent implements OnInit {
     this.user['email'] = this.email;
     this.user['firstName'] = this.firstName;
     this.user['lastName'] = this.lastName;
-    this.userService.updateUser(this.userId, this.user);
+    this.userService.updateUser(this.userId, this.user).subscribe((response)=>{
+      console.log(response);
+    });
   }
 }

@@ -30,15 +30,21 @@ export class RegisterComponent implements OnInit {
       this.errorFlag = true;
     }
     else{
-      var user = this.userService.findUserByUsername(username);
-      if(user){
-        this.errorMsg = "A user with this username already exists. Please try another username."
-        this.errorFlag = true;
-      }
-      else{
-        let user_id = this.userService.createUser({'username':username, 'password':password});
-        this.router.navigate(['/user', user_id]);
-      }
+      this.userService.findUserByUsername(username)
+        .subscribe(
+          (user) => {
+            if(user){
+              this.errorMsg = "A user with this username already exists. Please try another username."
+              this.errorFlag = true;
+            }
+          },
+          (error) => {
+            this.userService.createUser({'username':username, 'password':password})
+              .subscribe((user) => {
+                let user_id = user['_id'];
+                this.router.navigate(['/user', user_id]);
+              });
+          });
     }
   }
 }
