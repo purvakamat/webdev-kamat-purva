@@ -2,49 +2,47 @@
  * Created by kamat on 10/9/2017.
  */
 import { Injectable } from '@angular/core';
+import {Http, Response} from '@angular/http';
+import 'rxjs/Rx';
 
 @Injectable()
 export class PageService {
 
-  pages = [
-    { "_id": "321", "name": "Post 1", "websiteId": "456", "description": "Lorem" },
-    { "_id": "432", "name": "Post 2", "websiteId": "456", "description": "Lorem" },
-    { "_id": "543", "name": "Post 3", "websiteId": "456", "description": "Lorem" }
-  ]
+  basePageURL : string;
+  baseWebsiteURL: string;
 
-
-  api = {
-    'createPage'   : this.createPage,
-    'findPagesByWebsiteId' : this.findPagesByWebsiteId,
-    'findPageById' : this.findPageById,
-    'updatePage' : this.updatePage,
-    'deletePage' : this.deletePage
-  };
+  constructor(private http: Http){
+    this.basePageURL = 'http://localhost:3100/api/page';
+    this.baseWebsiteURL = 'http://localhost:3100/api/website';
+  }
 
   createPage(websiteId : string, page : any){
-    page["websiteId"] = websiteId;
-    this.pages.push(page);
+    return this.http.post(this.baseWebsiteURL + "/" + websiteId + "/page", page).map((response: Response) => {
+      return response.json();
+    });
   }
 
   findPagesByWebsiteId(websiteId : string){
-    return this.pages.filter(page => page.websiteId == websiteId);
+    return this.http.get(this.baseWebsiteURL + "/" + websiteId + "/page").map((response: Response) => {
+      return response.json();
+    });
   }
 
   findPageById(pageId : string){
-    return this.pages.find(page => page._id == pageId);
+    return this.http.get(this.basePageURL + "/" + pageId).map((response: Response) => {
+      return response.json();
+    });
   }
 
   updatePage(pageId : string, page : any){
-    let pId = this.pages.findIndex(p => p._id == pageId);
-    if(pId != -1){
-      this.pages[pId] = page;
-    }
+    return this.http.put(this.basePageURL + "/" + pageId, page).map((response: Response) => {
+      return response.json();
+    });
   }
 
   deletePage(pageId : string){
-    let pId = this.pages.findIndex(p => p._id == pageId);
-    if(pId != -1){
-      this.pages.splice(pId,1);
-    }
+    return this.http.delete(this.basePageURL + "/" + pageId).map((response: Response) => {
+      return response.json();
+    });
   }
 }

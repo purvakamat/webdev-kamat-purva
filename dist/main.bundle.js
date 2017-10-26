@@ -316,7 +316,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/page/page-edit/page-edit.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--chevron-->\n    <p class=\"navbar-text pull-left\">\n      <a [routerLink]=\"['/user',userId, 'website', websiteId, 'page']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-chevron-left nav-default-align\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b class=\"nav-default-align\">Edit Page</b>\n      </a>\n    </p>\n\n    <!--tick-->\n    <p class=\"navbar-text pull-right\">\n      <a class=\"navbar-link\" (click)=\"updatePage()\" [routerLink]=\"['/user',userId, 'website', websiteId, 'page']\">\n        <span class=\"glyphicon glyphicon-ok nav-default-align\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid page-margin\">\n  <div class=\"scroll-vertical\">\n    <form>\n\n      <div class=\"form-group\">\n        <label for=\"name\">Name</label>\n        <input class=\"form-control\" id=\"name\" placeholder=\"Page Name\" type=\"text\" name=\"p_name\" [(ngModel)]='page.name'>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"descr\">Description</label>\n        <input class=\"form-control\" id=\"descr\" placeholder=\"Page Description\" type=\"text\" name=\"p_descr\" [(ngModel)]='page.description'>\n      </div>\n\n      <div>\n        <button class=\"btn btn-danger btn-block\" (click)=\"deletePage()\" [routerLink]=\"['/user', userId, 'website', websiteId, 'page']\">Delete</button>\n      </div>\n\n    </form>\n  </div>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user', userId]\">\n        <span class=\"glyphicon glyphicon-user nav-default-align\"></span>\n      </a>\n    </p>\n  </div>\n</nav>\n"
+module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--chevron-->\n    <p class=\"navbar-text pull-left\">\n      <a [routerLink]=\"['/user',userId, 'website', websiteId, 'page']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-chevron-left nav-default-align\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b class=\"nav-default-align\">Edit Page</b>\n      </a>\n    </p>\n\n    <!--tick-->\n    <p class=\"navbar-text pull-right\">\n      <a class=\"navbar-link\" (click)=\"updatePage()\">\n        <span class=\"glyphicon glyphicon-ok nav-default-align\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid page-margin\">\n  <div class=\"scroll-vertical\">\n    <form>\n\n      <div class=\"form-group\">\n        <label for=\"name\">Name</label>\n        <input class=\"form-control\" id=\"name\" placeholder=\"Page Name\" type=\"text\" name=\"p_name\" [(ngModel)]='page.name'>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"descr\">Description</label>\n        <input class=\"form-control\" id=\"descr\" placeholder=\"Page Description\" type=\"text\" name=\"p_descr\" [(ngModel)]='page.description'>\n      </div>\n\n      <div>\n        <button class=\"btn btn-danger btn-block\" (click)=\"deletePage()\">Delete</button>\n      </div>\n\n    </form>\n  </div>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user', userId]\">\n        <span class=\"glyphicon glyphicon-user nav-default-align\"></span>\n      </a>\n    </p>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -341,9 +341,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var PageEditComponent = (function () {
-    function PageEditComponent(activatedRoute, pageService) {
+    function PageEditComponent(activatedRoute, pageService, router) {
         this.activatedRoute = activatedRoute;
         this.pageService = pageService;
+        this.router = router;
         this.page = {};
     }
     PageEditComponent.prototype.ngOnInit = function () {
@@ -353,15 +354,29 @@ var PageEditComponent = (function () {
             _this.userId = params['uid'];
             _this.websiteId = params['wid'];
             _this.pageId = params['pid'];
-            _this.pages = _this.pageService.findPagesByWebsiteId(_this.websiteId);
-            _this.page = _this.pageService.findPageById(_this.pageId);
+            _this.pageService.findPagesByWebsiteId(_this.websiteId)
+                .subscribe(function (pages) {
+                _this.pages = pages;
+            });
+            _this.pageService.findPageById(_this.pageId)
+                .subscribe(function (page) {
+                _this.page = page;
+            });
         });
     };
     PageEditComponent.prototype.updatePage = function () {
-        this.pageService.updatePage(this.pageId, this.page);
+        var _this = this;
+        this.pageService.updatePage(this.pageId, this.page)
+            .subscribe(function (response) {
+            _this.router.navigate(['/user', _this.userId, 'website', _this.websiteId, 'page']);
+        });
     };
     PageEditComponent.prototype.deletePage = function () {
-        this.pageService.deletePage(this.pageId);
+        var _this = this;
+        this.pageService.deletePage(this.pageId)
+            .subscribe(function (response) {
+            _this.router.navigate(['/user', _this.userId, 'website', _this.websiteId, 'page']);
+        });
     };
     return PageEditComponent;
 }());
@@ -371,10 +386,10 @@ PageEditComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/page/page-edit/page-edit.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/page/page-edit/page-edit.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_page_service_client__["a" /* PageService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_page_service_client__["a" /* PageService */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_page_service_client__["a" /* PageService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_page_service_client__["a" /* PageService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _c || Object])
 ], PageEditComponent);
 
-var _a, _b;
+var _a, _b, _c;
 //# sourceMappingURL=page-edit.component.js.map
 
 /***/ }),
@@ -435,7 +450,10 @@ var PageListComponent = (function () {
             .subscribe(function (params) {
             _this.userId = params['uid'];
             _this.websiteId = params['wid'];
-            _this.pages = _this.pageService.findPagesByWebsiteId(_this.websiteId);
+            _this.pageService.findPagesByWebsiteId(_this.websiteId)
+                .subscribe(function (pages) {
+                _this.pages = pages;
+            });
         });
     };
     return PageListComponent;
@@ -475,7 +493,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/page/page-new/page-new.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--chevron-->\n    <p class=\"navbar-text pull-left\">\n      <a [routerLink]=\"['/user', userId, 'website', websiteId, 'page']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-chevron-left nav-default-align\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b class=\"nav-default-align\">New Page</b>\n      </a>\n    </p>\n\n    <!--tick-->\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user', userId, 'website', websiteId, 'page']\" class=\"navbar-link\" (click)=\"createPage()\" >\n        <span class=\"glyphicon glyphicon-ok nav-default-align\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid page-margin\">\n  <div class=\"scroll-vertical\">\n    <form>\n\n      <div class=\"form-group\">\n        <label for=\"name\">Name</label>\n        <input class=\"form-control\" id=\"name\" placeholder=\"Page Name\" type=\"text\" name=\"p_name\" [(ngModel)]='name'>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"description\">Description</label>\n        <input class=\"form-control\" id=\"description\" placeholder=\"Page Description\" type=\"text\" name=\"p_descr\" [(ngModel)]='description'>\n      </div>\n\n    </form>\n  </div>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user', userId]\">\n        <span class=\"glyphicon glyphicon-user nav-default-align\"></span>\n      </a>\n    </p>\n  </div>\n</nav>\n"
+module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--chevron-->\n    <p class=\"navbar-text pull-left\">\n      <a [routerLink]=\"['/user', userId, 'website', websiteId, 'page']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-chevron-left nav-default-align\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b class=\"nav-default-align\">New Page</b>\n      </a>\n    </p>\n\n    <!--tick-->\n    <p class=\"navbar-text pull-right\">\n      <a class=\"navbar-link\" (click)=\"createPage()\" >\n        <span class=\"glyphicon glyphicon-ok nav-default-align\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid page-margin\">\n  <div class=\"scroll-vertical\">\n    <form>\n\n      <div class=\"form-group\">\n        <label for=\"name\">Name</label>\n        <input class=\"form-control\" id=\"name\" placeholder=\"Page Name\" type=\"text\" name=\"p_name\" [(ngModel)]='name'>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"description\">Description</label>\n        <input class=\"form-control\" id=\"description\" placeholder=\"Page Description\" type=\"text\" name=\"p_descr\" [(ngModel)]='description'>\n      </div>\n\n    </form>\n  </div>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user', userId]\">\n        <span class=\"glyphicon glyphicon-user nav-default-align\"></span>\n      </a>\n    </p>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -499,10 +517,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var PageNewComponent = (function () {
-    function PageNewComponent(activatedRoute, pageService) {
+    function PageNewComponent(activatedRoute, pageService, router) {
         this.activatedRoute = activatedRoute;
         this.pageService = pageService;
+        this.router = router;
         this.name = "";
         this.description = "";
     }
@@ -512,11 +532,18 @@ var PageNewComponent = (function () {
             .subscribe(function (params) {
             _this.userId = params['uid'];
             _this.websiteId = params['wid'];
-            _this.pages = _this.pageService.findPagesByWebsiteId(_this.websiteId);
+            _this.pageService.findPagesByWebsiteId(_this.websiteId)
+                .subscribe(function (pages) {
+                _this.pages = pages;
+            });
         });
     };
     PageNewComponent.prototype.createPage = function () {
-        this.pageService.createPage(this.websiteId, { 'name': this.name, 'description': this.description });
+        var _this = this;
+        this.pageService.createPage(this.websiteId, { 'name': this.name, 'description': this.description })
+            .subscribe(function (page) {
+            _this.router.navigate(['/user', _this.userId, 'website', _this.websiteId, 'page']);
+        });
     };
     return PageNewComponent;
 }());
@@ -526,10 +553,10 @@ PageNewComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/page/page-new/page-new.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/page/page-new/page-new.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_page_service_client__["a" /* PageService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_page_service_client__["a" /* PageService */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_page_service_client__["a" /* PageService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_page_service_client__["a" /* PageService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _c || Object])
 ], PageNewComponent);
 
-var _a, _b;
+var _a, _b, _c;
 //# sourceMappingURL=page-new.component.js.map
 
 /***/ }),
@@ -1684,6 +1711,9 @@ var _a, _b, _c;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__("../../../../rxjs/Rx.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PageService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1691,53 +1721,54 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 /**
  * Created by kamat on 10/9/2017.
  */
 
+
+
 var PageService = (function () {
-    function PageService() {
-        this.pages = [
-            { "_id": "321", "name": "Post 1", "websiteId": "456", "description": "Lorem" },
-            { "_id": "432", "name": "Post 2", "websiteId": "456", "description": "Lorem" },
-            { "_id": "543", "name": "Post 3", "websiteId": "456", "description": "Lorem" }
-        ];
-        this.api = {
-            'createPage': this.createPage,
-            'findPagesByWebsiteId': this.findPagesByWebsiteId,
-            'findPageById': this.findPageById,
-            'updatePage': this.updatePage,
-            'deletePage': this.deletePage
-        };
+    function PageService(http) {
+        this.http = http;
+        this.basePageURL = 'http://localhost:3100/api/page';
+        this.baseWebsiteURL = 'http://localhost:3100/api/website';
     }
     PageService.prototype.createPage = function (websiteId, page) {
-        page["websiteId"] = websiteId;
-        this.pages.push(page);
+        return this.http.post(this.baseWebsiteURL + "/" + websiteId + "/page", page).map(function (response) {
+            return response.json();
+        });
     };
     PageService.prototype.findPagesByWebsiteId = function (websiteId) {
-        return this.pages.filter(function (page) { return page.websiteId == websiteId; });
+        return this.http.get(this.baseWebsiteURL + "/" + websiteId + "/page").map(function (response) {
+            return response.json();
+        });
     };
     PageService.prototype.findPageById = function (pageId) {
-        return this.pages.find(function (page) { return page._id == pageId; });
+        return this.http.get(this.basePageURL + "/" + pageId).map(function (response) {
+            return response.json();
+        });
     };
     PageService.prototype.updatePage = function (pageId, page) {
-        var pId = this.pages.findIndex(function (p) { return p._id == pageId; });
-        if (pId != -1) {
-            this.pages[pId] = page;
-        }
+        return this.http.put(this.basePageURL + "/" + pageId, page).map(function (response) {
+            return response.json();
+        });
     };
     PageService.prototype.deletePage = function (pageId) {
-        var pId = this.pages.findIndex(function (p) { return p._id == pageId; });
-        if (pId != -1) {
-            this.pages.splice(pId, 1);
-        }
+        return this.http.delete(this.basePageURL + "/" + pageId).map(function (response) {
+            return response.json();
+        });
     };
     return PageService;
 }());
 PageService = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])()
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object])
 ], PageService);
 
+var _a;
 //# sourceMappingURL=page.service.client.js.map
 
 /***/ }),

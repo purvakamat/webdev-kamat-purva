@@ -19,6 +19,7 @@ export class WebsiteListComponent implements OnInit {
       .subscribe(
         params => {
           this.userId = params['uid'];
+
           this.websiteService.findWebsitesByUser(this.userId)
             .subscribe((websites) => {
               this.websites = websites;

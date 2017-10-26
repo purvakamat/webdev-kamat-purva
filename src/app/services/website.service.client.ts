@@ -2,7 +2,7 @@
  * Created by kamat on 10/9/2017.
  */
 import { Injectable } from '@angular/core';
-import {Http, Response, RequestOptions, URLSearchParams} from '@angular/http';
+import {Http, Response} from '@angular/http';
 import 'rxjs/Rx';
 
 @Injectable()

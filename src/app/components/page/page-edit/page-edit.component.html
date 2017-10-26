@@ -17,7 +17,7 @@
 
     <!--tick-->
     <p class="navbar-text pull-right">
-      <a class="navbar-link" (click)="updatePage()" [routerLink]="['/user',userId, 'website', websiteId, 'page']">
+      <a class="navbar-link" (click)="updatePage()">
         <span class="glyphicon glyphicon-ok nav-default-align"></span>
       </a>
     </p>
@@ -41,7 +41,7 @@
       </div>
 
       <div>
-        <button class="btn btn-danger btn-block" (click)="deletePage()" [routerLink]="['/user', userId, 'website', websiteId, 'page']">Delete</button>
+        <button class="btn btn-danger btn-block" (click)="deletePage()">Delete</button>
       </div>
 
     </form>
