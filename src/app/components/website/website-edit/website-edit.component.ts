@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {WebsiteService} from "../../../services/website.service.client";
 
 @Component({
@@ -14,7 +14,9 @@ export class WebsiteEditComponent implements OnInit {
   websiteId: string;
   website: any = {};
 
-  constructor(private activatedRoute: ActivatedRoute, private websiteService: WebsiteService) { }
+  constructor(private activatedRoute: ActivatedRoute,
+              private websiteService: WebsiteService,
+              private router: Router) { }
 
   ngOnInit() {
     this.activatedRoute.params
@@ -22,19 +24,34 @@ export class WebsiteEditComponent implements OnInit {
         params => {
           this.userId = params['uid'];
           this.websiteId = params['wid'];
-          this.websites = this.websiteService.findWebsitesByUser(this.userId);
 
-          this.website = this.websiteService.findWebsiteById(this.websiteId);
+          this.websiteService.findWebsitesByUser(this.userId)
+            .subscribe((websites) => {
+              this.websites = websites;
+            });
+
+          this.websiteService.findWebsiteById(this.websiteId)
+            .subscribe((website) => {
+              this.website = website;
+            });
         }
       );
   }
 
   updateWebsite(){
-    this.websiteService.updateWebsite(this.websiteId, this.website);
+    this.websiteService.updateWebsite(this.websiteId, this.website)
+      .subscribe((response) => {
+        console.log(response);
+        this.router.navigate(['/user',this.userId,'website']);
+      });
   }
 
   deleteWebsite(){
-    this.websiteService.deleteWebsite(this.websiteId);
+    this.websiteService.deleteWebsite(this.websiteId)
+      .subscribe((response) => {
+        console.log(response);
+        this.router.navigate(['/user',this.userId,'website']);
+      });
   }
 
 }

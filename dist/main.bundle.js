@@ -941,7 +941,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/website/website-edit/website-edit.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top nav-background\">\n  <div class=\"container-fluid remove-padding\">\n\n    <div class=\"col-sm-4 hidden-xs\">\n      <!--chevron-->\n      <p class=\"navbar-text pull-left\">\n        <a [routerLink]=\"['/user',userId,'website']\" class=\"navbar-link\">\n          <span class=\"glyphicon glyphicon-chevron-left nav-foreground\"></span>\n        </a>\n      </p>\n\n      <!--heading on the nav bar-->\n      <p class=\"navbar-header pull-left\">\n        <a class=\"navbar-brand thick\">\n          <b class=\"nav-foreground\">Websites</b>\n        </a>\n      </p>\n\n      <!--plus-->\n      <p class=\"navbar-text pull-right\">\n        <a [routerLink]=\"['/user',userId,'website','new']\" class=\"navbar-link\">\n          <span class=\"glyphicon glyphicon-plus nav-foreground\"></span>\n        </a>\n      </p>\n    </div>\n\n    <div class=\"col-sm-8 col-xs-12\">\n\n      <!--chevron-->\n      <p class=\"navbar-text pull-left visible-xs\">\n        <a [routerLink]=\"['/user',userId,'website']\" class=\"navbar-link\">\n          <span class=\"glyphicon glyphicon-chevron-left nav-foreground\"></span>\n        </a>\n      </p>\n\n      <!--heading on the nav bar-->\n      <p class=\"navbar-header pull-left\">\n        <a class=\"navbar-brand thick remove-padding-left\">\n          <b class=\"nav-foreground\">Edit Website</b>\n        </a>\n      </p>\n\n      <!--tick-->\n      <p class=\"navbar-text pull-right\">\n        <a [routerLink]=\"['/user',userId,'website']\" class=\"navbar-link\">\n          <span class=\"glyphicon glyphicon-ok nav-foreground\"></span>\n        </a>\n      </p>\n    </div>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid page-margin\">\n  <div class=\"row\">\n    <div class=\"col-sm-4 hidden-xs\">\n      <ul>\n        <li *ngFor=\"let website of websites\">\n          <div class=\"row website-list-item\">\n            <div class=\"col-xs-10\">\n              <a [routerLink]=\"['/user', userId, 'website', website._id, 'page']\">\n                <span>{{website.name}}</span>\n              </a>\n            </div>\n            <div class=\"col-xs-2\">\n              <a [routerLink]=\"['/user', userId, 'website', website._id]\">\n                <span class=\"glyphicon glyphicon-cog\"></span>\n              </a>\n            </div>\n          </div>\n        </li>\n      </ul>\n    </div>\n\n    <div class=\"col-sm-8 col-xs-12\">\n      <form>\n\n        <div class=\"form-group\">\n          <label for=\"name\">Website Name</label>\n          <input [(ngModel)]='website.name' name =\"name\"\n                 class=\"form-control\" id=\"name\" placeholder=\"Website Name\" type=\"text\">\n        </div>\n\n        <div class=\"form-group\">\n          <label for=\"description\">Website Description</label>\n          <textarea [(ngModel)]='website.description' name =\"description\"\n                    class=\"form-control\" id=\"description\" placeholder=\"Description\" rows=\"5\"></textarea>\n        </div>\n\n        <div>\n          <button class=\"btn btn-danger btn-block\" [routerLink]=\"['/user',userId,'website']\" (click)=\"deleteWebsite()\">Delete</button>\n        </div>\n\n      </form>\n    </div>\n  </div>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom nav-background\">\n  <div class=\"container-fluid\">\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user', userId]\">\n        <span class=\"glyphicon glyphicon-user nav-foreground\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n"
+module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top nav-background\">\n  <div class=\"container-fluid remove-padding\">\n\n    <div class=\"col-sm-4 hidden-xs\">\n      <!--chevron-->\n      <p class=\"navbar-text pull-left\">\n        <a [routerLink]=\"['/user',userId,'website']\" class=\"navbar-link\">\n          <span class=\"glyphicon glyphicon-chevron-left nav-foreground\"></span>\n        </a>\n      </p>\n\n      <!--heading on the nav bar-->\n      <p class=\"navbar-header pull-left\">\n        <a class=\"navbar-brand thick\">\n          <b class=\"nav-foreground\">Websites</b>\n        </a>\n      </p>\n\n      <!--plus-->\n      <p class=\"navbar-text pull-right\">\n        <a [routerLink]=\"['/user',userId,'website','new']\" class=\"navbar-link\">\n          <span class=\"glyphicon glyphicon-plus nav-foreground\"></span>\n        </a>\n      </p>\n    </div>\n\n    <div class=\"col-sm-8 col-xs-12\">\n\n      <!--chevron-->\n      <p class=\"navbar-text pull-left visible-xs\">\n        <a [routerLink]=\"['/user',userId,'website']\" class=\"navbar-link\">\n          <span class=\"glyphicon glyphicon-chevron-left nav-foreground\"></span>\n        </a>\n      </p>\n\n      <!--heading on the nav bar-->\n      <p class=\"navbar-header pull-left\">\n        <a class=\"navbar-brand thick remove-padding-left\">\n          <b class=\"nav-foreground\">Edit Website</b>\n        </a>\n      </p>\n\n      <!--tick-->\n      <p class=\"navbar-text pull-right\">\n        <a class=\"navbar-link\" (click)=\"updateWebsite()\">\n          <span class=\"glyphicon glyphicon-ok nav-foreground\"></span>\n        </a>\n      </p>\n    </div>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid page-margin\">\n  <div class=\"row\">\n    <div class=\"col-sm-4 hidden-xs\">\n      <ul>\n        <li *ngFor=\"let website of websites\">\n          <div class=\"row website-list-item\">\n            <div class=\"col-xs-10\">\n              <a [routerLink]=\"['/user', userId, 'website', website._id, 'page']\">\n                <span>{{website.name}}</span>\n              </a>\n            </div>\n            <div class=\"col-xs-2\">\n              <a [routerLink]=\"['/user', userId, 'website', website._id]\">\n                <span class=\"glyphicon glyphicon-cog\"></span>\n              </a>\n            </div>\n          </div>\n        </li>\n      </ul>\n    </div>\n\n    <div class=\"col-sm-8 col-xs-12\">\n      <form>\n\n        <div class=\"form-group\">\n          <label for=\"name\">Website Name</label>\n          <input [(ngModel)]='website.name' name =\"name\"\n                 class=\"form-control\" id=\"name\" placeholder=\"Website Name\" type=\"text\">\n        </div>\n\n        <div class=\"form-group\">\n          <label for=\"description\">Website Description</label>\n          <textarea [(ngModel)]='website.description' name =\"description\"\n                    class=\"form-control\" id=\"description\" placeholder=\"Description\" rows=\"5\"></textarea>\n        </div>\n\n        <div>\n          <button class=\"btn btn-danger btn-block\" (click)=\"deleteWebsite()\">Delete</button>\n        </div>\n\n      </form>\n    </div>\n  </div>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom nav-background\">\n  <div class=\"container-fluid\">\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user', userId]\">\n        <span class=\"glyphicon glyphicon-user nav-foreground\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -966,9 +966,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var WebsiteEditComponent = (function () {
-    function WebsiteEditComponent(activatedRoute, websiteService) {
+    function WebsiteEditComponent(activatedRoute, websiteService, router) {
         this.activatedRoute = activatedRoute;
         this.websiteService = websiteService;
+        this.router = router;
         this.website = {};
     }
     WebsiteEditComponent.prototype.ngOnInit = function () {
@@ -977,15 +978,31 @@ var WebsiteEditComponent = (function () {
             .subscribe(function (params) {
             _this.userId = params['uid'];
             _this.websiteId = params['wid'];
-            _this.websites = _this.websiteService.findWebsitesByUser(_this.userId);
-            _this.website = _this.websiteService.findWebsiteById(_this.websiteId);
+            _this.websiteService.findWebsitesByUser(_this.userId)
+                .subscribe(function (websites) {
+                _this.websites = websites;
+            });
+            _this.websiteService.findWebsiteById(_this.websiteId)
+                .subscribe(function (website) {
+                _this.website = website;
+            });
         });
     };
     WebsiteEditComponent.prototype.updateWebsite = function () {
-        this.websiteService.updateWebsite(this.websiteId, this.website);
+        var _this = this;
+        this.websiteService.updateWebsite(this.websiteId, this.website)
+            .subscribe(function (response) {
+            console.log(response);
+            _this.router.navigate(['/user', _this.userId, 'website']);
+        });
     };
     WebsiteEditComponent.prototype.deleteWebsite = function () {
-        this.websiteService.deleteWebsite(this.websiteId);
+        var _this = this;
+        this.websiteService.deleteWebsite(this.websiteId)
+            .subscribe(function (response) {
+            console.log(response);
+            _this.router.navigate(['/user', _this.userId, 'website']);
+        });
     };
     return WebsiteEditComponent;
 }());
@@ -995,10 +1012,10 @@ WebsiteEditComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/website/website-edit/website-edit.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/website/website-edit/website-edit.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_website_service_client__["a" /* WebsiteService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_website_service_client__["a" /* WebsiteService */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_website_service_client__["a" /* WebsiteService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_website_service_client__["a" /* WebsiteService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _c || Object])
 ], WebsiteEditComponent);
 
-var _a, _b;
+var _a, _b, _c;
 //# sourceMappingURL=website-edit.component.js.map
 
 /***/ }),
@@ -1058,8 +1075,11 @@ var WebsiteListComponent = (function () {
         this.activatedRoute.params
             .subscribe(function (params) {
             _this.userId = params['uid'];
-            _this.websites = _this.websiteService.findWebsitesByUser(_this.userId);
-            console.log(_this.websites);
+            _this.websiteService.findWebsitesByUser(_this.userId)
+                .subscribe(function (websites) {
+                _this.websites = websites;
+                console.log(_this.websites);
+            });
         });
     };
     return WebsiteListComponent;
@@ -1099,7 +1119,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/website/website-new/website-new.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top nav-background\">\n  <div class=\"container-fluid remove-padding\">\n\n    <div class=\"col-sm-4 hidden-xs\">\n      <!--chevron-->\n      <p class=\"navbar-text pull-left\">\n        <a [routerLink]=\"['/user',userId,'website']\" class=\"navbar-link\">\n          <span class=\"glyphicon glyphicon-chevron-left nav-foreground\"></span>\n        </a>\n      </p>\n\n      <!--heading on the nav bar-->\n      <p class=\"navbar-header pull-left\">\n        <a class=\"navbar-brand thick\">\n          <b class=\"nav-foreground\">Websites</b>\n        </a>\n      </p>\n\n      <!--plus-->\n      <p class=\"navbar-text pull-right\">\n        <a [routerLink]=\"['/user',userId,'website','new']\" class=\"navbar-link\">\n          <span class=\"glyphicon glyphicon-plus nav-foreground\"></span>\n        </a>\n      </p>\n    </div>\n\n    <div class=\"col-sm-8 col-xs-12\">\n\n      <!--chevron-->\n      <p class=\"navbar-text pull-left visible-xs\">\n        <a [routerLink]=\"['/user',userId,'website']\" class=\"navbar-link\">\n          <span class=\"glyphicon glyphicon-chevron-left nav-foreground\"></span>\n        </a>\n      </p>\n\n      <!--heading on the nav bar-->\n      <p class=\"navbar-header pull-left\">\n        <a class=\"navbar-brand thick remove-padding-left\">\n          <b class=\"nav-foreground\">New Website</b>\n        </a>\n      </p>\n\n      <!--tick-->\n      <p class=\"navbar-text pull-right\">\n        <a class=\"navbar-link\" (click)=\"createWebsite()\" [routerLink]=\"['/user',userId,'website']\">\n          <span class=\"glyphicon glyphicon-ok nav-foreground\"></span>\n        </a>\n      </p>\n    </div>\n\n  </div>\n</nav>\n\n\n<div class=\"container page-margin\">\n  <div class=\"row\">\n    <div class=\"col-sm-4 hidden-xs\">\n      <ul>\n        <li *ngFor=\"let website of websites\">\n          <div class=\"row website-list-item\">\n            <div class=\"col-xs-10\">\n              <a [routerLink]=\"['/user', userId, 'website', website._id, 'page']\">\n                <span>{{website.name}}</span>\n              </a>\n            </div>\n            <div class=\"col-xs-2\">\n              <a [routerLink]=\"['/user', userId, 'website', website._id]\">\n                <span class=\"glyphicon glyphicon-cog\"></span>\n              </a>\n            </div>\n          </div>\n        </li>\n      </ul>\n    </div>\n\n    <div class=\"col-sm-8 col-xs-12 scroll-vertical\">\n      <form>\n\n        <div class=\"form-group\">\n          <label for=\"name\">Name</label>\n          <input class=\"form-control\" id=\"name\" placeholder=\"Name\" type=\"text\" name=\"w_name\" [(ngModel)]='name'>\n        </div>\n\n        <div class=\"form-group\">\n          <label for=\"description\">Description</label>\n          <textarea class=\"form-control\" id=\"description\" placeholder=\"Description\" rows=\"5\" name=\"w_descr\" [(ngModel)]='description'></textarea>\n        </div>\n\n      </form>\n    </div>\n  </div>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom nav-background\">\n  <div class=\"container-fluid\">\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user',userId]\">\n        <span class=\"glyphicon glyphicon-user nav-foreground\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n"
+module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top nav-background\">\n  <div class=\"container-fluid remove-padding\">\n\n    <div class=\"col-sm-4 hidden-xs\">\n      <!--chevron-->\n      <p class=\"navbar-text pull-left\">\n        <a [routerLink]=\"['/user',userId,'website']\" class=\"navbar-link\">\n          <span class=\"glyphicon glyphicon-chevron-left nav-foreground\"></span>\n        </a>\n      </p>\n\n      <!--heading on the nav bar-->\n      <p class=\"navbar-header pull-left\">\n        <a class=\"navbar-brand thick\">\n          <b class=\"nav-foreground\">Websites</b>\n        </a>\n      </p>\n\n      <!--plus-->\n      <p class=\"navbar-text pull-right\">\n        <a [routerLink]=\"['/user',userId,'website','new']\" class=\"navbar-link\">\n          <span class=\"glyphicon glyphicon-plus nav-foreground\"></span>\n        </a>\n      </p>\n    </div>\n\n    <div class=\"col-sm-8 col-xs-12\">\n\n      <!--chevron-->\n      <p class=\"navbar-text pull-left visible-xs\">\n        <a [routerLink]=\"['/user',userId,'website']\" class=\"navbar-link\">\n          <span class=\"glyphicon glyphicon-chevron-left nav-foreground\"></span>\n        </a>\n      </p>\n\n      <!--heading on the nav bar-->\n      <p class=\"navbar-header pull-left\">\n        <a class=\"navbar-brand thick remove-padding-left\">\n          <b class=\"nav-foreground\">New Website</b>\n        </a>\n      </p>\n\n      <!--tick-->\n      <p class=\"navbar-text pull-right\">\n        <a class=\"navbar-link\" (click)=\"createWebsite()\">\n          <span class=\"glyphicon glyphicon-ok nav-foreground\"></span>\n        </a>\n      </p>\n    </div>\n\n  </div>\n</nav>\n\n\n<div class=\"container page-margin\">\n  <div class=\"row\">\n    <div class=\"col-sm-4 hidden-xs\">\n      <ul>\n        <li *ngFor=\"let website of websites\">\n          <div class=\"row website-list-item\">\n            <div class=\"col-xs-10\">\n              <a [routerLink]=\"['/user', userId, 'website', website._id, 'page']\">\n                <span>{{website.name}}</span>\n              </a>\n            </div>\n            <div class=\"col-xs-2\">\n              <a [routerLink]=\"['/user', userId, 'website', website._id]\">\n                <span class=\"glyphicon glyphicon-cog\"></span>\n              </a>\n            </div>\n          </div>\n        </li>\n      </ul>\n    </div>\n\n    <div class=\"col-sm-8 col-xs-12 scroll-vertical\">\n      <form>\n\n        <div class=\"form-group\">\n          <label for=\"name\">Name</label>\n          <input class=\"form-control\" id=\"name\" placeholder=\"Name\" type=\"text\" name=\"w_name\" [(ngModel)]='name'>\n        </div>\n\n        <div class=\"form-group\">\n          <label for=\"description\">Description</label>\n          <textarea class=\"form-control\" id=\"description\" placeholder=\"Description\" rows=\"5\" name=\"w_descr\" [(ngModel)]='description'></textarea>\n        </div>\n\n      </form>\n    </div>\n  </div>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom nav-background\">\n  <div class=\"container-fluid\">\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user',userId]\">\n        <span class=\"glyphicon glyphicon-user nav-foreground\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -1123,10 +1143,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var WebsiteNewComponent = (function () {
-    function WebsiteNewComponent(websiteService, activatedRoute) {
+    function WebsiteNewComponent(websiteService, activatedRoute, router) {
         this.websiteService = websiteService;
         this.activatedRoute = activatedRoute;
+        this.router = router;
         this.name = "";
         this.description = "";
     }
@@ -1135,11 +1157,18 @@ var WebsiteNewComponent = (function () {
         this.activatedRoute.params
             .subscribe(function (params) {
             _this.userId = params['uid'];
-            _this.websites = _this.websiteService.findWebsitesByUser(_this.userId);
+            _this.websiteService.findWebsitesByUser(_this.userId)
+                .subscribe(function (websites) {
+                _this.websites = websites;
+            });
         });
     };
     WebsiteNewComponent.prototype.createWebsite = function () {
-        this.websiteService.createWebsite(this.userId, { 'name': this.name, 'description': this.description });
+        var _this = this;
+        this.websiteService.createWebsite(this.userId, { 'name': this.name, 'description': this.description })
+            .subscribe(function (website) {
+            _this.router.navigate(['/user', _this.userId, 'website']);
+        });
     };
     return WebsiteNewComponent;
 }());
@@ -1149,10 +1178,10 @@ WebsiteNewComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/website/website-new/website-new.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/website/website-new/website-new.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_website_service_client__["a" /* WebsiteService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_website_service_client__["a" /* WebsiteService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* ActivatedRoute */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_website_service_client__["a" /* WebsiteService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_website_service_client__["a" /* WebsiteService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* Router */]) === "function" && _c || Object])
 ], WebsiteNewComponent);
 
-var _a, _b;
+var _a, _b, _c;
 //# sourceMappingURL=website-new.component.js.map
 
 /***/ }),
@@ -1770,7 +1799,7 @@ var TestService = (function () {
 }());
 TestService = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Http */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object])
 ], TestService);
 
 var _a;
@@ -1818,8 +1847,8 @@ var UserService = (function () {
         });
     };
     UserService.prototype.findUserByUsername = function (username) {
-        var requestOptions = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* RequestOptions */]();
-        var params = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* URLSearchParams */]();
+        var requestOptions = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* RequestOptions */]();
+        var params = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* URLSearchParams */]();
         params.set("username", username);
         requestOptions.params = params;
         return this.http.get(this.baseURL, requestOptions).map(function (response) {
@@ -1827,8 +1856,8 @@ var UserService = (function () {
         });
     };
     UserService.prototype.findUserByCredentials = function (username, password) {
-        var requestOptions = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* RequestOptions */]();
-        var params = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* URLSearchParams */]();
+        var requestOptions = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["c" /* RequestOptions */]();
+        var params = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* URLSearchParams */]();
         params.set("username", username);
         params.set("password", password);
         requestOptions.params = params;
@@ -1850,7 +1879,7 @@ var UserService = (function () {
 }());
 UserService = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* Http */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object])
 ], UserService);
 
 var _a;
@@ -1863,6 +1892,9 @@ var _a;
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/@angular/http.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__("../../../../rxjs/Rx.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WebsiteService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1870,50 +1902,54 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 /**
  * Created by kamat on 10/9/2017.
  */
 
+
+
 var WebsiteService = (function () {
-    function WebsiteService() {
-        this.websites = [
-            { "_id": "123", "name": "Facebook", "developerId": "456", "description": "Lorem" },
-            { "_id": "234", "name": "Tweeter", "developerId": "456", "description": "Lorem" },
-            { "_id": "456", "name": "Gizmodo", "developerId": "456", "description": "Lorem" },
-            { "_id": "890", "name": "Go", "developerId": "123", "description": "Lorem" },
-            { "_id": "567", "name": "Tic Tac Toe", "developerId": "123", "description": "Lorem" },
-            { "_id": "678", "name": "Checkers", "developerId": "123", "description": "Lorem" },
-            { "_id": "789", "name": "Chess", "developerId": "234", "description": "Lorem" }
-        ];
+    function WebsiteService(http) {
+        this.http = http;
+        this.baseUserURL = 'http://localhost:3100/api/user';
+        this.baseWebsiteURL = 'http://localhost:3100/api/website';
     }
     WebsiteService.prototype.createWebsite = function (userId, website) {
-        website["developerId"] = userId;
-        this.websites.push(website);
+        return this.http.post(this.baseUserURL + "/" + userId + "/website", website).map(function (response) {
+            return response.json();
+        });
     };
     WebsiteService.prototype.findWebsitesByUser = function (userId) {
-        return this.websites.filter(function (website) { return website.developerId == userId; });
+        return this.http.get(this.baseUserURL + "/" + userId + "/website").map(function (response) {
+            return response.json();
+        });
     };
     WebsiteService.prototype.findWebsiteById = function (websiteId) {
-        return this.websites.find(function (website) { return website._id == websiteId; });
+        return this.http.get(this.baseWebsiteURL + "/" + websiteId).map(function (response) {
+            return response.json();
+        });
     };
     WebsiteService.prototype.updateWebsite = function (websiteId, website) {
-        var wId = this.websites.findIndex(function (w) { return w._id == websiteId; });
-        if (wId != -1) {
-            this.websites[wId] = website;
-        }
+        return this.http.put(this.baseWebsiteURL + "/" + websiteId, website).map(function (response) {
+            return response.json();
+        });
     };
     WebsiteService.prototype.deleteWebsite = function (websiteId) {
-        var wId = this.websites.findIndex(function (w) { return w._id == websiteId; });
-        if (wId != -1) {
-            this.websites.splice(wId, 1);
-        }
+        return this.http.delete(this.baseWebsiteURL + "/" + websiteId).map(function (response) {
+            return response.json();
+        });
     };
     return WebsiteService;
 }());
 WebsiteService = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])()
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])(),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object])
 ], WebsiteService);
 
+var _a;
 //# sourceMappingURL=website.service.client.js.map
 
 /***/ }),
