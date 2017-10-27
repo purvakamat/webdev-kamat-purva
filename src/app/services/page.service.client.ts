@@ -4,6 +4,7 @@
 import { Injectable } from '@angular/core';
 import {Http, Response} from '@angular/http';
 import 'rxjs/Rx';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class PageService {
@@ -12,8 +13,8 @@ export class PageService {
   baseWebsiteURL: string;
 
   constructor(private http: Http){
-    this.basePageURL = 'http://localhost:3100/api/page';
-    this.baseWebsiteURL = 'http://localhost:3100/api/website';
+    this.basePageURL = environment.baseUrl + '/api/page';
+    this.baseWebsiteURL = environment.baseUrl + '/api/website';
   }
 
   createPage(websiteId : string, page : any){

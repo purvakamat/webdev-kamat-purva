@@ -4,6 +4,7 @@
 import { Injectable } from '@angular/core';
 import {Http, Response} from '@angular/http';
 import 'rxjs/Rx';
+import {environment} from "../../environments/environment";
 
 @Injectable()
 export class WidgetService {
@@ -12,8 +13,8 @@ export class WidgetService {
   baseWidgetURL: string;
 
   constructor(private http: Http){
-    this.basePageURL = 'http://localhost:3100/api/page';
-    this.baseWidgetURL = 'http://localhost:3100/api/widget';
+    this.basePageURL = environment.baseUrl + '/api/page';
+    this.baseWidgetURL = environment.baseUrl + '/api/widget';
   }
 
   createWidget(pageId : string, widget : any){

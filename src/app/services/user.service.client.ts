@@ -4,6 +4,7 @@
 import { Injectable } from '@angular/core';
 import {Http, Response, RequestOptions, URLSearchParams} from '@angular/http';
 import 'rxjs/Rx';
+import {environment} from "../../environments/environment";
 
 @Injectable()
 export class UserService{
@@ -11,7 +12,7 @@ export class UserService{
   baseURL : string;
 
   constructor(private http: Http){
-    this.baseURL = 'http://localhost:3100/api/user';
+    this.baseURL = environment.baseUrl + '/api/user';
   }
 
   createUser(user : any){
