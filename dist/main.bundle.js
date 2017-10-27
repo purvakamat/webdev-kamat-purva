@@ -1280,7 +1280,7 @@ var WidgetChooserComponent = (function () {
     };
     WidgetChooserComponent.prototype.createWidget = function (widgetType) {
         var _this = this;
-        this.widgetService.createWidget(this.pageId, { "_id": "0", "widgetType": widgetType })
+        this.widgetService.createWidget(this.pageId, { "widgetType": widgetType, "name": "", "text": "" })
             .subscribe(function (widget) {
             var widgetId = widget._id;
             _this.route.navigate(['/user', _this.userId, 'website', _this.websiteId, 'page', _this.pageId, 'widget', widgetId]);
@@ -1443,6 +1443,7 @@ var WidgetHeaderComponent = (function () {
             _this.widgetId = params['wgid'];
             _this.widgetService.findWidgetById(_this.widgetId)
                 .subscribe(function (widget) {
+                console.log(widget);
                 _this.widget = widget;
             });
         });
@@ -1539,6 +1540,7 @@ var WidgetImageComponent = (function () {
             _this.widgetId = params['wgid'];
             _this.widgetService.findWidgetById(_this.widgetId)
                 .subscribe(function (widget) {
+                console.log(widget);
                 _this.widget = widget;
             });
         });
