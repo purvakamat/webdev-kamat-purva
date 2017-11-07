@@ -10,14 +10,15 @@ module.exports = function (app) {
   app.put("/api/user/:userId", updateUser);
   app.delete("/api/user/:userId", deleteUser);
 
-  var mockdata = require("./mock.data");
-  var users = mockdata.users;
+  //var mockdata = require("./mock.data");
+  //var users = mockdata.users;
+  var userModel = require("../model/user/user.model.server");
 
   function createUser(req, res) {
     var user = req.body;
-    user._id = (new Date()).getTime() + "";
-    users.push(user);
-    res.json(user);
+    userModel.createUser(user).then(function (user) {
+      res.json(user);
+    });
   }
 
   function findUser(req, res) {
@@ -25,59 +26,51 @@ module.exports = function (app) {
     var password = req.query['password'];
     var user = null;
     if(username != undefined && password != undefined)
-      user = findUserByCredentials(username, password);
+      userModel.findUserByCredentials(username, password).then(function (user) {
+        if(user)
+          res.json(user);
+        else
+          res.status(404).send("No user");
+      });
     else if(username != undefined)
-      user = findUserByUsername(username);
-
-    if(user)
-      res.json(user);
-    else
-      res.status(404).send("No user");
+      userModel.findUserByUsername(username).then(function (user) {
+        if(user)
+          res.json(user);
+        else
+          res.status(404).send("No user");
+      });
   }
 
   function findUserById(req, res) {
     var userId = req.params['userId'];
-    var user = findUserbyID(userId);
-    if(user)
-      res.json(user);
-    else
-      res.status(404).send("No user");
+    userModel.findUserById(userId).then(function (user) {
+      if(user)
+        res.json(user);
+      else
+        res.status(404).send("No user");
+    });
   }
 
   function updateUser(req, res) {
     var userId = req.params['userId'];
     var userNew = req.body;
 
-    let uIndex = users.findIndex(u => u._id == userId);
-    if(uIndex != -1){
-      users[uIndex] = userNew;
-      res.json("User updated");
-    }
-    else
-      res.status(404).send("User cannot be updated");
+    userModel.updateUser(userId, userNew).then(function (response) {
+      if(response.modifiedCount == 1)
+        res.json("User updated");
+      else
+        res.status(404).send("User cannot be updated");
+    });
   }
 
   function deleteUser(req, res) {
     var userId = req.params['userId'];
 
-    let uIndex = users.findIndex(u => u._id == userId);
-    if(uIndex != -1){
-      users.splice(uIndex, 1);
-      res.json("User deleted");
-    }
-    else
-      res.status(404).send("User cannot be deleted");
-  }
-
-  function findUserbyID(userId) {
-    return users.find(user => user._id == userId);
-  }
-
-  function findUserByUsername(username) {
-    return users.find(user => user.username == username);
-  }
-
-  function findUserByCredentials(username, password){
-    return users.find(user => user.username == username && user.password == password);
+    userModel.deleteUser(userId).then(function (response) {
+      if(response.deletedCount == 1)
+        res.json("User deleted");
+      else
+        res.status(404).send("User cannot be deleted");
+    });
   }
 }

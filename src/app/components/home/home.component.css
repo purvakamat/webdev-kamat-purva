@@ -11,3 +11,8 @@ td, th {
 tr:nth-child(even) {
   background-color: #dddddd;
 }
+
+.align-right{
+  width: 100%;
+  text-align: right;
+}
