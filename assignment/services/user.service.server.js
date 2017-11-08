@@ -10,8 +10,6 @@ module.exports = function (app) {
   app.put("/api/user/:userId", updateUser);
   app.delete("/api/user/:userId", deleteUser);
 
-  //var mockdata = require("./mock.data");
-  //var users = mockdata.users;
   var userModel = require("../model/user/user.model.server");
 
   function createUser(req, res) {
@@ -56,10 +54,10 @@ module.exports = function (app) {
     var userNew = req.body;
 
     userModel.updateUser(userId, userNew).then(function (response) {
-      if(response.modifiedCount == 1)
+      if(response.n >0 || response.nModified > 0)
         res.json("User updated");
       else
-        res.status(404).send("User cannot be updated");
+        res.status(404).send("User was not updated");
     });
   }
 

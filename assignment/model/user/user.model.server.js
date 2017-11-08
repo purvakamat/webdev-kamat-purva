@@ -16,6 +16,7 @@ UserModel.deleteUser = deleteUser;
 module.exports = UserModel;
 
 function createUser(user) {
+  user.dateCreated = new Timestamp();
   return UserModel.create(user);
 }
 

@@ -9,55 +9,53 @@ module.exports = function (app) {
   app.put("/api/website/:websiteId", updateWebsite);
   app.delete("/api/website/:websiteId", deleteWebsite);
 
-  var mockdata = require("./mock.data");
-  var websites = mockdata.websites;
+  var websiteModel = require("../model/website/website.model.server");
 
   function createWebsite(req, res) {
     var userId = req.params['userId'];
     var website = req.body;
-    website["developerId"] = userId;
-    website._id = (new Date()).getTime() + "";
-    websites.push(website);
-    res.json(website);
+    websiteModel.createWebsiteForUser(userId, website).then(function (website) {
+      res.json(website);
+    });
   }
 
   function findAllWebsitesForUser(req, res) {
     var userId = req.params['userId'];
-    var websitesForUser = websites.filter(website => website.developerId == userId);
-    res.json(websitesForUser);
+    websiteModel.findAllWebsitesForUser(userId).then(function (websitesForUser) {
+      res.json(websitesForUser);
+    });
   }
 
   function findWebsiteById(req, res) {
     var websiteId = req.params['websiteId'];
-    var website = websites.find(website => website._id == websiteId);
-    if(website)
-      res.json(website);
-    else
-      res.status(404).send("No website with given id.");
+    websiteModel.findWebsiteById(websiteId).then(function (website) {
+      if(website)
+        res.json(website);
+      else
+        res.status(404).send("No website with given id.");
+    });
   }
 
   function updateWebsite(req, res) {
     var websiteId = req.params['websiteId'];
     var websiteNew = req.body;
 
-    let wIndex = websites.findIndex(w => w._id == websiteId);
-    if(wIndex != -1){
-      websites[wIndex] = websiteNew;
-      res.json("Website updated");
-    }
-    else
-      res.status(404).send("Website cannot be updated");
+    websiteModel.updateWebsite(websiteId, websiteNew).then(function (response) {
+      if(response.n >0 || response.nModified > 0)
+        res.json("Website updated");
+      else
+        res.status(404).send("Website was not updated");
+    });
   }
 
   function deleteWebsite(req, res) {
     var websiteId = req.params['websiteId'];
 
-    let wIndex = websites.findIndex(w => w._id == websiteId);
-    if(wIndex != -1){
-      websites.splice(wIndex, 1);
-      res.json("Website deleted");
-    }
-    else
-      res.status(404).send("Website cannot be deleted");
+    websiteModel.deleteWebsite(websiteId).then(function (response) {
+      if(response.deletedCount > 0)
+        res.json("Website deleted");
+      else
+        res.status(404).send("Website cannot be deleted");
+    });
   }
 };
