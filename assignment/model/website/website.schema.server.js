@@ -8,7 +8,7 @@ var WebsiteSchema = mongoose.Schema({
   name: String,
   description: String,
   pages: [{type: mongoose.Schema.Types.ObjectId, ref: 'Page'}],
-  dateCreated: Date
+  dateCreated: { type: Date, default: Date.now },
 }, {collection: 'Websites'});
 
 module.exports = WebsiteSchema;

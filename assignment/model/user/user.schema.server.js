@@ -11,7 +11,7 @@ var UserSchema = mongoose.Schema({
   email: String,
   phone: String,
   websites: [{type: mongoose.Schema.Types.ObjectId, ref: 'Website'}],
-  dateCreated: Date
+  dateCreated: { type: Date, default: Date.now }
 }, {collection: 'Users'});
 
 module.exports = UserSchema;

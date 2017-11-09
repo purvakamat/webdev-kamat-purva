@@ -7,9 +7,6 @@ module.exports = function (app) {
   var multer = require('multer'); // npm install multer --save
   var upload = multer({ dest: __dirname + '/../../public/uploads' });
 
-  var mockdata = require("./mock.data");
-  var widgets = mockdata.widgets;
-
   app.post("/api/page/:pageId/widget", createWidget);
   app.get("/api/page/:pageId/widget", findAllWidgetsForPage);
   app.get("/api/widget/:widgetId", findWidgetById);
@@ -18,60 +15,61 @@ module.exports = function (app) {
   app.put("/api/page/:pageId/widget", reorderWidgets);
   app.post("/api/upload", upload.single('myFile'), uploadImage);
 
+  var widgetModel = require("../model/widget/widget.model.server");
+
   function createWidget(req, res) {
     var pageId = req.params['pageId'];
     var widget = req.body;
-    widget["pageId"] = pageId;
-    widget._id = (new Date()).getTime() + "";
-    widgets.push(widget);
-    res.json(widget);
+    widgetModel.createWidget(pageId, widget).then(function (widget) {
+      res.json(widget);
+    });
   }
 
   function findAllWidgetsForPage(req, res) {
     var pageId = req.params['pageId'];
-    var widgetsForPage = widgets.filter(widget => widget.pageId == pageId);
-    res.json(widgetsForPage);
+    widgetModel.findAllWidgetsForPage(pageId).then(function (widgetsForPage) {
+      res.json(widgetsForPage);
+    });
   }
 
   function findWidgetById(req, res) {
     var widgetId = req.params['widgetId'];
-    var widget = widgets.find(widget => widget._id == widgetId);
-    if(widget)
-      res.json(widget);
-    else
-      res.status(404).send("No widget with given id.");
+    widgetModel.findWidgetById(widgetId).then(function (widget) {
+      if(widget)
+        res.json(widget);
+      else
+        res.status(404).send("No widget with given id.");
+    });
   }
 
   function updateWidget(req, res) {
     var widgetId = req.params['widgetId'];
     var widgetNew = req.body;
 
-    let wIndex = widgets.findIndex(w => w._id == widgetId);
-    if(wIndex != -1){
-      widgets[wIndex] = widgetNew;
-      res.json("Widget updated");
-    }
-    else
-      res.status(404).send("Widget cannot be updated");
+    widgetModel.updateWidget(widgetId, widgetNew).then(function (response) {
+      if(response.n >0 || response.nModified > 0)
+        res.json("Widget updated");
+      else
+        res.status(404).send("Widget was not updated");
+    });
   }
 
   function deleteWidget(req, res) {
     var widgetId = req.params['widgetId'];
 
-    let wIndex = widgets.findIndex(w => w._id == widgetId);
-    if(wIndex != -1){
-      widgets.splice(wIndex, 1);
-      res.json("Widget deleted");
-    }
-    else
-      res.status(404).send("Widget cannot be deleted");
+    widgetModel.deleteWidget(widgetId).then(function (response) {
+      if(response.deletedCount > 0)
+        res.json("Widget deleted");
+      else
+        res.status(404).send("Widget cannot be deleted");
+    });
   }
 
   function reorderWidgets(){
     var pageId = req.params['pageId'];
     var iIndex = req.query['initial'];
     var fIndex = req.query['final'];
-    var widgetsForPage = widgets.filter(widget => widget.pageId == pageId);
+    /*var widgetsForPage = widgets.filter(widget => widget.pageId == pageId);
 
     if(iIndex < widgetsForPage.length && fIndex < widgetsForPage.length){
       var insertWidget = widgetsForPage[iIndex];
@@ -83,7 +81,7 @@ module.exports = function (app) {
       res.json(widgetsForPage);
     }
     else
-      res.status(404).send("Widgets cannot be re-ordered.");
+      res.status(404).send("Widgets cannot be re-ordered.");*/
   }
 
   function uploadImage(req, res) {
@@ -102,11 +100,11 @@ module.exports = function (app) {
     var size          = myFile.size;
     var mimetype      = myFile.mimetype;
 
-    let wId = widgets.findIndex(widget => widget._id == widgetId);
+    /*let wId = widgets.findIndex(widget => widget._id == widgetId);
     widgets[wId]['width'] = width;
     widgets[wId]['url'] = '/uploads/' + filename;
 
     var callbackUrl   = "/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId;
-    res.redirect(callbackUrl);
+    res.redirect(callbackUrl);*/
   }
 };
