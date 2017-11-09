@@ -101,6 +101,21 @@
           </div>
         </div>
 
+        <!--html widget-->
+        <div *ngSwitchCase="'HTML'">
+          <div class="row">
+            <div class="widget-list-item">
+              <div ng-bind-html="widget.text"></div>
+              <div class = "widget-list-toolbar">
+                <a [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget', widget._id]">
+                  <span class="glyphicon glyphicon-cog"></span>
+                </a>
+                <span class = "glyphicon glyphicon glyphicon-align-justify"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </li>
 
