@@ -116,6 +116,46 @@
           </div>
         </div>
 
+        <!--text widget-->
+        <div *ngSwitchCase="'TEXT'">
+          <div class="row" *ngIf="widget.formatted">
+            <div class="widget-list-item">
+              <quill-editor [(ngModel)]="widget.text" name="text"></quill-editor>
+              <div class = "widget-list-toolbar">
+                <a [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget', widget._id]">
+                  <span class="glyphicon glyphicon-cog"></span>
+                </a>
+                <span class = "glyphicon glyphicon glyphicon-align-justify"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="!widget.formatted && (!widget.rows || widget.rows===1)">
+            <div class="widget-list-item">
+              <input placeholder="{{widget.placeholder}}" class="form-control"/>
+              <div class = "widget-list-toolbar">
+                <a [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget', widget._id]">
+                  <span class="glyphicon glyphicon-cog"></span>
+                </a>
+                <span class = "glyphicon glyphicon glyphicon-align-justify"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="!widget.formatted && (widget.rows > 1)">
+            <div class="widget-list-item">
+              <textarea rows="{{widget.rows}}" placeholder="{{widget.placeholder}}"
+                        class="form-control">{{widget.text}}</textarea>
+              <div class = "widget-list-toolbar">
+                <a [routerLink]="['/user', userId, 'website', websiteId, 'page', pageId, 'widget', widget._id]">
+                  <span class="glyphicon glyphicon-cog"></span>
+                </a>
+                <span class = "glyphicon glyphicon glyphicon-align-justify"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </li>
 

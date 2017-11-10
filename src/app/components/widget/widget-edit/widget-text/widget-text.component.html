@@ -29,18 +29,41 @@
 
 <div class="container-fluid page-margin">
   <div>
-
     <form>
 
-      <div class="form-group">
-        <label for="widgetname">Name</label>
+      Text
+      <input name="text" [(ngModel)]="widget.text" class="form-control"/>
+
+      Rows
+      <input name="rows" [(ngModel)]="widget.rows" class="form-control" type="number"/>
+
+      <label for="Name">Name</label>
+      <div>
         <input [(ngModel)]="widget.name"
-               name="wname"
+               type="text"
                class="form-control"
-               id="widgetname"
-               placeholder="Widget Name"
-               type="text">
+               id="Name"
+               name="name"
+               placeholder="Name">
       </div>
+
+      Placeholder
+      <input name="placeholder"
+             [(ngModel)]="widget.placeholder"
+             class="form-control" required/>
+      <p></p>
+      <div class="input-group">
+        <input type="text"
+               readonly
+               value="Formatted"
+               class="form-control"/>
+        <span class="input-group-addon">
+          <input name="formatted"
+                 [(ngModel)]="widget.formatted"
+                 type="checkbox"/>
+        </span>
+      </div>
+      <p></p>
 
 
       <div>
@@ -50,12 +73,6 @@
       </div>
 
     </form>
-
-    <div class="row">
-      <div>
-        <quill-editor [(ngModel)]="widget.text" name="text"></quill-editor>
-      </div>
-    </div>
   </div>
 </div>
 
