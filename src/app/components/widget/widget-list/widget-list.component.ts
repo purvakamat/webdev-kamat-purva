@@ -27,7 +27,6 @@ export class WidgetListComponent implements OnInit {
 
           this.widgetService.findWidgetsByPageId(this.pageId)
             .subscribe((widgets) => {
-              console.log(widgets);
               this.widgets = widgets;
             });
         }
@@ -37,7 +36,6 @@ export class WidgetListComponent implements OnInit {
   embedURL(url: string){
     var urlSegments = url.split("/");
     var embeddedUrl = "https://www.youtube.com/embed/" + urlSegments.pop();
-    console.log(embeddedUrl );
     return this.sanitizer.bypassSecurityTrustResourceUrl(embeddedUrl);
   }
 

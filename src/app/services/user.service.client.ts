@@ -5,24 +5,97 @@ import { Injectable } from '@angular/core';
 import {Http, Response, RequestOptions, URLSearchParams} from '@angular/http';
 import 'rxjs/Rx';
 import {environment} from "../../environments/environment";
+import {SharedService} from "./shared.service";
+import {Router} from '@angular/router';
 
 @Injectable()
 export class UserService{
 
   baseURL : string;
 
-  constructor(private http: Http){
-    this.baseURL = environment.baseUrl + '/api/user';
+  constructor(private http: Http,
+              private sharedService: SharedService,
+              private router: Router ){
+    this.baseURL = environment.baseUrl;
+  }
+
+  login(username: String, password: String) {
+
+    let requestOptions = new RequestOptions();
+    requestOptions.withCredentials = false; // jga
+
+    const body = {
+      username : username,
+      password : password
+    };
+
+    return this.http.post(this.baseURL + '/api/login', body, requestOptions)
+      .map(
+        (res: Response) => {
+          const data = res.json();
+          console.log(data);
+          return data;
+        }
+      );
+  }
+
+  logout() {
+    let requestOptions = new RequestOptions();
+    requestOptions.withCredentials = true;
+    return this.http.post(this.baseURL + '/api/logout', '', requestOptions)
+      .map(
+        (res: Response) => {
+          const data = res;
+        }
+      );
+  }
+
+  register(username: String, password: String) {
+
+    let requestOptions = new RequestOptions();
+    requestOptions.withCredentials = true;
+    const user = {
+      username : username,
+      password : password
+    };
+
+    return this.http.post(this.baseURL + '/api/register', user, requestOptions)
+      .map(
+        (res: Response) => {
+          console.log(res.json())
+          const data = res.json();
+          return data;
+        }
+      );
+  }
+
+  loggedIn() {
+    let requestOptions = new RequestOptions();
+    requestOptions.withCredentials = true;
+    return this.http.get(this.baseURL + '/api/loggedin', requestOptions)
+      .map(
+        (res: Response) => {
+          console.log(res.json());
+          const user = res.json();
+          if (user !== 0) {
+            this.sharedService.user = user; // setting user so as to share with all components
+            return true;
+          } else {
+            this.router.navigate(['/login']);
+            return false;
+          }
+        }
+      );
   }
 
   createUser(user : any){
-    return this.http.post(this.baseURL, user).map((response: Response) => {
+    return this.http.post(this.baseURL + '/api/user', user).map((response: Response) => {
       return response.json();
     });
   }
 
   findUserById(userId : string){
-    return this.http.get(this.baseURL + "/" + userId).map((response: Response) => {
+    return this.http.get(this.baseURL+ '/api/user' + "/" + userId).map((response: Response) => {
       return response.json();
     });
   }
@@ -32,7 +105,7 @@ export class UserService{
     let params = new URLSearchParams();
     params.set("username", username);
     requestOptions.params = params;
-    return this.http.get(this.baseURL,requestOptions).map((response: Response) => {
+    return this.http.get(this.baseURL+ '/api/user',requestOptions).map((response: Response) => {
       return response.json();
     });
   }
@@ -43,19 +116,20 @@ export class UserService{
     params.set("username", username);
     params.set("password", password);
     requestOptions.params = params;
-    return this.http.get(this.baseURL,requestOptions).map((response: Response) => {
+    requestOptions.withCredentials = true;
+    return this.http.get(this.baseURL+ '/api/user',requestOptions).map((response: Response) => {
       return response.json();
     });
   }
 
   updateUser(userId : string, user : any){
-    return this.http.put(this.baseURL + "/" + userId, user).map((response: Response) => {
+    return this.http.put(this.baseURL + '/api/user/' + userId, user).map((response: Response) => {
       return response.json();
     });
   }
 
   deleteUser(userId : string){
-    return this.http.delete(this.baseURL + "/" + userId).map((response: Response) => {
+    return this.http.delete(this.baseURL+ '/api/user/' + userId).map((response: Response) => {
       return response.json();
     });
   }

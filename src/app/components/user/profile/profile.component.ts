@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from "../../../services/user.service.client";
-import {ActivatedRoute} from '@angular/router';
+import {Router} from '@angular/router';
+import {SharedService} from "../../../services/shared.service";
 
 @Component({
   selector: 'app-profile',
@@ -16,32 +17,22 @@ export class ProfileComponent implements OnInit {
   firstName: string = "";
   lastName: string = "";
 
-  constructor(private userService: UserService, private activatedRoute: ActivatedRoute) { }
+  constructor(private userService: UserService,
+              private router: Router, private sharedService: SharedService) { }
 
   ngOnInit() {
-    this.activatedRoute.params
-      .subscribe(
-        params => {
-          this.userId = params['uid'];
+    this.user = this.sharedService.user;
+    this.userId = this.user['_id'];
+    this.username = this.user['username'];
 
-          this.userService.findUserById(this.userId).subscribe((user) => {
-            this.user = user;
-            this.username = this.user['username'];
+    if(this.user['email'])
+      this.email = this.user['email'];
 
-            if(this.user['email'])
-              this.email = this.user['email'];
+    if(this.user['firstName'])
+      this.firstName = this.user['firstName'];
 
-            if(this.user['firstName'])
-              this.firstName = this.user['firstName'];
-
-            if(this.user['lastName'])
-              this.lastName = this.user['lastName'];
-          },
-          (error) => {
-            console.log("User not found");
-          });
-        }
-      );
+    if(this.user['lastName'])
+      this.lastName = this.user['lastName'];
   }
 
   updateUser(){
@@ -50,7 +41,15 @@ export class ProfileComponent implements OnInit {
     this.user['firstName'] = this.firstName;
     this.user['lastName'] = this.lastName;
     this.userService.updateUser(this.userId, this.user).subscribe((response)=>{
-      console.log(response);
+      // successfully updated
     });
   }
+
+  logout() {
+    this.userService.logout()
+      .subscribe(
+        (data: any) => this.router.navigate(['/login'])
+      );
+  }
+
 }

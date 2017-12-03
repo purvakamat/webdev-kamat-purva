@@ -38,7 +38,6 @@ export class WidgetYoutubeComponent implements OnInit {
   updateWidget(){
     this.widgetService.updateWidget(this.widgetId, this.widget)
       .subscribe((response) => {
-        console.log(response);
         this.router.navigate(['/user',this.userId,'website',this.websiteId,'page',this.pageId,'widget']);
       });
   }

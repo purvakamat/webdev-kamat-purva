@@ -8,7 +8,7 @@ var uri;
 if(process.env.NODE_ENV == "prod")
   uri = process.env.MONGODB_URI;
 else
-  uri = 'mongodb://localhost/cs5610';
+  uri = 'mongodb://localhost:27017/cs5610';
 
 var db = mongoose.connect(uri,{useMongoClient : true});
 module.exports = db;

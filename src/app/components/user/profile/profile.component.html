@@ -11,7 +11,7 @@
 
     <!--tick mark-->
     <p class="navbar-text pull-right">
-      <a [routerLink]="['/user/',userId]" class="navbar-link" (click) = "updateUser()">
+      <a [routerLink]="['/user']" class="navbar-link" (click) = "updateUser()">
         <span class="glyphicon glyphicon-ok nav-foreground"></span>
       </a>
     </p>
@@ -49,7 +49,7 @@
     <button class="btn btn-primary btn-block"
             [routerLink]="['/user',userId,'website']">Websites</button>
     <button class="btn btn-danger btn-block"
-            [routerLink]="['/login']" >Logout</button>
+            (click) = "logout()" >Logout</button>
 
   </form>
 
@@ -59,7 +59,7 @@
 <nav class="navbar navbar-default navbar-fixed-bottom nav-background">
   <div class="container-fluid">
     <p class="navbar-text pull-right">
-      <a [routerLink]="['/user/',userId]">
+      <a [routerLink]="['/user']">
         <span class="glyphicon glyphicon-user nav-foreground"></span>
       </a>
     </p>

@@ -30,7 +30,6 @@ export class WidgetTextComponent implements OnInit {
 
           this.widgetService.findWidgetById(this.widgetId)
             .subscribe((widget) => {
-              console.log(widget);
               this.widget = widget;
             });
         }
@@ -40,7 +39,6 @@ export class WidgetTextComponent implements OnInit {
   updateWidget(){
     this.widgetService.updateWidget(this.widgetId, this.widget)
       .subscribe((response) => {
-        console.log(response);
         this.router.navigate(['/user',this.userId,'website',this.websiteId,'page',this.pageId,'widget']);
       });
   }
