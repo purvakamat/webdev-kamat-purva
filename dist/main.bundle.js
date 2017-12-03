@@ -331,7 +331,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/page/page-edit/page-edit.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--chevron-->\n    <p class=\"navbar-text pull-left\">\n      <a [routerLink]=\"['/user',userId, 'website', websiteId, 'page']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-chevron-left nav-default-align\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b class=\"nav-default-align\">Edit Page</b>\n      </a>\n    </p>\n\n    <!--tick-->\n    <p class=\"navbar-text pull-right\">\n      <a class=\"navbar-link\" (click)=\"updatePage()\">\n        <span class=\"glyphicon glyphicon-ok nav-default-align\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid page-margin\">\n  <div class=\"scroll-vertical\">\n    <form>\n\n      <div class=\"form-group\">\n        <label for=\"name\">Name</label>\n        <input class=\"form-control\" id=\"name\" placeholder=\"Page Name\" required type=\"text\" name=\"p_name\" [(ngModel)]='page.name'>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"descr\">Description</label>\n        <input class=\"form-control\" id=\"descr\" placeholder=\"Page Description\" type=\"text\" name=\"p_descr\" [(ngModel)]='page.description'>\n      </div>\n\n      <div>\n        <button class=\"btn btn-danger btn-block\" (click)=\"deletePage()\">Delete</button>\n      </div>\n\n    </form>\n  </div>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user']\">\n        <span class=\"glyphicon glyphicon-user nav-default-align\"></span>\n      </a>\n    </p>\n  </div>\n</nav>\n"
+module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--chevron-->\n    <p class=\"navbar-text pull-left\">\n      <a [routerLink]=\"['/user', 'website', websiteId, 'page']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-chevron-left nav-default-align\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b class=\"nav-default-align\">Edit Page</b>\n      </a>\n    </p>\n\n    <!--tick-->\n    <p class=\"navbar-text pull-right\">\n      <a class=\"navbar-link\" (click)=\"updatePage()\">\n        <span class=\"glyphicon glyphicon-ok nav-default-align\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid page-margin\">\n  <div class=\"scroll-vertical\">\n    <form>\n\n      <div class=\"form-group\">\n        <label for=\"name\">Name</label>\n        <input class=\"form-control\" id=\"name\" placeholder=\"Page Name\" required type=\"text\" name=\"p_name\" [(ngModel)]='page.name'>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"descr\">Description</label>\n        <input class=\"form-control\" id=\"descr\" placeholder=\"Page Description\" type=\"text\" name=\"p_descr\" [(ngModel)]='page.description'>\n      </div>\n\n      <div>\n        <button class=\"btn btn-danger btn-block\" (click)=\"deletePage()\">Delete</button>\n      </div>\n\n    </form>\n  </div>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user']\">\n        <span class=\"glyphicon glyphicon-user nav-default-align\"></span>\n      </a>\n    </p>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -366,7 +366,6 @@ var PageEditComponent = (function () {
         var _this = this;
         this.activatedRoute.params
             .subscribe(function (params) {
-            _this.userId = params['uid'];
             _this.websiteId = params['wid'];
             _this.pageId = params['pid'];
             _this.pageService.findPagesByWebsiteId(_this.websiteId)
@@ -383,14 +382,14 @@ var PageEditComponent = (function () {
         var _this = this;
         this.pageService.updatePage(this.pageId, this.page)
             .subscribe(function (response) {
-            _this.router.navigate(['/user', _this.userId, 'website', _this.websiteId, 'page']);
+            _this.router.navigate(['/user', 'website', _this.websiteId, 'page']);
         });
     };
     PageEditComponent.prototype.deletePage = function () {
         var _this = this;
         this.pageService.deletePage(this.pageId)
             .subscribe(function (response) {
-            _this.router.navigate(['/user', _this.userId, 'website', _this.websiteId, 'page']);
+            _this.router.navigate(['/user', 'website', _this.websiteId, 'page']);
         });
     };
     return PageEditComponent;
@@ -430,7 +429,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/page/page-list/page-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--chevron-->\n    <p class=\"navbar-text pull-left\">\n      <a [routerLink]=\"['/user', userId, 'website']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-chevron-left nav-default-align\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b class=\"nav-default-align\">Pages</b>\n      </a>\n    </p>\n\n    <!--plus-->\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user', userId, 'website', websiteId, 'page', 'new']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-plus nav-default-align\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container page-margin\">\n  <ul>\n    <li *ngFor=\"let page of pages\">\n      <div class=\"row website-list-item\">\n        <div class=\"col-xs-10\">\n          <a [routerLink]=\"['/user', userId, 'website', websiteId, 'page', page._id, 'widget']\">\n            <span>{{page.name}}</span>\n          </a>\n        </div>\n        <div class=\"col-xs-2\">\n          <a [routerLink]=\"['/user', userId, 'website', websiteId, 'page', page._id]\">\n            <span class=\"glyphicon glyphicon-cog\"></span>\n          </a>\n        </div>\n      </div>\n    </li>\n  </ul>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user']\">\n        <span class=\"glyphicon glyphicon-user nav-default-align\"></span>\n      </a>\n    </p>\n  </div>\n</nav>\n"
+module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--chevron-->\n    <p class=\"navbar-text pull-left\">\n      <a [routerLink]=\"['/user', 'website']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-chevron-left nav-default-align\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b class=\"nav-default-align\">Pages</b>\n      </a>\n    </p>\n\n    <!--plus-->\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user', 'website', websiteId, 'page', 'new']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-plus nav-default-align\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container page-margin\">\n  <ul>\n    <li *ngFor=\"let page of pages\">\n      <div class=\"row website-list-item\">\n        <div class=\"col-xs-10\">\n          <a [routerLink]=\"['/user', 'website', websiteId, 'page', page._id, 'widget']\">\n            <span>{{page.name}}</span>\n          </a>\n        </div>\n        <div class=\"col-xs-2\">\n          <a [routerLink]=\"['/user', 'website', websiteId, 'page', page._id]\">\n            <span class=\"glyphicon glyphicon-cog\"></span>\n          </a>\n        </div>\n      </div>\n    </li>\n  </ul>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user']\">\n        <span class=\"glyphicon glyphicon-user nav-default-align\"></span>\n      </a>\n    </p>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -463,7 +462,6 @@ var PageListComponent = (function () {
         var _this = this;
         this.activatedRoute.params
             .subscribe(function (params) {
-            _this.userId = params['uid'];
             _this.websiteId = params['wid'];
             _this.pageService.findPagesByWebsiteId(_this.websiteId)
                 .subscribe(function (pages) {
@@ -508,7 +506,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/page/page-new/page-new.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--chevron-->\n    <p class=\"navbar-text pull-left\">\n      <a [routerLink]=\"['/user', userId, 'website', websiteId, 'page']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-chevron-left nav-default-align\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b class=\"nav-default-align\">New Page</b>\n      </a>\n    </p>\n\n    <!--tick-->\n    <p class=\"navbar-text pull-right\">\n      <a class=\"navbar-link\" (click)=\"createPage()\" >\n        <span class=\"glyphicon glyphicon-ok nav-default-align\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid page-margin\">\n  <div class=\"scroll-vertical\">\n    <form>\n\n      <div class=\"form-group\">\n        <label for=\"name\">Name</label>\n        <input class=\"form-control\" id=\"name\" placeholder=\"Page Name\" type=\"text\" name=\"p_name\" required [(ngModel)]='name'>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"description\">Description</label>\n        <input class=\"form-control\" id=\"description\" placeholder=\"Page Description\" type=\"text\" name=\"p_descr\" [(ngModel)]='description'>\n      </div>\n\n    </form>\n  </div>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user']\">\n        <span class=\"glyphicon glyphicon-user nav-default-align\"></span>\n      </a>\n    </p>\n  </div>\n</nav>\n"
+module.exports = "<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--chevron-->\n    <p class=\"navbar-text pull-left\">\n      <a [routerLink]=\"['/user', 'website', websiteId, 'page']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-chevron-left nav-default-align\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b class=\"nav-default-align\">New Page</b>\n      </a>\n    </p>\n\n    <!--tick-->\n    <p class=\"navbar-text pull-right\">\n      <a class=\"navbar-link\" (click)=\"createPage()\" >\n        <span class=\"glyphicon glyphicon-ok nav-default-align\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid page-margin\">\n  <div class=\"scroll-vertical\">\n    <form>\n\n      <div class=\"form-group\">\n        <label for=\"name\">Name</label>\n        <input class=\"form-control\" id=\"name\" placeholder=\"Page Name\" type=\"text\" name=\"p_name\" required [(ngModel)]='name'>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"description\">Description</label>\n        <input class=\"form-control\" id=\"description\" placeholder=\"Page Description\" type=\"text\" name=\"p_descr\" [(ngModel)]='description'>\n      </div>\n\n    </form>\n  </div>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user']\">\n        <span class=\"glyphicon glyphicon-user nav-default-align\"></span>\n      </a>\n    </p>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -545,7 +543,6 @@ var PageNewComponent = (function () {
         var _this = this;
         this.activatedRoute.params
             .subscribe(function (params) {
-            _this.userId = params['uid'];
             _this.websiteId = params['wid'];
             _this.pageService.findPagesByWebsiteId(_this.websiteId)
                 .subscribe(function (pages) {
@@ -557,7 +554,7 @@ var PageNewComponent = (function () {
         var _this = this;
         this.pageService.createPage(this.websiteId, { 'name': this.name, 'description': this.description })
             .subscribe(function (page) {
-            _this.router.navigate(['/user', _this.userId, 'website', _this.websiteId, 'page']);
+            _this.router.navigate(['/user', 'website', _this.websiteId, 'page']);
         });
     };
     return PageNewComponent;

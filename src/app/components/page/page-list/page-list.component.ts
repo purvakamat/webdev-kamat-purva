@@ -9,7 +9,6 @@ import {PageService} from "../../../services/page.service.client";
 })
 export class PageListComponent implements OnInit {
 
-  userId: string;
   websiteId: string;
   pages: any[];
 
@@ -19,7 +18,6 @@ export class PageListComponent implements OnInit {
     this.activatedRoute.params
       .subscribe(
         params => {
-          this.userId = params['uid'];
           this.websiteId = params['wid'];
 
           this.pageService.findPagesByWebsiteId(this.websiteId)

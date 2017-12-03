@@ -10,7 +10,6 @@ import {Router} from '@angular/router';
 })
 export class PageNewComponent implements OnInit {
 
-  userId: string;
   websiteId: string;
   name: string = "";
   description: string = "";
@@ -24,7 +23,6 @@ export class PageNewComponent implements OnInit {
     this.activatedRoute.params
       .subscribe(
         params => {
-          this.userId = params['uid'];
           this.websiteId = params['wid'];
 
           this.pageService.findPagesByWebsiteId(this.websiteId)
@@ -38,7 +36,7 @@ export class PageNewComponent implements OnInit {
   createPage(){
     this.pageService.createPage(this.websiteId, {'name': this.name, 'description':this.description})
       .subscribe((page) => {
-        this.router.navigate(['/user', this.userId, 'website', this.websiteId, 'page']);
+        this.router.navigate(['/user', 'website', this.websiteId, 'page']);
       });
   }
 }

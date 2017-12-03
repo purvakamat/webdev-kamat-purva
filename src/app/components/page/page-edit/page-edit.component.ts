@@ -9,7 +9,6 @@ import {PageService} from "../../../services/page.service.client";
 })
 export class PageEditComponent implements OnInit {
 
-  userId: string;
   websiteId: string;
   pageId: string;
   pages: any[];
@@ -23,7 +22,6 @@ export class PageEditComponent implements OnInit {
     this.activatedRoute.params
       .subscribe(
         params => {
-          this.userId = params['uid'];
           this.websiteId = params['wid'];
           this.pageId = params['pid'];
 
@@ -43,14 +41,14 @@ export class PageEditComponent implements OnInit {
   updatePage(){
     this.pageService.updatePage(this.pageId,this.page)
       .subscribe((response) => {
-        this.router.navigate(['/user',this.userId, 'website', this.websiteId, 'page']);
+        this.router.navigate(['/user', 'website', this.websiteId, 'page']);
       });
   }
 
   deletePage(){
     this.pageService.deletePage(this.pageId)
       .subscribe((response) => {
-        this.router.navigate(['/user', this.userId, 'website', this.websiteId, 'page']);
+        this.router.navigate(['/user', 'website', this.websiteId, 'page']);
       });
   }
 
