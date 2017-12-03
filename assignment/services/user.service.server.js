@@ -7,8 +7,15 @@ module.exports = function (app) {
   var userModel = require("../model/user/user.model.server");
   var passport = require('passport');
   var LocalStrategy = require('passport-local').Strategy;
+  var FacebookStrategy = require('passport-facebook').Strategy;
   var bcrypt = require('bcrypt-nodejs');
   var auth = authorized;
+
+  var facebookConfig = {
+    clientID     : process.env.FACEBOOK_CLIENT_ID,
+    clientSecret : process.env.FACEBOOK_CLIENT_SECRET,
+    callbackURL  : process.env.FACEBOOK_CALLBACK_URL
+  };
 
   app.post("/api/user", auth, createUser);
   app.post("/api/login", passport.authenticate('local'), login);
@@ -19,8 +26,15 @@ module.exports = function (app) {
   app.get("/api/user/:userId", findUserById);
   app.put("/api/user/:userId", auth, updateUser);
   app.delete("/api/user/:userId", auth, deleteUser);
+  app.get("/facebook/login", passport.authenticate('facebook', { scope : 'email' }));
+  app.get('/auth/facebook/callback',
+    passport.authenticate('facebook', {
+      successRedirect: '/#/profile',
+      failureRedirect: '/#/login'
+    }));
 
   passport.use(new LocalStrategy(localStrategy));
+  passport.use(new FacebookStrategy(facebookConfig, facebookStrategy));
   passport.serializeUser(serializeUser);
   passport.deserializeUser(deserializeUser);
 
@@ -160,4 +174,40 @@ module.exports = function (app) {
         res.status(404).send("User cannot be deleted");
     });
   }
+
+  function facebookStrategy(token, refreshToken, profile, done) {
+    userModel
+      .findUserByFacebookId(profile.id)
+      .then(
+        function(user) {
+          if(user) {
+            return done(null, user);
+          } else {
+            var names = profile.displayName.split(" ");
+            var newFacebookUser = {
+              lastName:  names[1],
+              firstName: names[0],
+              email:     profile.emails ? profile.emails[0].value:"",
+              facebook: {
+                id:    profile.id,
+                token: token
+              }
+            };
+            return userModel.createUser(newFacebookUser);
+          }
+        },
+        function(err) {
+          if (err) { return done(err); }
+        }
+      )
+      .then(
+        function(user){
+          return done(null, user);
+        },
+        function(err){
+          if (err) { return done(err); }
+        }
+      );
+  }
+
 }
