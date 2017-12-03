@@ -33,7 +33,6 @@ export class UserService{
       .map(
         (res: Response) => {
           const data = res.json();
-          console.log(data);
           return data;
         }
       );
@@ -62,7 +61,6 @@ export class UserService{
     return this.http.post(this.baseURL + '/api/register', user, requestOptions)
       .map(
         (res: Response) => {
-          console.log(res.json())
           const data = res.json();
           return data;
         }
@@ -75,7 +73,6 @@ export class UserService{
     return this.http.get(this.baseURL + '/api/loggedin', requestOptions)
       .map(
         (res: Response) => {
-          console.log(res.json());
           const user = res.json();
           if (user !== 0) {
             this.sharedService.user = user; // setting user so as to share with all components
