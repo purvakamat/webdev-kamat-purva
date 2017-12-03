@@ -15,7 +15,7 @@
            autofocus
            #username="ngModel"/>
     <span class="help-block" *ngIf="!username.valid && username.touched">
-      Please enter username!
+      Please enter a username
     </span>
 
     <input placeholder="password"
@@ -26,7 +26,7 @@
            required
            #password="ngModel"/>
     <span class="help-block" *ngIf="!password.valid && password.touched">
-      Please enter password!
+      Please enter a password
     </span>
 
     <input placeholder="verify password"
@@ -37,7 +37,7 @@
            required
            #verifypassword="ngModel"/>
     <span class="help-block" *ngIf="!verifypassword.valid && verifypassword.touched">
-      Please re-enter password!
+      Please re-enter the password
     </span>
 
     <button class="btn btn-primary btn-block"

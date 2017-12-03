@@ -14,7 +14,7 @@
            autofocus
            #username="ngModel"/>
     <span class="help-block" *ngIf="!username.valid && username.touched">
-      Please enter username!
+      Please enter the username
     </span>
 
 
@@ -27,7 +27,7 @@
            autofocus
            #password="ngModel"/>
     <span class="help-block" *ngIf="!password.valid && password.touched">
-      Please enter password!
+      Please enter the password
     </span>
 
     <button class="btn btn-primary btn-block" type="submit" [disabled] = "!f.valid">Login</button>

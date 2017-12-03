@@ -41,6 +41,9 @@
                placeholder="Widget Name"
                required
                type="text">
+        <span class="help-block" *ngIf="!wname.valid && wname.touched">
+            Please enter a name for the widget
+        </span>
       </div>
 
 

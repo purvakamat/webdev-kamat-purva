@@ -35,6 +35,9 @@
         <label for="widgetname">Name</label>
         <input [(ngModel)]="widget.name" name="wname"
                class="form-control" id="widgetname" placeholder="Widget Name" required type="text">
+        <span class="help-block" *ngIf="!wname.valid && wname.touched">
+            Please enter a name for the widget
+        </span>
       </div>
 
       <div class="form-group">

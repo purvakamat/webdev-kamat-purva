@@ -33,6 +33,9 @@
       <div class="form-group">
         <label for="name">Name</label>
         <input class="form-control" id="name" placeholder="Page Name" type="text" name="p_name" required [(ngModel)]='name'>
+        <span class="help-block" *ngIf="!name.valid && name.touched">
+          Please enter a name for the page.
+        </span>
       </div>
 
       <div class="form-group">
