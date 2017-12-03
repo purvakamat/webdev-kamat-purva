@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {WidgetService} from "../../../services/widget.service.client";
+import {SharedService} from "../../../services/shared.service";
 
 @Component({
   selector: 'app-widget-edit',
@@ -15,13 +16,15 @@ export class WidgetEditComponent implements OnInit {
   widgetId: string;
   widget: any;
 
-  constructor(private widgetService: WidgetService,private activatedRoute: ActivatedRoute) { }
+  constructor(private widgetService: WidgetService,
+              private activatedRoute: ActivatedRoute,
+              private sharedService: SharedService) { }
 
   ngOnInit() {
     this.activatedRoute.params
       .subscribe(
         params => {
-          this.userId = params['uid'];
+          this.userId = this.sharedService.user['_id'];
           this.websiteId = params['wid'];
           this.pageId = params['pid'];
           this.widgetId = params['wgid'];

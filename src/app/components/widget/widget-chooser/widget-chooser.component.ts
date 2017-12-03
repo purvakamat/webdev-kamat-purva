@@ -22,7 +22,6 @@ export class WidgetChooserComponent implements OnInit {
     this.activatedRoute.params
       .subscribe(
         params => {
-          this.userId = params['uid'];
           this.websiteId = params['wid'];
           this.pageId = params['pid'];
 
@@ -38,7 +37,7 @@ export class WidgetChooserComponent implements OnInit {
     this.widgetService.createWidget(this.pageId, {"type" : type, "name": "", "text": ""})
       .subscribe((widget) => {
         var widgetId = widget._id;
-        this.route.navigate(['/user', this.userId, 'website', this.websiteId, 'page', this.pageId, 'widget', widgetId]);
+        this.route.navigate(['/user', 'website', this.websiteId, 'page', this.pageId, 'widget', widgetId]);
       });
   }
 }

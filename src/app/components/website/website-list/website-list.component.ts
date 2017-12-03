@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
 import {WebsiteService} from "../../../services/website.service.client";
+import {SharedService} from "../../../services/shared.service";
 
 @Component({
   selector: 'app-website-list',
@@ -12,19 +12,13 @@ export class WebsiteListComponent implements OnInit {
   userId: string;
   websites: any[];
 
-  constructor(private activatedRoute: ActivatedRoute, private websiteService: WebsiteService) { }
+  constructor(private sharedService: SharedService, private websiteService: WebsiteService) { }
 
   ngOnInit() {
-    this.activatedRoute.params
-      .subscribe(
-        params => {
-          this.userId = params['uid'];
-
-          this.websiteService.findWebsitesByUser(this.userId)
-            .subscribe((websites) => {
-              this.websites = websites;
-            });
-        }
-      );
+    this.userId = this.sharedService.user['_id'];
+    this.websiteService.findWebsitesByUser(this.userId)
+      .subscribe((websites) => {
+        this.websites = websites;
+      });
   }
 }

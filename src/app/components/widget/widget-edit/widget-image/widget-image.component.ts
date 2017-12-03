@@ -10,7 +10,6 @@ import {environment} from "../../../../../environments/environment";
 })
 export class WidgetImageComponent implements OnInit {
 
-  userId: string;
   websiteId: string;
   pageId: string;
   widgetId: string;
@@ -27,7 +26,6 @@ export class WidgetImageComponent implements OnInit {
     this.activatedRoute.params
       .subscribe(
         params => {
-          this.userId = params['uid'];
           this.websiteId = params['wid'];
           this.pageId = params['pid'];
           this.widgetId = params['wgid'];
@@ -43,14 +41,14 @@ export class WidgetImageComponent implements OnInit {
   updateWidget(){
     this.widgetService.updateWidget(this.widgetId, this.widget)
       .subscribe((response) => {
-        this.router.navigate(['/user',this.userId,'website',this.websiteId,'page',this.pageId,'widget']);
+        this.router.navigate(['/user','website',this.websiteId,'page',this.pageId,'widget']);
       });
   }
 
   deleteWidget(){
     this.widgetService.deleteWidget(this.widgetId)
       .subscribe((response) => {
-        this.router.navigate(['/user',this.userId,'website',this.websiteId,'page',this.pageId,'widget']);
+        this.router.navigate(['/user','website',this.websiteId,'page',this.pageId,'widget']);
       });
   }
 

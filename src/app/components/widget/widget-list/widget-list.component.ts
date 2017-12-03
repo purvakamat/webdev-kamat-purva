@@ -10,7 +10,6 @@ import {DomSanitizer, Title} from "@angular/platform-browser";
 })
 export class WidgetListComponent implements OnInit {
 
-  userId: string;
   websiteId: string;
   pageId: string;
   widgets: any[];
@@ -21,7 +20,6 @@ export class WidgetListComponent implements OnInit {
     this.activatedRoute.params
       .subscribe(
         params => {
-          this.userId = params['uid'];
           this.websiteId = params['wid'];
           this.pageId = params['pid'];
 

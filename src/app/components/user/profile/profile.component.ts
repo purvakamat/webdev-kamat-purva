@@ -18,7 +18,8 @@ export class ProfileComponent implements OnInit {
   lastName: string = "";
 
   constructor(private userService: UserService,
-              private router: Router, private sharedService: SharedService) { }
+              private router: Router,
+              private sharedService: SharedService) { }
 
   ngOnInit() {
     this.user = this.sharedService.user;
