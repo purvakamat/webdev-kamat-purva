@@ -17,7 +17,7 @@
 
     <!--tick-->
     <p class="navbar-text pull-right">
-      <a class="navbar-link" (click)="updatePage()">
+      <a class="navbar-link" (click)="updatePage()" [disabled] = "!f.valid">
         <span class="glyphicon glyphicon-ok nav-default-align"></span>
       </a>
     </p>
@@ -28,12 +28,18 @@
 
 <div class="container-fluid page-margin">
   <div class="scroll-vertical">
-    <form>
+    <form #f="ngForm">
 
       <div class="form-group">
         <label for="name">Name</label>
-        <input class="form-control" id="name" placeholder="Page Name" required type="text" name="p_name" [(ngModel)]='page.name'>
-        <span class="help-block" *ngIf="!name.valid && name.touched">
+        <input class="form-control"
+               id="name"
+               placeholder="Page Name"
+               required
+               type="text"
+               name="p_name"
+               [(ngModel)]='page.name'>
+        <span class="help-block" *ngIf="!p_name.valid && p_name.touched">
             Please enter a name for the page
         </span>
       </div>
