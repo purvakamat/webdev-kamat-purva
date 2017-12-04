@@ -1983,7 +1983,7 @@ var AuthGuard = (function () {
         this.router = router;
     }
     AuthGuard.prototype.canActivate = function () {
-        return true || this.userService.loggedIn();
+        return this.userService.loggedIn();
     };
     return AuthGuard;
 }());
