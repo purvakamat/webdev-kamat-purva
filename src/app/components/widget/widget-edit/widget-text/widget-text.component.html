@@ -37,16 +37,17 @@
       Rows
       <input name="rows" [(ngModel)]="widget.rows" class="form-control" type="number"/>
 
-      <label for="Name">Name</label>
+      <label for="wname">Name</label>
       <div>
         <input [(ngModel)]="widget.name"
                type="text"
                class="form-control"
-               id="Name"
-               name="name"
+               id="wname"
+               name="wname"
                required
+               autofocus
                placeholder="Name">
-        <span class="help-block" *ngIf="!Name.valid && Name.touched">
+        <span class="help-block" *ngIf="!wname.valid && wname.touched">
             Please enter a name for the widget
         </span>
       </div>

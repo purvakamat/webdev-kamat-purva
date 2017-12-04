@@ -32,11 +32,15 @@
     <form>
 
       <div class="form-group">
-        <label for="widgetname">Name</label>
-        <input [(ngModel)]="widget.name" name="wname"
-               class="form-control" id="widgetname"
+        <label for="wname">Name</label>
+        <input [(ngModel)]="widget.name"
+               name="wname"
+               class="form-control"
+               id="wname"
                required
-               placeholder="Widget Name" type="text">
+               autofocus
+               placeholder="Widget Name"
+               type="text">
         <span class="help-block" *ngIf="!wname.valid && wname.touched">
             Please enter a name for the widget
         </span>

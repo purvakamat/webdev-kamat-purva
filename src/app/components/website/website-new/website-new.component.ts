@@ -30,7 +30,7 @@ export class WebsiteNewComponent implements OnInit {
   createWebsite(){
     this.websiteService.createWebsite(this.userId,{'name':this.name, 'description':this.description})
       .subscribe((website) => {
-        this.router.navigate(['/user', 'website']);
+        this.router.navigate(['/user','website']);
       });
   }
 }

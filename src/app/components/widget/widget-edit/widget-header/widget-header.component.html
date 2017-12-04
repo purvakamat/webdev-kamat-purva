@@ -32,10 +32,24 @@
     <form>
 
       <div class="form-group">
-        <label for="widgetname">Name</label>
-        <input  [(ngModel)]="widget.name" name="wname"
-                class="form-control" id="widgetname" placeholder="Widget Name" required type="text">
-        <span class="help-block" *ngIf="!widgetname.valid && widgetname.touched">
+        <label for="wname">Name</label>
+        <!--<input placeholder="password"-->
+               <!--name="password"-->
+               <!--type="password"-->
+               <!--class="form-control"-->
+               <!--ngModel-->
+               <!--required-->
+               <!--autofocus-->
+               <!--#password="ngModel"/>-->
+        <input  placeholder="Widget Name"
+                name="wname"
+                type="text"
+                class="form-control"
+                [(ngModel)]="widget.name"
+                id="wname"
+                autofocus
+                required>
+        <span class="help-block" *ngIf="!wname.valid && wname.touched">
             Please enter a name for the widget
           </span>
       </div>
