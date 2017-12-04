@@ -69,7 +69,7 @@ module.exports = function (app) {
     var pageId = req.params['pageId'];
     var iIndex = req.query['initial'];
     var fIndex = req.query['final'];
-    /*var widgetsForPage = widgets.filter(widget => widget.pageId == pageId);
+    var widgetsForPage = widgets.filter(widget => widget.pageId == pageId);
 
     if(iIndex < widgetsForPage.length && fIndex < widgetsForPage.length){
       var insertWidget = widgetsForPage[iIndex];
@@ -77,11 +77,10 @@ module.exports = function (app) {
       widgetsForPage.splice(iIndex, 1);
       var insertIndex = widgetsForPage.indexOf(inPlaceOf);
       widgetsForPage.splice(insertIndex, 0, insertWidget);
-
       res.json(widgetsForPage);
     }
     else
-      res.status(404).send("Widgets cannot be re-ordered.");*/
+      res.status(404).send("Widgets cannot be re-ordered.");
   }
 
   function uploadImage(req, res) {

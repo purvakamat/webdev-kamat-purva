@@ -46,4 +46,13 @@ export class WidgetService {
       return response.json();
     });
   }
+
+  reorderWidgets(pageId : string, widget : any, initial : number, final : number) {
+    const body = {widget: widget};
+    return this.http.put(this.basePageURL + "/" + pageId + "/widget?initial=" + initial + "&final=" + final, body)
+      .map((res: Response) => {
+          return res.json();
+        }
+      );
+  }
 }

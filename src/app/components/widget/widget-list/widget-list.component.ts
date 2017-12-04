@@ -37,4 +37,12 @@ export class WidgetListComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustResourceUrl(embeddedUrl);
   }
 
+  reorderWidgets(index) {
+    console.log('Initial and Final: ' + index['initial'] + ' ' + index['final']);
+    this.widgetService.reorderWidgets(this.pageId, this.widgets[index['initial']], index['initial'], index['final'])
+        .subscribe(
+        (widgets) => {},
+        (error) => {}
+      );
+  }
 }
