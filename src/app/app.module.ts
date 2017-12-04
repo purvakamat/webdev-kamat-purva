@@ -32,6 +32,7 @@ import { WidgetHtmlComponent } from './components/widget/widget-edit/widget-html
 import { WidgetTextComponent } from './components/widget/widget-edit/widget-text/widget-text.component';
 import {SharedService} from "./services/shared.service";
 import {AuthGuard} from "./services/auth-guard.service";
+import {SortableDirective} from "../../assignment/directives/sortable.directive";
 
 @NgModule({
   // Declare components here
@@ -55,7 +56,8 @@ import {AuthGuard} from "./services/auth-guard.service";
     WidgetImageComponent,
     WidgetYoutubeComponent,
     WidgetHtmlComponent,
-    WidgetTextComponent
+    WidgetTextComponent,
+    SortableDirective
   ],
   imports: [
     BrowserModule,
