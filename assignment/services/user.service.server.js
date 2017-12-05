@@ -12,9 +12,9 @@ module.exports = function (app) {
   var auth = authorized;
 
   var facebookConfig = {
-    clientID     : process.env.FACEBOOK_CLIENT_ID || "1747761178576265",
-    clientSecret : process.env.FACEBOOK_CLIENT_SECRET || "660f2fc52cd91d4290eb0836e5aad115",
-    callbackURL  : process.env.FACEBOOK_CALLBACK_URL || "http://localhost:3100/auth/facebook/callback"
+    clientID     : process.env.FACEBOOK_CLIENT_ID,
+    clientSecret : process.env.FACEBOOK_CLIENT_SECRET,
+    callbackURL  : process.env.FACEBOOK_CALLBACK_URL
   };
 
   app.post("/api/user", auth, createUser);
