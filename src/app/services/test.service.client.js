@@ -14,7 +14,6 @@ var TestService = (function () {
         this.baseUrl = environment_1.environment.baseUrl;
     }
     TestService.prototype.findAllMessages = function () {
-        console.log(this.baseUrl);
         return this._http.get(this.baseUrl + '/api/test')
             .map(function (res) {
             var data = res.json();

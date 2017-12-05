@@ -14,10 +14,10 @@ var WidgetSchema = mongoose.Schema({
   width: String,
   height: String,
   rows: { type: Number, default: 0 },
-  size: Number,
+  size: {Number, default: 1},
   class: String,
   icon: String,
-  deletable: Boolean,
+  deletable: {Boolean, default: true},
   formatted: { type: Boolean, default: false },
   dateCreated: { type: Date, default: Date.now }
 }, {collection: 'Widgets'});

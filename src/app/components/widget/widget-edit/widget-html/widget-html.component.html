@@ -42,11 +42,16 @@
                required
                autofocus
                type="text">
-        <span class="help-block" *ngIf="!wname.valid && wname.touched">
+        <!--<span class="help-block" *ngIf="!wname.valid && wname.touched">
             Please enter a name for the widget
-        </span>
+        </span>-->
       </div>
 
+      <div class="row">
+        <div>
+          <quill-editor [(ngModel)]="widget.text" name="text"></quill-editor>
+        </div>
+      </div>
 
       <div>
         <button class="btn btn-danger btn-block" (click)="deleteWidget()">
@@ -55,12 +60,6 @@
       </div>
 
     </form>
-
-    <div class="row">
-      <div>
-        <quill-editor [(ngModel)]="widget.text" name="text"></quill-editor>
-      </div>
-    </div>
   </div>
 </div>
 

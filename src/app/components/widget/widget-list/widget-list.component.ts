@@ -25,7 +25,6 @@ export class WidgetListComponent implements OnInit {
 
           this.widgetService.findWidgetsByPageId(this.pageId)
             .subscribe((widgets) => {
-              console.log(widgets);
               this.widgets = widgets;
             });
         }
@@ -39,7 +38,6 @@ export class WidgetListComponent implements OnInit {
   }
 
   reorderWidgets(index) {
-    console.log('Initial and Final: ' + index['initial'] + ' ' + index['final']);
     this.widgetService.reorderWidgets(this.pageId, this.widgets[index['initial']], index['initial'], index['final'])
         .subscribe(
         (widgets) => {},

@@ -41,7 +41,6 @@ module.exports = function(app)
     }
 
     function createMessage(req, res) {
-        console.log("in app");
         TestModel
             .create(req.body)
             .then(
