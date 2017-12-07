@@ -100,8 +100,8 @@ module.exports = function (app) {
     var mimetype      = myFile.mimetype;
 
     var widget = widgetModel.findWidgetById(widgetId);
-    widget['width'] = width;
-    widget['url'] = '/uploads/' + filename;
+    widget['width'] = 20;
+    widget['url'] = "assets/uploads/"+filename;
     widgetModel.updateWidget(widgetId, widget);
 
     var callbackUrl   = "/user/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId;
