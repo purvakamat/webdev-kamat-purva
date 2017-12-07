@@ -100,7 +100,7 @@ module.exports = function (app) {
     var mimetype      = myFile.mimetype;
 
     var widget = widgetModel.findWidgetById(widgetId);
-    widget.width = 20;
+    widget.width = width;
     widget.url = "assets/uploads/"+filename;
 
     widgetModel.updateWidget(widgetId, widget).then(function (response) {
