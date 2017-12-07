@@ -22,7 +22,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var SortableDirective = (function () {
     function SortableDirective(el) {
         this.el = el;
-        this.newIndexes = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["s" /* EventEmitter */](); // this will emit an event for the parent                                             component or the directive calling component
+        this.newIndexes = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["F" /* EventEmitter */](); // this will emit an event for the parent                                             component or the directive calling component
     }
     SortableDirective.prototype.ngAfterViewInit = function () {
         this.appSortable(this);
@@ -44,14 +44,14 @@ var SortableDirective = (function () {
     return SortableDirective;
 }());
 __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["v" /* Output */])(),
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_5" /* Output */])(),
     __metadata("design:type", Object)
 ], SortableDirective.prototype, "newIndexes", void 0);
 SortableDirective = __decorate([
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["j" /* Directive */])({
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["J" /* Directive */])({
         selector: '[appSortable]'
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* ElementRef */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* ElementRef */]) === "function" && _a || Object])
 ], SortableDirective);
 
 var _a;
@@ -160,6 +160,7 @@ AppComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__services_auth_guard_service__ = __webpack_require__("../../../../../src/app/services/auth-guard.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__assignment_directives_sortable_directive__ = __webpack_require__("../../../../../assignment/directives/sortable.directive.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__components_widget_widget_edit_widget_image_flickr_image_search_flickr_image_search_component__ = __webpack_require__("../../../../../src/app/components/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__services_flickr_service_client__ = __webpack_require__("../../../../../src/app/services/flickr.service.client.ts");
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -167,6 +168,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -242,7 +244,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_28_ngx_quill_editor__["a" /* QuillEditorModule */]
         ],
         // Client Side services here
-        providers: [__WEBPACK_IMPORTED_MODULE_8__services_test_service_client__["a" /* TestService */], __WEBPACK_IMPORTED_MODULE_24__services_user_service_client__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_25__services_website_service_client__["a" /* WebsiteService */], __WEBPACK_IMPORTED_MODULE_26__services_page_service_client__["a" /* PageService */], __WEBPACK_IMPORTED_MODULE_27__services_widget_service_client__["a" /* WidgetService */], __WEBPACK_IMPORTED_MODULE_31__services_shared_service__["a" /* SharedService */], __WEBPACK_IMPORTED_MODULE_32__services_auth_guard_service__["a" /* AuthGuard */]],
+        providers: [__WEBPACK_IMPORTED_MODULE_8__services_test_service_client__["a" /* TestService */], __WEBPACK_IMPORTED_MODULE_24__services_user_service_client__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_25__services_website_service_client__["a" /* WebsiteService */], __WEBPACK_IMPORTED_MODULE_26__services_page_service_client__["a" /* PageService */], __WEBPACK_IMPORTED_MODULE_27__services_widget_service_client__["a" /* WidgetService */], __WEBPACK_IMPORTED_MODULE_31__services_shared_service__["a" /* SharedService */], __WEBPACK_IMPORTED_MODULE_32__services_auth_guard_service__["a" /* AuthGuard */], __WEBPACK_IMPORTED_MODULE_35__services_flickr_service_client__["a" /* FlickrService */]],
         bootstrap: [__WEBPACK_IMPORTED_MODULE_2__app_component__["a" /* AppComponent */]]
     })
 ], AppModule);
@@ -1754,7 +1756,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".search-btn{\r\n  margin-top: 20px;\r\n  margin-bottom: 20px;\r\n}\r\n", ""]);
 
 // exports
 
@@ -1767,7 +1769,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/widget/widget-edit/widget-image/widget-image.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--chevron-->\n    <p class=\"navbar-text pull-left\">\n      <a [routerLink]=\"['/user','website',websiteId,'page',pageId,'widget']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-chevron-left nav-default-align\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b class=\"nav-default-align\">Widget Edit</b>\n      </a>\n    </p>\n\n    <!--tick-->\n    <p class=\"navbar-text pull-right\">\n      <a (click)=\"updateWidget()\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok nav-default-align\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid page-margin\">\n  <div class=\"scroll-vertical\">\n    <form>\n\n      <div class=\"form-group\">\n        <label for=\"wname\">Name</label>\n        <input [(ngModel)]=\"widget.name\"\n               name=\"wname\"\n               class=\"form-control\"\n               id=\"wname\"\n               placeholder=\"Widget Name\"\n               required\n               autofocus\n               type=\"text\">\n        <!--<span class=\"help-block\" *ngIf=\"!wname.name == ''\">\n            Please enter a name for the widget\n        </span>-->\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"text\">Text</label>\n        <input [(ngModel)]=\"widget.text\" name=\"wtext\"\n               class=\"form-control\" id=\"text\" placeholder=\"Widget Text\" type=\"text\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"width\">URL</label>\n        <input [(ngModel)]=\"widget.url\" name=\"wurl\" class=\"form-control\" id=\"url\" placeholder=\"URL\" type=\"url\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"width\">Width</label>\n        <input [(ngModel)]=\"widget.width\" name=\"wwidth\" class=\"form-control\" id=\"width\" placeholder=\"Width\" type=\"text\">\n      </div>\n\n      <div class=\"form-group\">\n        <!--<label for=\"upload\">Upload</label>\n        <input class=\"form-control\" id=\"upload\" placeholder=\"No file chosen\" type=\"file\">\n        <a class=\"btn btn-primary btn-block\" [routerLink]=\"['/user', userId, 'website', websiteId, 'page', pageId, 'widget']\">\n          Upload Image\n        </a>-->\n        <form ngNoForm action=\"{{baseUrl}}/api/upload\" method=\"post\" enctype=\"multipart/form-data\">\n          <input  name=\"myFile\"   type=\"file\" class=\"form-control\"/>\n          <input  name=\"width\" value=\"{{widget.width}}\"   style=\"display: none\"/>\n          <input  name=\"widgetId\" value=\"{{widgetId}}\"   style=\"display: none\"/>\n          <input  name=\"websiteId\" value=\"{{websiteId}}\"   style=\"display: none\"/>\n          <input  name=\"pageId\" value=\"{{pageId}}\"   style=\"display: none\"/>\n          <input  name=\"userId\" value=\"{{userId}}\"   style=\"display: none\"/>\n          <button type=\"submit\" class=\"btn btn-block btn-primary\">Upload Image</button>\n          <br/>\n        </form>\n      </div>\n\n      <div>\n        <button class=\"btn btn-primary btn-block\" (click)=\"searchFlickr()\">\n          Delete\n        </button>\n      </div>\n\n      <div>\n        <button class=\"btn btn-danger btn-block\" (click)=\"deleteWidget()\">\n          Delete\n        </button>\n      </div>\n\n    </form>\n  </div>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user']\">\n        <span class=\"glyphicon glyphicon-user nav-default-align\"></span>\n      </a>\n    </p>\n  </div>\n</nav>\n"
+module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--chevron-->\n    <p class=\"navbar-text pull-left\">\n      <a [routerLink]=\"['/user','website',websiteId,'page',pageId,'widget']\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-chevron-left nav-default-align\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b class=\"nav-default-align\">Widget Edit</b>\n      </a>\n    </p>\n\n    <!--tick-->\n    <p class=\"navbar-text pull-right\">\n      <a (click)=\"updateWidget()\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-ok nav-default-align\"></span>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid page-margin\">\n  <div class=\"scroll-vertical\">\n    <form>\n\n      <div class=\"form-group\">\n        <label for=\"wname\">Name</label>\n        <input [(ngModel)]=\"widget.name\"\n               name=\"wname\"\n               class=\"form-control\"\n               id=\"wname\"\n               placeholder=\"Widget Name\"\n               required\n               autofocus\n               type=\"text\">\n        <!--<span class=\"help-block\" *ngIf=\"!wname.name == ''\">\n            Please enter a name for the widget\n        </span>-->\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"text\">Text</label>\n        <input [(ngModel)]=\"widget.text\" name=\"wtext\"\n               class=\"form-control\" id=\"text\" placeholder=\"Widget Text\" type=\"text\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"width\">URL</label>\n        <input [(ngModel)]=\"widget.url\" name=\"wurl\" class=\"form-control\" id=\"url\" placeholder=\"URL\" type=\"url\">\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"width\">Width</label>\n        <input [(ngModel)]=\"widget.width\" name=\"wwidth\" class=\"form-control\" id=\"width\" placeholder=\"Width\" type=\"text\">\n      </div>\n\n      <div class=\"form-group\">\n        <!--<label for=\"upload\">Upload</label>\n        <input class=\"form-control\" id=\"upload\" placeholder=\"No file chosen\" type=\"file\">\n        <a class=\"btn btn-primary btn-block\" [routerLink]=\"['/user', userId, 'website', websiteId, 'page', pageId, 'widget']\">\n          Upload Image\n        </a>-->\n        <form ngNoForm action=\"{{baseUrl}}/api/upload\" method=\"post\" enctype=\"multipart/form-data\">\n          <input  name=\"myFile\"   type=\"file\" class=\"form-control\"/>\n          <input  name=\"width\" value=\"{{widget.width}}\"   style=\"display: none\"/>\n          <input  name=\"widgetId\" value=\"{{widgetId}}\"   style=\"display: none\"/>\n          <input  name=\"websiteId\" value=\"{{websiteId}}\"   style=\"display: none\"/>\n          <input  name=\"pageId\" value=\"{{pageId}}\"   style=\"display: none\"/>\n          <input  name=\"userId\" value=\"{{userId}}\"   style=\"display: none\"/>\n          <button type=\"submit\" class=\"btn btn-block btn-primary\">Upload Image</button>\n          <br/>\n        </form>\n      </div>\n\n      <div class=\"search-btn\">\n        <button class=\"btn btn-success btn-block\" (click)=\"searchFlickr()\">\n          Search\n        </button>\n      </div>\n\n      <div>\n        <button class=\"btn btn-danger btn-block\" (click)=\"deleteWidget()\">\n          Delete\n        </button>\n      </div>\n\n    </form>\n  </div>\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user']\">\n        <span class=\"glyphicon glyphicon-user nav-default-align\"></span>\n      </a>\n    </p>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -1828,6 +1830,7 @@ var WidgetImageComponent = (function () {
         });
     };
     WidgetImageComponent.prototype.searchFlickr = function () {
+        console.log("search flickr");
         this.router.navigate(['/user', 'website', this.websiteId, 'page', this.pageId, 'widget', this.widgetId, 'flickrsearch']);
     };
     return WidgetImageComponent;
