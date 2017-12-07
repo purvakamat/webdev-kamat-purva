@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FlickrService} from "../../../../../services/flickr.service.client";
 import {WidgetService} from "../../../../../services/widget.service.client";
 
@@ -18,6 +18,7 @@ export class FlickrImageSearchComponent implements OnInit {
   widget: any;
 
   constructor(private activatedRoute: ActivatedRoute,
+              private router: Router,
               private flickrService: FlickrService,
               private widgetService: WidgetService) { }
 
@@ -42,12 +43,10 @@ export class FlickrImageSearchComponent implements OnInit {
       .searchPhotos(this.searchText)
       .subscribe(
         (data: any) => {
-          console.log(data);
           let val = data._body;
           val = val.replace('jsonFlickrApi(', '');
           val = val.substring(0, val.length - 1);
           val = JSON.parse(val);
-          console.log(val);
           this.photos = val.photos;
         }
       );
@@ -57,6 +56,9 @@ export class FlickrImageSearchComponent implements OnInit {
     let url = 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server;
     url += '/' + photo.id + '_' + photo.secret + '_b.jpg';
     this.widget.url = url;
-    this.widgetService.updateWidget(this.widgetId, this.widget);
+    this.widgetService.updateWidget(this.widgetId, this.widget)
+      .subscribe((response) => {
+        this.router.navigate(['/user','website',this.websiteId,'page',this.pageId,'widget', this.widgetId]);
+    });
   }
 }

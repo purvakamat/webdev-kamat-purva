@@ -1654,7 +1654,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".search-bar{\r\n  margin-left: 20px;\r\n  margin-right: 20px;\r\n}\r\n", ""]);
 
 // exports
 
@@ -1667,7 +1667,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--chevron-->\n    <p class=\"navbar-text pull-left\">\n      <a [routerLink]=\"['/user','website',websiteId,'page',pageId,'widget', widgetId]\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-chevron-left nav-default-align\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b class=\"nav-default-align\">Search Flickr</b>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid page-margin\">\n  <div class=\"row\">\n    <div class=\"input-group\">\n      <input [(ngModel)]=\"searchText\" type=\"text\" class=\"form-control\">\n      <span class=\"input-group-btn\">\n         <a (click)=\"searchPhotos()\" class=\"btn btn-default\" type=\"button\">\n             <span class=\"glyphicon glyphicon-search\"></span>\n         </a>\n      </span>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div *ngFor = \"let pic of photos['photo']\"\n         class=\"col-xs-4\">\n      <img (click)=\"selectPhoto(pic)\" width=\"100%\"\n           [src] = \"['https://farm' + pic.farm + '.staticflickr.com/' + pic.server + '/' +   pic.id + '_' + pic.secret + '_s.jpg']\"/>\n      <p></p>\n    </div>\n  </div>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user']\">\n        <span class=\"glyphicon glyphicon-user nav-default-align\"></span>\n      </a>\n    </p>\n  </div>\n</nav>\n"
+module.exports = "\n<nav class=\"navbar navbar-default navbar-fixed-top\">\n  <div class=\"container-fluid\">\n\n    <!--chevron-->\n    <p class=\"navbar-text pull-left\">\n      <a [routerLink]=\"['/user','website',websiteId,'page',pageId,'widget', widgetId]\" class=\"navbar-link\">\n        <span class=\"glyphicon glyphicon-chevron-left nav-default-align\"></span>\n      </a>\n    </p>\n\n    <!--heading on the nav bar-->\n    <p class=\"navbar-header pull-left\">\n      <a class=\"navbar-brand thick\">\n        <b class=\"nav-default-align\">Search Flickr</b>\n      </a>\n    </p>\n\n  </div>\n</nav>\n\n\n<div class=\"container-fluid page-margin\">\n  <div class=\"row\">\n    <div class=\"input-group search-bar\">\n      <input [(ngModel)]=\"searchText\" type=\"text\" class=\"form-control\">\n      <span class=\"input-group-btn\">\n         <a (click)=\"searchPhotos()\" class=\"btn btn-default\" type=\"button\">\n             <span class=\"glyphicon glyphicon-search\"></span>\n         </a>\n      </span>\n    </div>\n  </div>\n\n  <div class=\"row\">\n    <div *ngFor = \"let pic of photos['photo']\"\n         class=\"col-xs-4\">\n      <img (click)=\"selectPhoto(pic)\" width=\"100%\"\n           [src] = \"['https://farm' + pic.farm + '.staticflickr.com/' + pic.server + '/' +   pic.id + '_' + pic.secret + '_s.jpg']\"/>\n      <p></p>\n    </div>\n  </div>\n\n</div>\n\n<!-- Footer -->\n<nav class=\"navbar navbar-default navbar-fixed-bottom\">\n  <div class=\"container-fluid\">\n    <p class=\"navbar-text pull-right\">\n      <a [routerLink]=\"['/user']\">\n        <span class=\"glyphicon glyphicon-user nav-default-align\"></span>\n      </a>\n    </p>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -1694,8 +1694,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var FlickrImageSearchComponent = (function () {
-    function FlickrImageSearchComponent(activatedRoute, flickrService, widgetService) {
+    function FlickrImageSearchComponent(activatedRoute, router, flickrService, widgetService) {
         this.activatedRoute = activatedRoute;
+        this.router = router;
         this.flickrService = flickrService;
         this.widgetService = widgetService;
     }
@@ -1717,20 +1718,22 @@ var FlickrImageSearchComponent = (function () {
         this.flickrService
             .searchPhotos(this.searchText)
             .subscribe(function (data) {
-            console.log(data);
             var val = data._body;
             val = val.replace('jsonFlickrApi(', '');
             val = val.substring(0, val.length - 1);
             val = JSON.parse(val);
-            console.log(val);
             _this.photos = val.photos;
         });
     };
     FlickrImageSearchComponent.prototype.selectPhoto = function (photo) {
+        var _this = this;
         var url = 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server;
         url += '/' + photo.id + '_' + photo.secret + '_b.jpg';
         this.widget.url = url;
-        this.widgetService.updateWidget(this.widgetId, this.widget);
+        this.widgetService.updateWidget(this.widgetId, this.widget)
+            .subscribe(function (response) {
+            _this.router.navigate(['/user', 'website', _this.websiteId, 'page', _this.pageId, 'widget', _this.widgetId]);
+        });
     };
     return FlickrImageSearchComponent;
 }());
@@ -1740,10 +1743,10 @@ FlickrImageSearchComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/components/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component.html"),
         styles: [__webpack_require__("../../../../../src/app/components/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component.css")]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__services_flickr_service_client__["a" /* FlickrService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_flickr_service_client__["a" /* FlickrService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__services_widget_service_client__["a" /* WidgetService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_widget_service_client__["a" /* WidgetService */]) === "function" && _c || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_2__services_flickr_service_client__["a" /* FlickrService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_flickr_service_client__["a" /* FlickrService */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__services_widget_service_client__["a" /* WidgetService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__services_widget_service_client__["a" /* WidgetService */]) === "function" && _d || Object])
 ], FlickrImageSearchComponent);
 
-var _a, _b, _c;
+var _a, _b, _c, _d;
 //# sourceMappingURL=flickr-image-search.component.js.map
 
 /***/ }),
@@ -1756,7 +1759,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".search-btn{\r\n  margin-top: 20px;\r\n  margin-bottom: 20px;\r\n}\r\n", ""]);
+exports.push([module.i, ".search-btn{\r\n  margin-bottom: 20px;\r\n}\r\n", ""]);
 
 // exports
 
