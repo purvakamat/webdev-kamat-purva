@@ -33,6 +33,7 @@ import { WidgetTextComponent } from './components/widget/widget-edit/widget-text
 import {SharedService} from "./services/shared.service";
 import {AuthGuard} from "./services/auth-guard.service";
 import {SortableDirective} from "../../assignment/directives/sortable.directive";
+import { FlickrImageSearchComponent } from './components/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component';
 
 @NgModule({
   // Declare components here
@@ -57,7 +58,8 @@ import {SortableDirective} from "../../assignment/directives/sortable.directive"
     WidgetYoutubeComponent,
     WidgetHtmlComponent,
     WidgetTextComponent,
-    SortableDirective
+    SortableDirective,
+    FlickrImageSearchComponent
   ],
   imports: [
     BrowserModule,
