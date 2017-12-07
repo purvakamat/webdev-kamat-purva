@@ -5,7 +5,7 @@
 module.exports = function (app) {
 
   var multer = require('multer'); // npm install multer --save
-  var upload = multer({ dest: __dirname + '/../../public/uploads' });
+  var upload = multer({ dest: __dirname + '/../../dist/assets/uploads' });
 
   app.post("/api/page/:pageId/widget", createWidget);
   app.get("/api/page/:pageId/widget", findAllWidgetsForPage);
@@ -100,11 +100,16 @@ module.exports = function (app) {
     var mimetype      = myFile.mimetype;
 
     var widget = widgetModel.findWidgetById(widgetId);
-    widget['width'] = 20;
-    widget['url'] = "assets/uploads/"+filename;
-    widgetModel.updateWidget(widgetId, widget);
+    widget.width = 20;
+    widget.url = "assets/uploads/"+filename;
 
-    var callbackUrl   = "/user/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId;
-    res.redirect(callbackUrl);
+    widgetModel.updateWidget(widgetId, widget).then(function (response) {
+      if(response.n >0 || response.nModified > 0){
+        var callbackUrl   = "/user/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId;
+        res.redirect(callbackUrl);
+      }
+      else
+        res.status(404).send("Widget was not updated");
+    });
   }
 };
