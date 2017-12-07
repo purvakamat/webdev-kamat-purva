@@ -1691,7 +1691,6 @@ var WidgetImageComponent = (function () {
         this.activatedRoute = activatedRoute;
         this.router = router;
         this.baseUrl = __WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].baseUrl;
-        console.log(this.baseUrl);
     }
     WidgetImageComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1702,6 +1701,8 @@ var WidgetImageComponent = (function () {
             _this.widgetId = params['wgid'];
             _this.widgetService.findWidgetById(_this.widgetId)
                 .subscribe(function (widget) {
+                console.log(_this.baseUrl);
+                console.log(widget);
                 _this.widget = widget;
             });
         });

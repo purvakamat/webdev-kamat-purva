@@ -20,7 +20,6 @@ export class WidgetImageComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private router: Router) {
     this.baseUrl = environment.baseUrl;
-    console.log(this.baseUrl);
   }
 
   ngOnInit() {
@@ -33,6 +32,8 @@ export class WidgetImageComponent implements OnInit {
 
           this.widgetService.findWidgetById(this.widgetId)
             .subscribe((widget) => {
+              console.log(this.baseUrl);
+              console.log(widget)
               this.widget = widget;
             });
         }
