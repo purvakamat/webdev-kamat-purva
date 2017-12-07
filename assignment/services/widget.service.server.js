@@ -99,11 +99,12 @@ module.exports = function (app) {
     var size          = myFile.size;
     var mimetype      = myFile.mimetype;
 
-    /*let wId = widgets.findIndex(widget => widget._id == widgetId);
-    widgets[wId]['width'] = width;
-    widgets[wId]['url'] = '/uploads/' + filename;
+    var widget = widgetModel.findWidgetById(widgetId);
+    widget.width = width;
+    widget.url = '/uploads/' + filename;
+    widgetModel.updateWidget(widgetId, widget);
 
-    var callbackUrl   = "/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId;
-    res.redirect(callbackUrl);*/
+    var callbackUrl   = "/user/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId;
+    res.redirect(callbackUrl);
   }
 };

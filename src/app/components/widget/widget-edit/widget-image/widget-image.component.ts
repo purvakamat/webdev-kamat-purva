@@ -20,6 +20,7 @@ export class WidgetImageComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private router: Router) {
     this.baseUrl = environment.baseUrl;
+    console.log(this.baseUrl);
   }
 
   ngOnInit() {
