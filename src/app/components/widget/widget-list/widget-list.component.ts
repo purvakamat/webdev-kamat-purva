@@ -38,7 +38,7 @@ export class WidgetListComponent implements OnInit {
   }
 
   reorderWidgets(index) {
-    this.widgetService.reorderWidgets(this.pageId, this.widgets[index['initial']], index['initial'], index['final'])
+    this.widgetService.reorderWidgets(this.pageId, this.widgets[index['startIndex']], index['startIndex'], index['endIndex'])
         .subscribe(
         (widgets) => {},
         (error) => {}

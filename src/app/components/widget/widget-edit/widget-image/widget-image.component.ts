@@ -53,7 +53,6 @@ export class WidgetImageComponent implements OnInit {
   }
 
   searchFlickr(){
-    console.log("search flickr");
     this.router.navigate(['/user','website',this.websiteId,'page',this.pageId,'widget', this.widgetId,'flickrsearch']);
   }
 

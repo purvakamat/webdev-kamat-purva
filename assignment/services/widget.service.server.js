@@ -28,6 +28,9 @@ module.exports = function (app) {
   function findAllWidgetsForPage(req, res) {
     var pageId = req.params['pageId'];
     widgetModel.findAllWidgetsForPage(pageId).then(function (widgetsForPage) {
+      widgetsForPage.sort(function (a,b) {
+        return a.index - b.index;
+      })
       res.json(widgetsForPage);
     });
   }
@@ -65,22 +68,39 @@ module.exports = function (app) {
     });
   }
 
-  function reorderWidgets(){
+  function reorderWidgets(req, res){
     var pageId = req.params['pageId'];
     var iIndex = req.query['initial'];
     var fIndex = req.query['final'];
-    var widgetsForPage = widgets.filter(widget => widget.pageId == pageId);
 
-    if(iIndex < widgetsForPage.length && fIndex < widgetsForPage.length){
-      var insertWidget = widgetsForPage[iIndex];
-      var inPlaceOf = widgetsForPage[fIndex];
-      widgetsForPage.splice(iIndex, 1);
-      var insertIndex = widgetsForPage.indexOf(inPlaceOf);
-      widgetsForPage.splice(insertIndex, 0, insertWidget);
-      res.json(widgetsForPage);
+    widgetModel.findAllWidgetsForPage(pageId).then(function (widgetsForPage) {
+      widgetsForPage.sort(function (a,b) {
+        return a.index - b.index;
+      })
+      if(iIndex < widgetsForPage.length && fIndex < widgetsForPage.length){
+        var insertWidget = widgetsForPage[iIndex];
+        var inPlaceOf = widgetsForPage[fIndex];
+        widgetsForPage.splice(iIndex, 1);
+        var insertIndex = widgetsForPage.indexOf(inPlaceOf);
+        widgetsForPage.splice(insertIndex, 0, insertWidget);
+        saveWidgetOrder(widgetsForPage)
+        res.json(widgetsForPage);
+      }
+      else
+        res.status(404).send("Widgets cannot be re-ordered.");
+    });
+  }
+
+  function saveWidgetOrder(widgetsForPage) {
+    var count= widgetsForPage.length;
+    for(var i=0; i<count; i++){
+      widgetsForPage[i].index = i;
     }
-    else
-      res.status(404).send("Widgets cannot be re-ordered.");
+    widgetsForPage.forEach(function(widget) {
+      widgetModel.updateWidget(widget._id, widget).then(function (response) {
+      });
+    });
+    return;
   }
 
   function uploadImage(req, res) {

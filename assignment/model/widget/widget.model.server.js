@@ -11,7 +11,6 @@ WidgetModel.findAllWidgetsForPage = findAllWidgetsForPage;
 WidgetModel.findWidgetById = findWidgetById;
 WidgetModel.updateWidget = updateWidget;
 WidgetModel.deleteWidget = deleteWidget;
-WidgetModel.reorderWidget = reorderWidget;
 
 module.exports = WidgetModel;
 
@@ -34,8 +33,4 @@ function updateWidget(widgetId, widget) {
 
 function deleteWidget(widgetId) {
   return WidgetModel.deleteOne({_id: widgetId});
-}
-
-function reorderWidget(pageId, start, end) {
-  return;
 }

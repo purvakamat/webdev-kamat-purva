@@ -72,7 +72,7 @@
         <div *ngSwitchCase="'IMAGE'">
           <div class="row">
             <div class="widget-list-item">
-              <img src="{{widget.url}}" [style.width]="widget.width">
+              <img class="responsive-image" src="{{widget.url}}" [style.width]="widget.width">
               <div class = "widget-list-toolbar">
                 <a [routerLink]="['/user', 'website', websiteId, 'page', pageId, 'widget', widget._id]">
                   <span class="glyphicon glyphicon-cog"></span>
