@@ -91,3 +91,9 @@ a:hover {
   margin-bottom: 15pt;
 }
 
+.img-responsive {
+  height: auto;
+  max-width: 200px;
+  margin: auto;
+  display: block;
+}

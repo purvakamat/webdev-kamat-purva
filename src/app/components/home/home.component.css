@@ -16,3 +16,29 @@ tr:nth-child(even) {
   width: 100%;
   text-align: right;
 }
+
+.image-style{
+  margin: 20px;
+  height: 300px;
+  max-width: 200px;
+  display: block;
+}
+
+.all-round-margin{
+  margin: 10px;
+}
+
+.center {
+  margin: auto;
+  width: 90%;
+  padding: 10px;
+}
+
+.pull-center{
+  margin-right: 3pt;
+  margin-left: 3pt;
+}
+
+.iframe {
+  margin: auto;
+}
